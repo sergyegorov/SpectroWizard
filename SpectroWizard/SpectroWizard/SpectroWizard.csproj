@@ -1,0 +1,908 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3CFE4D0F-0F00-4A67-BCDC-9AD919D88559}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SpectroWizard</RootNamespace>
+    <AssemblyName>SpectroWizard</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ApplicationIcon>Sstudio.ico</ApplicationIcon>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>0.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>D:\SpectroWizard\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="analit\Calibrator.cs" />
+    <Compile Include="analit\DataExtractor.cs" />
+    <Compile Include="analit\FFT2.cs" />
+    <Compile Include="analit\fk\Function.cs" />
+    <Compile Include="analit\fk\Interpolation.cs" />
+    <Compile Include="analit\SpectrCalc.cs" />
+    <Compile Include="analit\SpectrFunctions.cs" />
+    <Compile Include="analit\SpectrMixer.cs" />
+    <Compile Include="analit\SpectrProcessor.cs" />
+    <Compile Include="analit\Stat.cs" />
+    <Compile Include="BkpMsg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BkpMsg.Designer.cs">
+      <DependentUpon>BkpMsg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common.cs" />
+    <Compile Include="data\BackUpSystem.cs" />
+    <Compile Include="data\DataTable.cs" />
+    <Compile Include="data\Db.cs" />
+    <Compile Include="data\Dispers.cs" />
+    <Compile Include="data\DbFolderDriver.cs" />
+    <Compile Include="data\Element.cs" />
+    <Compile Include="data\ElementSelector.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="data\ElementSelector.designer.cs">
+      <DependentUpon>ElementSelector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="data\ElementSelectorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="data\ElementSelectorForm.Designer.cs">
+      <DependentUpon>ElementSelectorForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="data\GraphLog.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="data\GraphLog.Designer.cs">
+      <DependentUpon>GraphLog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="data\LDbQuery.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="data\LDbQuery.Designer.cs">
+      <DependentUpon>LDbQuery.cs</DependentUpon>
+    </Compile>
+    <Compile Include="data\lib\GOST.cs" />
+    <Compile Include="data\lib\GOSTDb.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="data\lib\GOSTDb.Designer.cs">
+      <DependentUpon>GOSTDb.cs</DependentUpon>
+    </Compile>
+    <Compile Include="data\lib\GOSTLine.cs" />
+    <Compile Include="data\LineDb.cs" />
+    <Compile Include="data\LyDb.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="data\LyDb.Designer.cs">
+      <DependentUpon>LyDb.cs</DependentUpon>
+    </Compile>
+    <Compile Include="data\OpticFk.cs" />
+    <Compile Include="data\PlainSpectr.cs" />
+    <Compile Include="data\SpAtlas.cs" />
+    <Compile Include="data\Spectr.cs" />
+    <Compile Include="data\SpectrBurnConditions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="data\SpectrBurnConditions.Designer.cs">
+      <DependentUpon>SpectrBurnConditions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="data\StandartSelectorControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="data\StandartSelectorControl.designer.cs">
+      <DependentUpon>StandartSelectorControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="data\StandartSelectorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="data\StandartSelectorForm.designer.cs">
+      <DependentUpon>StandartSelectorForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="data\StLib.cs" />
+    <Compile Include="dev\Dev.cs" />
+    <Compile Include="dev\devices\DebugDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="dev\devices\DebugDialog.Designer.cs">
+      <DependentUpon>DebugDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="dev\devices\DevDebug.cs" />
+    <Compile Include="dev\devices\MLDevice.cs" />
+    <Compile Include="dev\devices\USBConDev.cs" />
+    <Compile Include="dev\GeneratorControlForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="dev\GeneratorControlForm.Designer.cs">
+      <DependentUpon>GeneratorControlForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="dev\interf\AInterf.cs" />
+    <Compile Include="dev\KnownDevList.cs" />
+    <Compile Include="dev\SparkWait.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="dev\SparkWait.Designer.cs">
+      <DependentUpon>SparkWait.cs</DependentUpon>
+    </Compile>
+    <Compile Include="dev\SpCondSENewLineTypeSelector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="dev\SpCondSENewLineTypeSelector.Designer.cs">
+      <DependentUpon>SpCondSENewLineTypeSelector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="dev\SpectrCondEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="dev\SpectrCondEditor.Designer.cs">
+      <DependentUpon>SpectrCondEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="dev\SpectrCondSimpleEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="dev\SpectrCondSimpleEditor.Designer.cs">
+      <DependentUpon>SpectrCondSimpleEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="dev\tests\DevTest.cs" />
+    <Compile Include="dev\tests\DevTestDarknest.cs" />
+    <Compile Include="dev\tests\DevTestOpticFk.cs" />
+    <Compile Include="dev\tests\DevTestSensCalibr.cs" />
+    <Compile Include="dev\tests\DevTestDispers.cs" />
+    <Compile Include="Env.cs" />
+    <Compile Include="FirstInstWarn.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FirstInstWarn.Designer.cs">
+      <DependentUpon>FirstInstWarn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FontServer.cs" />
+    <Compile Include="gui\comp\aas\AdvancedAnalitSearch.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\comp\aas\AdvancedAnalitSearch.Designer.cs">
+      <DependentUpon>AdvancedAnalitSearch.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\comp\aas\CandidateLineList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="gui\comp\aas\CandidateLineList.Designer.cs">
+      <DependentUpon>CandidateLineList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\comp\aas\LineInfo.cs" />
+    <Compile Include="gui\comp\AnalitLineSearch.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\comp\AnalitLineSearch.Designer.cs">
+      <DependentUpon>AnalitLineSearch.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\comp\CheckedSpectrCollectionControl.cs" />
+    <Compile Include="gui\comp\CompareLineSearch.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\comp\CompareLineSearch.Designer.cs">
+      <DependentUpon>CompareLineSearch.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\comp\CorelSearch.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\comp\CorelSearch.Designer.cs">
+      <DependentUpon>CorelSearch.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\comp\DeletedProbLogForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\comp\DeletedProbLogForm.Designer.cs">
+      <DependentUpon>DeletedProbLogForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\comp\DeletedProbLogViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="gui\comp\DeletedProbLogViewer.Designer.cs">
+      <DependentUpon>DeletedProbLogViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\comp\FDataGridView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="gui\comp\FDataGridView.Designer.cs">
+      <DependentUpon>FDataGridView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\comp\InputLinks.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\comp\InputLinks.Designer.cs">
+      <DependentUpon>InputLinks.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\comp\MethodDetailsView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\comp\MethodDetailsView.Designer.cs">
+      <DependentUpon>MethodDetailsView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\comp\PlainSpectrView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="gui\comp\PlainSpectrView.Designer.cs">
+      <DependentUpon>PlainSpectrView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\comp\PrintDoc.cs" />
+    <Compile Include="gui\comp\PrintTableDoc.cs" />
+    <Compile Include="gui\comp\PrintTextDoc.cs" />
+    <Compile Include="gui\comp\SimpleGraphView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="gui\comp\SimpleGraphView.Designer.cs">
+      <DependentUpon>SimpleGraphView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\comp\SpectrDataViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="gui\comp\SpectrDataViewer.Designer.cs">
+      <DependentUpon>SpectrDataViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\comp\SpectrView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="gui\comp\SpectrView.Designer.cs">
+      <DependentUpon>SpectrView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\comp\StandartSignalGenerator.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\comp\StandartSignalGenerator.Designer.cs">
+      <DependentUpon>StandartSignalGenerator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\comp\TaskPrintingDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\comp\TaskPrintingDlg.Designer.cs">
+      <DependentUpon>TaskPrintingDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\comp\TreeTaskCollectionControl.cs" />
+    <Compile Include="gui\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\MemLInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\MemLInfo.Designer.cs">
+      <DependentUpon>MemLInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\tasks\Ar\PresparkControl.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\tasks\Ar\PresparkControl.Designer.cs">
+      <DependentUpon>PresparkControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\tasks\devt\DevTestInterface.cs" />
+    <Compile Include="gui\tasks\devt\NullNoiseTest.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="gui\tasks\devt\NullNoiseTest.Designer.cs">
+      <DependentUpon>NullNoiseTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\tasks\devt\RundomSplashTest.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="gui\tasks\devt\RundomSplashTest.Designer.cs">
+      <DependentUpon>RundomSplashTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\tasks\devt\SensTest.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="gui\tasks\devt\SensTest.Designer.cs">
+      <DependentUpon>SensTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\tasks\sorting\SortProbAnalitGraph.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="gui\tasks\sorting\SortProbAnalitGraph.Designer.cs">
+      <DependentUpon>SortProbAnalitGraph.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\tasks\sorting\SortProbPrepareData.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="gui\tasks\sorting\SortProbPrepareData.Designer.cs">
+      <DependentUpon>SortProbPrepareData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\tasks\sorting\SortProbProperty.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="gui\tasks\sorting\SortProbProperty.Designer.cs">
+      <DependentUpon>SortProbProperty.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\tasks\sorting\SortProbSearchCommonLine.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="gui\tasks\sorting\SortProbSearchCommonLine.Designer.cs">
+      <DependentUpon>SortProbSearchCommonLine.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\tasks\TaskInternalDevTests.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="gui\tasks\TaskInternalDevTests.Designer.cs">
+      <DependentUpon>TaskInternalDevTests.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\tasks\TaskMeasuring.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="gui\tasks\TaskMeasuring.Designer.cs">
+      <DependentUpon>TaskMeasuring.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\tasks\TaskMeasuringFolder.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="gui\tasks\TaskMeasuringFolder.Designer.cs">
+      <DependentUpon>TaskMeasuringFolder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\tasks\TaskSortCalibr.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="gui\tasks\TaskSortCalibr.Designer.cs">
+      <DependentUpon>TaskSortCalibr.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\tasks\TaskSpLineLib.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="gui\tasks\TaskSpLineLib.Designer.cs">
+      <DependentUpon>TaskSpLineLib.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\tasks\TaskStLib.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="gui\tasks\TaskStLib.Designer.cs">
+      <DependentUpon>TaskStLib.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\tasks\TaskCheckDev.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="gui\tasks\TaskCheckDev.Designer.cs">
+      <DependentUpon>TaskCheckDev.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\tasks\TaskControl.cs" />
+    <Compile Include="gui\tasks\TaskInternalTesting.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="gui\tasks\TaskInternalTesting.Designer.cs">
+      <DependentUpon>TaskInternalTesting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\tasks\TaskLinkingMatrixControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="gui\tasks\TaskLinkingMatrixControl.Designer.cs">
+      <DependentUpon>TaskLinkingMatrixControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\tasks\TaskMethodSimple.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="gui\tasks\TaskMethodSimple.Designer.cs">
+      <DependentUpon>TaskMethodSimple.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\tasks\TaskMethodSimpleFolder.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="gui\tasks\TaskMethodSimpleFolder.Designer.cs">
+      <DependentUpon>TaskMethodSimpleFolder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\tasks\TaskSetupControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="gui\tasks\TaskSetupControl.Designer.cs">
+      <DependentUpon>TaskSetupControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\tasks\TaskTestMeasuring.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="gui\tasks\TaskTestMeasuring.Designer.cs">
+      <DependentUpon>TaskTestMeasuring.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\tasks\tests\GuiTaskTestForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\tasks\tests\GuiTaskTestForm.Designer.cs">
+      <DependentUpon>GuiTaskTestForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\WaitMsg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\WaitMsg.Designer.cs">
+      <DependentUpon>WaitMsg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Log.cs" />
+    <Compile Include="Login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login.Designer.cs">
+      <DependentUpon>Login.cs</DependentUpon>
+    </Compile>
+    <Compile Include="method\algo\DataShot.cs" />
+    <Compile Include="method\algo\DataShotExtractor.cs" />
+    <Compile Include="method\algo\DataShotSetView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="method\algo\DataShotSetView.Designer.cs">
+      <DependentUpon>DataShotSetView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="method\AnalitLineCalc.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="method\AnalitLineCalc.Designer.cs">
+      <DependentUpon>AnalitLineCalc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="method\AnalitParamCalc.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="method\AnalitParamCalc.Designer.cs">
+      <DependentUpon>AnalitParamCalc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="method\CalibrFunction.cs" />
+    <Compile Include="method\CalibrHandCorrection.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="method\CalibrHandCorrection.Designer.cs">
+      <DependentUpon>CalibrHandCorrection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="method\ExtraLineTester.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="method\ExtraLineTester.Designer.cs">
+      <DependentUpon>ExtraLineTester.cs</DependentUpon>
+    </Compile>
+    <Compile Include="method\MeasuringTask.cs" />
+    <Compile Include="method\MethodSelector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="method\MethodSelector.Designer.cs">
+      <DependentUpon>MethodSelector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="method\MethodSimple.cs" />
+    <Compile Include="method\SimpleFormula.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="method\SimpleFormula.Designer.cs">
+      <DependentUpon>SimpleFormula.cs</DependentUpon>
+    </Compile>
+    <Compile Include="method\SimpleFormulaEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="method\SimpleFormulaEditor.Designer.cs">
+      <DependentUpon>SimpleFormulaEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="method\SortingProgram.cs" />
+    <Compile Include="method\SparkConditionTester.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="method\SparkConditionTester.Designer.cs">
+      <DependentUpon>SparkConditionTester.cs</DependentUpon>
+    </Compile>
+    <Compile Include="method\StandartHistory.cs" />
+    <Compile Include="method\StandartHistoryViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="method\StandartHistoryViewer.Designer.cs">
+      <DependentUpon>StandartHistoryViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Mls.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RestoreDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RestoreDialog.Designer.cs">
+      <DependentUpon>RestoreDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="util\CSV.cs" />
+    <Compile Include="util\FRectangle.cs" />
+    <Compile Include="util\GraphPreview.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="util\GraphPreview.Designer.cs">
+      <DependentUpon>GraphPreview.cs</DependentUpon>
+    </Compile>
+    <Compile Include="util\NumField.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="util\NumField.Designer.cs">
+      <DependentUpon>NumField.cs</DependentUpon>
+    </Compile>
+    <Compile Include="util\SpectrKeeper.cs" />
+    <Compile Include="util\WaitDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="util\WaitDlg.Designer.cs">
+      <DependentUpon>WaitDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="util\WaitTimeOutDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="util\WaitTimeOutDlg.Designer.cs">
+      <DependentUpon>WaitTimeOutDlg.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="BkpMsg.resx">
+      <DependentUpon>BkpMsg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="data\ElementSelector.resx">
+      <DependentUpon>ElementSelector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="data\ElementSelectorForm.resx">
+      <DependentUpon>ElementSelectorForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="data\GraphLog.resx">
+      <DependentUpon>GraphLog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="data\LDbQuery.resx">
+      <DependentUpon>LDbQuery.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="data\lib\GOSTDb.resx">
+      <DependentUpon>GOSTDb.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="data\LyDb.resx">
+      <DependentUpon>LyDb.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="data\SpectrBurnConditions.resx">
+      <DependentUpon>SpectrBurnConditions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="data\StandartSelectorControl.resx">
+      <DependentUpon>StandartSelectorControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="data\StandartSelectorForm.resx">
+      <DependentUpon>StandartSelectorForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="dev\devices\DebugDialog.resx">
+      <DependentUpon>DebugDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="dev\GeneratorControlForm.resx">
+      <DependentUpon>GeneratorControlForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="dev\SparkWait.resx">
+      <DependentUpon>SparkWait.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="dev\SpCondSENewLineTypeSelector.resx">
+      <DependentUpon>SpCondSENewLineTypeSelector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="dev\SpectrCondEditor.resx">
+      <DependentUpon>SpectrCondEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="dev\SpectrCondSimpleEditor.resx">
+      <DependentUpon>SpectrCondSimpleEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FirstInstWarn.resx">
+      <DependentUpon>FirstInstWarn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\comp\aas\AdvancedAnalitSearch.resx">
+      <DependentUpon>AdvancedAnalitSearch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\comp\aas\CandidateLineList.resx">
+      <DependentUpon>CandidateLineList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\comp\AnalitLineSearch.resx">
+      <DependentUpon>AnalitLineSearch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\comp\CompareLineSearch.resx">
+      <DependentUpon>CompareLineSearch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\comp\CorelSearch.resx">
+      <DependentUpon>CorelSearch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\comp\DeletedProbLogForm.resx">
+      <DependentUpon>DeletedProbLogForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\comp\DeletedProbLogViewer.resx">
+      <DependentUpon>DeletedProbLogViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\comp\FDataGridView.resx">
+      <DependentUpon>FDataGridView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\comp\InputLinks.resx">
+      <DependentUpon>InputLinks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\comp\MethodDetailsView.resx">
+      <DependentUpon>MethodDetailsView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\comp\PlainSpectrView.resx">
+      <DependentUpon>PlainSpectrView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\comp\SimpleGraphView.resx">
+      <DependentUpon>SimpleGraphView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\comp\SpectrDataViewer.resx">
+      <DependentUpon>SpectrDataViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\comp\SpectrView.resx">
+      <DependentUpon>SpectrView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\comp\StandartSignalGenerator.resx">
+      <DependentUpon>StandartSignalGenerator.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\comp\TaskPrintingDlg.resx">
+      <DependentUpon>TaskPrintingDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\MemLInfo.resx">
+      <DependentUpon>MemLInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\tasks\Ar\PresparkControl.resx">
+      <DependentUpon>PresparkControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\tasks\devt\NullNoiseTest.resx">
+      <DependentUpon>NullNoiseTest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\tasks\devt\RundomSplashTest.resx">
+      <DependentUpon>RundomSplashTest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\tasks\devt\SensTest.resx">
+      <DependentUpon>SensTest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\tasks\sorting\SortProbAnalitGraph.resx">
+      <DependentUpon>SortProbAnalitGraph.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\tasks\sorting\SortProbPrepareData.resx">
+      <DependentUpon>SortProbPrepareData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\tasks\sorting\SortProbProperty.resx">
+      <DependentUpon>SortProbProperty.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\tasks\sorting\SortProbSearchCommonLine.resx">
+      <DependentUpon>SortProbSearchCommonLine.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\tasks\TaskInternalDevTests.resx">
+      <DependentUpon>TaskInternalDevTests.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\tasks\TaskMeasuring.resx">
+      <DependentUpon>TaskMeasuring.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\tasks\TaskMeasuringFolder.resx">
+      <DependentUpon>TaskMeasuringFolder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\tasks\TaskSortCalibr.resx">
+      <DependentUpon>TaskSortCalibr.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\tasks\TaskSpLineLib.resx">
+      <DependentUpon>TaskSpLineLib.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\tasks\TaskStLib.resx">
+      <DependentUpon>TaskStLib.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\tasks\TaskCheckDev.resx">
+      <DependentUpon>TaskCheckDev.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\tasks\TaskInternalTesting.resx">
+      <DependentUpon>TaskInternalTesting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\tasks\TaskLinkingMatrixControl.resx">
+      <DependentUpon>TaskLinkingMatrixControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\tasks\TaskMethodSimple.resx">
+      <DependentUpon>TaskMethodSimple.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\tasks\TaskMethodSimpleFolder.resx">
+      <DependentUpon>TaskMethodSimpleFolder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\tasks\TaskSetupControl.resx">
+      <DependentUpon>TaskSetupControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\tasks\TaskTestMeasuring.resx">
+      <DependentUpon>TaskTestMeasuring.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\tasks\tests\GuiTaskTestForm.resx">
+      <DependentUpon>GuiTaskTestForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\WaitMsg.resx">
+      <DependentUpon>WaitMsg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Login.resx">
+      <DependentUpon>Login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="method\algo\DataShotSetView.resx">
+      <DependentUpon>DataShotSetView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="method\AnalitLineCalc.resx">
+      <DependentUpon>AnalitLineCalc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="method\AnalitParamCalc.resx">
+      <DependentUpon>AnalitParamCalc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="method\CalibrHandCorrection.resx">
+      <DependentUpon>CalibrHandCorrection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="method\ExtraLineTester.resx">
+      <DependentUpon>ExtraLineTester.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="method\MethodSelector.resx">
+      <DependentUpon>MethodSelector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="method\SimpleFormula.resx">
+      <DependentUpon>SimpleFormula.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="method\SimpleFormulaEditor.resx">
+      <DependentUpon>SimpleFormulaEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="method\SparkConditionTester.resx">
+      <DependentUpon>SparkConditionTester.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="method\StandartHistoryViewer.resx">
+      <DependentUpon>StandartHistoryViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RestoreDialog.resx">
+      <DependentUpon>RestoreDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="util\CTextEditor.resx">
+      <DependentUpon>CTextEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="util\DialogOk.resx">
+      <DependentUpon>DialogOk.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="util\GraphPreview.resx">
+      <DependentUpon>GraphPreview.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="util\LogException.resx">
+      <DependentUpon>LogException.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="util\NumField.resx">
+      <DependentUpon>NumField.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="util\StringDialog.resx">
+      <DependentUpon>StringDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="util\WaitDlg.resx">
+      <DependentUpon>WaitDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="util\WaitTimeOutDlg.resx">
+      <DependentUpon>WaitTimeOutDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="serv.cs" />
+    <Compile Include="util\CTextEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="util\CTextEditor.Designer.cs">
+      <DependentUpon>CTextEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="util\DialogOk.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="util\DialogOk.Designer.cs">
+      <DependentUpon>DialogOk.cs</DependentUpon>
+    </Compile>
+    <Compile Include="util\DoubleBufferedGraphics.cs" />
+    <Compile Include="util\LogException.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="util\LogException.Designer.cs">
+      <DependentUpon>LogException.cs</DependentUpon>
+    </Compile>
+    <Compile Include="util\StringDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="util\StringDialog.Designer.cs">
+      <DependentUpon>StringDialog.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="images_res\Logo.png" />
+    <None Include="images_res\MenuIcons\calc_all.ico" />
+    <Content Include="Sstudio.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="parser\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>$(SolutionDir)replase.exe $(ProjectDir)\Common.cs "public static int TestBuild = " ; i+</PreBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

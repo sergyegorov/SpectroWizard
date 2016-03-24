@@ -1,0 +1,7 @@
+Started at 18.12.2010 12:18:46
+12:18:46.843   E System.NullReferenceException: Object reference not set to an instance of an object.
+   at SpectroWizard.gui.comp.SpectrView.ReDrawDelegateProc() in D:\work\SpectroWizard\SpectroWizard\gui\comp\SpectrView.cs:line 139
+12:18:46.859   E System.NullReferenceException: Object reference not set to an instance of an object.
+   at SpectroWizard.gui.comp.SpectrView.ReDrawDelegateProc() in D:\work\SpectroWizard\SpectroWizard\gui\comp\SpectrView.cs:line 139
+12:18:46.984   E System.NullReferenceException: Object reference not set to an instance of an object.
+   at SpectroWizard.gui.comp.SpectrView.ReDrawDelegateProc() in D:\work\SpectroWizard\SpectroWizard\gui\comp\SpectrView.cs:line 139

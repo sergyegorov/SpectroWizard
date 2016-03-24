@@ -1,0 +1,383 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+
+using SpectroWizard.dev;
+
+namespace SpectroWizard.gui.tasks
+{
+    public partial class TaskSetupControl : UserControl, TaskControl
+    {
+        public TaskSetupControl()
+        {
+            InitializeComponent();
+            Common.Reg(this, "ToolSetup");
+            KnownDevList.InitRegList(cbRegType);
+            KnownDevList.InitGenList(cbGenType);
+            KnownDevList.InitFillLightList(cbFillLightType);
+            KnownDevList.InitGasList(cbGasType);
+        }
+
+        public string taskGetName()
+        {
+            return Common.MLS.Get("tasklist","Общие натройки");
+        }
+
+        public ToolStripItem[] GetContextMenu()
+        {
+            return null;
+        }
+
+        public TreeNode GetTreeViewEelement()
+        {
+            TreeNode ret = new TreeNode(taskGetName());
+            ret.Tag = new TaskControlContainer(this);//ret.Tag = this;
+            ret.SelectedImageIndex = 8;
+            ret.ImageIndex = 8;
+            return ret;
+        }
+
+        string SrcPath;
+        public bool Select(TreeNode node, bool select)
+        {
+            cbGenType.SelectedIndex = (int)Common.Conf.GenId;
+            cbRegType.SelectedIndex = (int)Common.Conf.RegId;
+            cbFillLightType.SelectedIndex = (int)Common.Conf.FillLId;
+            cbGenType.SelectedIndex = (int)Common.Conf.GenId;
+            cbGasType.SelectedIndex = (int)Common.Conf.GasId;
+            numIP1.Value = Common.Conf.IP1;
+            numIP2.Value = Common.Conf.IP2;
+            numIP3.Value = Common.Conf.IP3;
+            numIP4.Value = Common.Conf.IP4;
+            numPort.Value = Common.Conf.Port;
+            nmMinExposition.Value = (decimal)Common.Conf.MinTick;
+            tbDataPath.Text = Common.Conf.DbPath;
+            SrcPath = (string)tbDataPath.Text.Clone();
+            cbGoodNul.Checked = Common.Conf.UseGoodNul;
+            switch (Common.Conf.Divider)
+            {
+                case 1: cbDivider.SelectedIndex = 0; break;
+                case 2: cbDivider.SelectedIndex = 1; break;
+                default: cbDivider.SelectedIndex = 2; break;
+                case 8: cbDivider.SelectedIndex = 3; break;
+                case 16: cbDivider.SelectedIndex = 4; break;
+                case 32: cbDivider.SelectedIndex = 5; break;
+            }
+            tbBackupPath.Text = Common.Conf.BkpPath;
+            if (tbBackupPath.Text == null || tbBackupPath.Text.Trim().Length == 0)
+                tbBackupPath.Text = "\bkp";
+            chbWeekCycle.Checked = Common.Conf.BkpWeek;
+            chbYearCycle.Checked = Common.Conf.BkpYear;
+            chbUseStatistic.Checked = Common.Conf.UseStatisic;
+            chbUseOpticK.Checked = Common.Conf.UseOptickK;
+            nmBlackStart.Value = (decimal)Common.Conf.BlakPixelStart;
+            nmBlackEnd.Value = (decimal)Common.Conf.BlakPixelEnd;
+            chbBlankSub.Checked = Common.Conf.BlankSub;
+            chbUseLineAmpl.Checked = Common.Conf.UseLineAmpl;
+            nmNulHistory.Value = Common.Conf.NulHistory;
+            cbPriborName.Text = Common.Conf.PriborName;
+            nmDefaultExp.Value = (decimal)Common.Conf.DefaultExposition;
+            tbUSBOriention.Text = Common.Conf.USBOrientation;
+
+            nmMaxVal.Value = (decimal)Common.Conf.MaxLevel;
+            nmValidShift.Value = (decimal)Common.Conf.ValidSensorDiff;
+            nmDackAdd.Value = (decimal)Common.Conf.ValidFillLightAdd;
+            nmValidMemUsage.Value = (decimal)Common.Conf.ValidMemoryUsage;
+            nmFontSize.Value = (decimal)Common.Env.DefaultFontSize;
+            nmMaxAmplDlt.Value = (decimal)Common.Env.MaxAmplDltPrs;
+            nmMultFactor.Value = (decimal)Common.Conf.MultFactor;
+            nmMeasuringTimeOut.Value = (decimal)Common.Conf.MeasuringTimeOut;
+
+            return true;
+        }
+
+        void Save(ref bool need_to_close)
+        {
+            Common.Conf.GenId = (uint)cbGenType.SelectedIndex;
+            Common.Conf.RegId = (uint)cbRegType.SelectedIndex;
+            Common.Conf.FillLId = (uint)cbFillLightType.SelectedIndex;
+            Common.Conf.GenId = (uint)cbGenType.SelectedIndex;
+            Common.Conf.GasId = (uint)cbGasType.SelectedIndex;
+            Common.Conf.IP1 = (byte)numIP1.Value;
+            Common.Conf.IP2 = (byte)numIP2.Value;
+            Common.Conf.IP3 = (byte)numIP3.Value;
+            Common.Conf.IP4 = (byte)numIP4.Value;
+            Common.Conf.Port = (ushort)numPort.Value;
+            Common.Conf.MinTick = (float)nmMinExposition.Value;
+            Common.Conf.UseGoodNul = cbGoodNul.Checked;
+            switch (cbDivider.SelectedIndex)
+            {
+                case 0: Common.Conf.Divider = 1; break;
+                case 1: Common.Conf.Divider = 2; break;
+                default: Common.Conf.Divider = 4; break;
+                case 3: Common.Conf.Divider = 8; break;
+                case 4: Common.Conf.Divider = 16; break;
+                case 5: Common.Conf.Divider = 32; break;
+            }
+            Common.Conf.MaxLevel = (float)nmMaxVal.Value;
+
+            string path = tbDataPath.Text.Trim();
+            if (path.Length != 0)
+            {
+                if (path[path.Length - 1] != '\\')
+                    path += "\\";
+                if (path.Equals(Common.Conf.DbPath) == false &&
+                    PathIsGood)
+                {
+                    need_to_close = true;
+                    if (System.IO.Directory.Exists(path) == false)
+                        try
+                        {
+                            System.IO.Directory.Move(SrcPath, path);
+                            Common.Conf.DbPath = path;
+                            SpectroWizard.data.DataBase.BasePath = Common.Conf.DbPath;
+                            PathIsGood = false;
+                        }
+                        catch (Exception ex)
+                        {
+                            Common.Log(ex);
+                        }
+                    //else
+                    //    Common.Env = Env.Restore(path);
+                }
+            }
+            Common.Conf.BkpPath = tbBackupPath.Text.Trim();
+            Common.Conf.BkpWeek = chbWeekCycle.Checked;
+            Common.Conf.BkpYear = chbYearCycle.Checked;
+            Common.Conf.UseStatisic = chbUseStatistic.Checked;
+            Common.Conf.UseOptickK = chbUseOpticK.Checked;
+            Common.Conf.BlakPixelStart = (int)nmBlackStart.Value;
+            Common.Conf.BlakPixelEnd = (int)nmBlackEnd.Value;
+            Common.Conf.BlankSub = chbBlankSub.Checked;
+            Common.Conf.UseLineAmpl = chbUseLineAmpl.Checked;
+            Common.Conf.NulHistory = (int)nmNulHistory.Value;
+            Common.Conf.ValidSensorFrom = (int)nmValidSensorFrom.Value;
+            Common.Conf.ValidSensorTo = (int)nmValidSensorTo.Value;
+            Common.Conf.PriborName = cbPriborName.Text;
+            Common.Conf.DefaultExposition = (float)nmDefaultExp.Value;
+            Common.Conf.ValidSensorDiff = (int)nmValidShift.Value;
+            Common.Conf.ValidFillLightAdd = (int)nmDackAdd.Value;
+            Common.Conf.ValidMemoryUsage = (int)nmValidMemUsage.Value;
+            Common.Conf.MultFactor = (int)nmMultFactor.Value;
+            Common.Conf.USBOrientation = tbUSBOriention.Text;
+            Common.Conf.MeasuringTimeOut = (int)nmMeasuringTimeOut.Value;
+            Common.Conf.Save();
+
+            Common.Env.DefaultFontSize = (int)nmFontSize.Value;
+            Common.Env.MaxAmplDltPrs = (int)nmMaxAmplDlt.Value;
+            Common.Env.Store();
+        }
+
+        public void Close()
+        {
+            bool need_to_close = false;
+
+            Save(ref need_to_close);
+
+            if(need_to_close)
+                MainForm.MForm.Close();
+        }
+
+        public bool NeedEnter()
+        {
+            return true;
+        }
+
+        private void btCalibrType_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                MainForm.MForm.EnableToolExit(false,
+                    Common.MLS.Get(MLSConst, "Калибровка таймера..."));
+            }
+            catch{}
+            try
+            {
+                bool ntc = false;
+                Save(ref ntc);
+                tbLogFld.Text = "Test started at " + DateTime.Now+serv.Endl;
+                tbLogFld.Refresh();
+                float time;
+                tbLogFld.Text += KnownDevList.RegList[cbRegType.SelectedIndex].TimeConstTest(cbDivider.SelectedIndex, out time);
+                nmMinExposition.Value = (decimal)time;
+                tbLogFld.Refresh();
+            }
+            catch (Exception ex)
+            {
+                Common.Log(ex);
+            }
+            try
+            {
+                MainForm.MForm.EnableToolExit();
+            }
+            catch{}
+        }
+
+        private void btStartRegTest_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                bool ntc = false;
+                Save(ref ntc);
+                tbLogFld.Text = "Registrator test started at " + DateTime.Now + serv.Endl;
+                tbLogFld.Refresh();
+                tbLogFld.Text += KnownDevList.RegList[cbRegType.SelectedIndex].Test();
+                tbLogFld.Text += serv.Endl + "Run tests again at " + DateTime.Now + serv.Endl;
+                tbLogFld.Text += KnownDevList.RegList[cbRegType.SelectedIndex].Test();
+            }
+            catch (Exception ex)
+            {
+                Common.Log(ex);
+            }
+        }
+
+        private void btStartGenTest_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                tbLogFld.Text = "Generator test started at " + DateTime.Now + serv.Endl;
+                tbLogFld.Refresh();
+                tbLogFld.Text += KnownDevList.GenList[cbGenType.SelectedIndex].Test();
+            }
+            catch (Exception ex)
+            {
+                Common.Log(ex);
+            }
+        }
+
+        private void btCheckLevel_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                MainForm.MForm.EnableToolExit(false,
+                    Common.MLS.Get(MLSConst, "Проверка кривой чувствительности..."));
+            }
+            catch { }
+            try
+            {
+                bool ntc = false;
+                Save(ref ntc);
+                tbLogFld.Text = "Max level test started at " + DateTime.Now + serv.Endl;
+                tbLogFld.Refresh();
+                float max = 0;
+                tbLogFld.Text += KnownDevList.RegList[cbRegType.SelectedIndex].MaxLevelTest(out max);
+                nmMaxVal.Value = (decimal)max;
+            }
+            catch (Exception ex)
+            {
+                Common.Log(ex);
+            }
+            try
+            {
+                MainForm.MForm.EnableToolExit();
+            }
+            catch { }
+        }
+
+        private void btFillLightTest_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                tbLogFld.Text = "Fillight test started at " + DateTime.Now + serv.Endl;
+                tbLogFld.Refresh();
+                tbLogFld.Text += KnownDevList.DevFillLightList[cbFillLightType.SelectedIndex].Test();
+            }
+            catch (Exception ex)
+            {
+                Common.Log(ex);
+            }
+        }
+
+        private void btGasTest_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                tbLogFld.Text = "Gas test started at " + DateTime.Now + serv.Endl;
+                tbLogFld.Refresh();
+                tbLogFld.Text += KnownDevList.DevGasList[cbGasType.SelectedIndex].Test();
+            }
+            catch (Exception ex)
+            {
+                Common.Log(ex);
+            }
+        }
+
+        private void btFillLightOn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (sender == btFillLightOn)
+                {
+                    tbLogFld.Text = "Fillight test On at " + DateTime.Now + serv.Endl;
+                    tbLogFld.Refresh();
+                    tbLogFld.Text += KnownDevList.DevFillLightList[cbFillLightType.SelectedIndex].Test(true);
+                }
+                else
+                {
+                    tbLogFld.Text = "Fillight test Off at " + DateTime.Now + serv.Endl;
+                    tbLogFld.Refresh();
+                    tbLogFld.Text += KnownDevList.DevFillLightList[cbFillLightType.SelectedIndex].Test(false);
+                }
+            }
+            catch (Exception ex)
+            {
+                Common.Log(ex);
+            }
+        }
+
+        const string MLSConst = "TaskSetupContr";
+        bool PathIsGood;
+        private void tbDataPath_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                PathIsGood = true;
+                string txt = tbDataPath.Text.Trim();
+                if (txt.Length == 0)
+                {
+                    lbPathError.Text = Common.MLS.Get(MLSConst, "Путь не может быть пустым.");
+                    PathIsGood = false;
+                }
+                else
+                {
+                    lbPathError.Text = "";
+                    PathIsGood = serv.IsPathCorrect(txt);
+                }
+            }
+            catch (Exception ex)
+            {
+                Common.Log(ex);
+            }
+        }
+
+        private void btNoiseTest_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                bool ntc = false;
+                Save(ref ntc);
+                tbLogFld.Text = "Noise test " + DateTime.Now + serv.Endl;
+                tbLogFld.Refresh();
+                tbLogFld.Text += "Exposition level = 1 " + serv.Endl;
+                tbLogFld.Text += KnownDevList.RegList[cbRegType.SelectedIndex].NoiseTest(1);
+                tbLogFld.Refresh();
+                tbLogFld.Text += serv.Endl;
+                tbLogFld.Text += "Exposition level = 4 " + serv.Endl;
+                tbLogFld.Text += KnownDevList.RegList[cbRegType.SelectedIndex].NoiseTest(4);
+                tbLogFld.Refresh();
+                tbLogFld.Text += serv.Endl;
+                tbLogFld.Text += "Exposition level = 10 " + serv.Endl;
+                tbLogFld.Text += KnownDevList.RegList[cbRegType.SelectedIndex].NoiseTest(10);
+            }
+            catch (Exception ex)
+            {
+                Common.Log(ex);
+            }
+        }
+    }
+}
