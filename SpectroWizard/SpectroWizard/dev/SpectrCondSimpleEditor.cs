@@ -66,36 +66,7 @@ namespace SpectroWizard.dev
                     break;
                 case 2:
                     if (Cond.Lines[line].Type == SpectrCondition.CondTypes.Exposition)
-                    {
                         code = Cond.Lines[line].SourceCode;
-                        int on_index = code.ToLower().IndexOf("on");
-                        int off_index = code.ToLower().IndexOf("off");
-                        if (off_index > 0)
-                            code = code.Substring(0,off_index) + "on()";
-                    }
-                    else
-                    {
-                        code = "e: 1 (";
-                        int[] ss = Common.Dev.Reg.GetSensorSizes();
-                        for (int i = 0; i < ss.Length; i++)
-                        {
-                            code += "0.1";
-                            if (i < ss.Length - 1)
-                                code += ";";
-                        }
-                        code += ") On()";
-                    }
-                    type = SpectrCondition.CondTypes.Exposition;
-                    break;
-                case 3:
-                    if (Cond.Lines[line].Type == SpectrCondition.CondTypes.Exposition)
-                    {
-                        code = Cond.Lines[line].SourceCode;
-                        int on_index = code.ToLower().IndexOf("on");
-                        int off_index = code.ToLower().IndexOf("off");
-                        if (on_index > 0)
-                            code = code.Substring(0,on_index)+"off()";
-                    }
                     else
                     {
                         code = "e: 1 (";
@@ -110,7 +81,7 @@ namespace SpectroWizard.dev
                     }
                     type = SpectrCondition.CondTypes.Exposition;
                     break;
-                case 4:
+                case 3:
                     code = "f:Off";
                     type = SpectrCondition.CondTypes.FillLight;
                     break;

@@ -292,7 +292,7 @@ namespace SpectroWizard.gui.tasks
                                 continue;
 
                             MethodSimpleProb msp = Task.Data.GetProbHeader(prob_index);
-                            MainForm.MForm.SetupMsg(Common.MLS.Get(MLSConst, "Добавление и проверка прожига пробы: ") +
+                            MainForm.MForm.SetupMsg(Common.MLS.Get(MLSConst, "Добавление и проверка прожега пробы: ") +
                                 prob_name + "[" + (spectrs + 1) + "]", Color.Blue);
                             Spectr sp = new Spectr(fpath[i]);
                             if (spectrs == 0)
@@ -353,7 +353,6 @@ namespace SpectroWizard.gui.tasks
         {
             try
             {
-                dgTable.StoreView();
                 //dgTable.SuspendLayout();
                 //dgTable.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
                 //dgTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
@@ -508,7 +507,6 @@ namespace SpectroWizard.gui.tasks
                 if (selected_col < dgTable.ColumnCount &&
                     selected_row < dgTable.RowCount)
                     dgTable[selected_col, selected_row].Selected = true;
-                dgTable.ResotreView();
             }
             finally
             {
@@ -1268,44 +1266,6 @@ namespace SpectroWizard.gui.tasks
                     }
                 }
 
-                MainForm.MForm.SetupMsg(Common.MLS.Get(MLSConst, "Проверка матрицы."), Color.Blue);
-
-                for (int el = 0; el < el_count; el++)
-                {
-                    MainForm.MForm.SetupPersents(el * 100.0 / el_count);
-                    MethodSimpleElement mse = Task.Data.GetElHeader(el);
-                    int f_count = mse.Formula.Count;
-                    for (int ef = 0; ef < f_count; ef++)
-                    {
-                        MethodSimpleElementFormula f = mse.Formula[ef];
-                        ElementAnalitFilter filter = f.Formula.filterElement;
-                        if (filter.IsEnabled == false)
-                            continue;
-                        for (int pr = p_from; pr < p_to; pr++)
-                        {
-                            if (filter.IsReferencedComponentValid(p_from) == true)
-                                continue;
-                            MethodSimpleProb msp = Task.Data.GetProbHeader(pr);
-                            MethodSimpleCell mc = Task.Data.GetCell(el, pr);
-                            //mc.Enabled = false;
-                            int sp_count = msp.MeasuredSpectrs.Count;
-                            for (int sp = 0; sp < sp_count; sp++)
-                            {
-                                MethodSimpleCellFormulaResult rez = mc.GetData(sp, ef);
-                                rez.Enabled = false;
-                                /*if (rez.AnalitValue == null)
-                                    continue;
-                                rez.ReCalcCon = new double[rez.AnalitValue.Length];
-                                rez.ConFrom = (float)f.Formula.nmConFrom.Value;
-                                rez.ConTo = (float)f.Formula.nmConTo.Value;
-                                for (int a = 0; a < rez.AnalitValue.Length; a++)
-                                    rez.ReCalcCon[a] = f.Formula.CalcCon(a, rez.AnalitValue[a],
-                                        rez.AnalitCorrValue[a]);//*/
-                            }
-                        }
-                    }
-                }
-
                 MainForm.MForm.SetupMsg(Common.MLS.Get(MLSConst, "Успешно."), Color.Black);
                 MainForm.MForm.SetupPersents(-1);
                 if (prob >= 0)
@@ -1653,7 +1613,7 @@ namespace SpectroWizard.gui.tasks
                     int ti = dgTable.SelectedCell.RowIndex;
                     tmp += Common.MLS.Get(MLSConst, "Задание: '") + Task.TaskPath + 
                         Common.MLS.Get(MLSConst,"' удаление пробы: '") + GetTableStringProbName(ti) +
-                        Common.MLS.Get(MLSConst, "' прожига №") + (TableSubProbIndex[ti]+1) + 
+                        Common.MLS.Get(MLSConst, "' прожега №") + (TableSubProbIndex[ti]+1) + 
                         Common.MLS.Get(MLSConst,"        Дата удаления:") + DateTime.Now + serv.Endl;
                     tmp += GetTableStringCSV(ti);
                     tmp += serv.Endl;
@@ -2064,7 +2024,7 @@ namespace SpectroWizard.gui.tasks
                 if(SelectedProb.IsStandart == false)
                 {
                     MessageBox.Show(MainForm.MForm,
-                    Common.MLS.Get(MLSConst, "Для того, что-бы просмотреть историю прожига стандарта, необходимо добавить его через пункт меню 'Пробы' 'Добавить Стандарт'"),
+                    Common.MLS.Get(MLSConst, "Для того, что-бы просмотреть историю прожега стандарта, необходимо добавить его через пункт меню 'Пробы' 'Добавить Стандарт'"),
                     Common.MLS.Get(MLSConst, "Удаление"),
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Hand);
@@ -2111,7 +2071,7 @@ namespace SpectroWizard.gui.tasks
                     return;
                 }
                 DialogResult dr = MessageBox.Show(MainForm.MForm,
-                    Common.MLS.Get(MLSConst, "Удалить все прожиги кроме промера? ") + SelectedProb.Name + " №" + (SelectedSubProbIndex + 1),
+                    Common.MLS.Get(MLSConst, "Удалить все прожеги кроме промера? ") + SelectedProb.Name + " №" + (SelectedSubProbIndex + 1),
                     Common.MLS.Get(MLSConst, "Удаление"),
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Stop);
@@ -2122,7 +2082,7 @@ namespace SpectroWizard.gui.tasks
                 int ti = dgTable.SelectedCell.RowIndex;
                 tmp += Common.MLS.Get(MLSConst, "Задание: '") + Task.TaskPath +
                     Common.MLS.Get(MLSConst, "' удаление пробы: '") + GetTableStringProbName(ti) +
-                    Common.MLS.Get(MLSConst, "' прожига №") + (TableSubProbIndex[ti] + 1) +
+                    Common.MLS.Get(MLSConst, "' прожега №") + (TableSubProbIndex[ti] + 1) +
                     Common.MLS.Get(MLSConst, "        Дата удаления:") + DateTime.Now + serv.Endl;
                 tmp += GetTableStringCSV(ti);
                 tmp += serv.Endl;
@@ -2526,7 +2486,6 @@ namespace SpectroWizard.gui.tasks
                     }//---
                 }
             }
-            //Str1 += "MSC";
         }
 
         public Size NormalSize;
@@ -2682,7 +2641,6 @@ namespace SpectroWizard.gui.tasks
                 Str2 += con_sufix;
             else
                 Str2 = con_sufix;*/
-            //Str1 += "*";
         }
 
         public Size NormalSize;

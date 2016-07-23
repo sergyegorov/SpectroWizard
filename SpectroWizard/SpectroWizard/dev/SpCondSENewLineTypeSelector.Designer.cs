@@ -46,8 +46,8 @@
             this.lbTypes.Items.AddRange(new object[] {
             "Комментарий",
             "Обжиг",
-            "Измерение спектра",
-            "Компенсация темновых шумов"});
+            "Экспозиция",
+            "Управление заливающим светом"});
             this.lbTypes.Location = new System.Drawing.Point(0, 0);
             this.lbTypes.Name = "lbTypes";
             this.lbTypes.Size = new System.Drawing.Size(208, 123);

@@ -96,7 +96,7 @@
             0,
             0});
             this.nmLevel.Minimum = new decimal(new int[] {
-            20,
+            50,
             0,
             0,
             0});

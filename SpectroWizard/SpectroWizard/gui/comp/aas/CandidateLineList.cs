@@ -8,8 +8,6 @@ using System.Text;
 using System.Windows.Forms;
 using SpectroWizard.method;
 using SpectroWizard.data;
-using SpectroWizard.method.algo;
-using System.Threading;
 
 namespace SpectroWizard.gui.comp.aas
 {
@@ -57,10 +55,7 @@ namespace SpectroWizard.gui.comp.aas
                 }
             }
             if (ly > 0)
-            {
-                upToDate = false;
                 listBoxLine.Items.Add(ly);
-            }
         }
 
         private void buttonAddFromCatalog_Click(object sender, EventArgs e)
@@ -188,122 +183,6 @@ namespace SpectroWizard.gui.comp.aas
                     {
                         double ly = Common.Env.DefaultDisp.GetLyByLocalPixel(i, p);
                         insert(ly);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Out(ex);
-            }
-        }
-
-        AdvancedAnalitSearch search;
-        public void init(AdvancedAnalitSearch search)
-        {
-            this.search = search;
-        }
-
-        void buttonUpdate(String val)
-        {
-            try
-            {
-                updateSearchData.Text = val;
-                updateSearchData.Refresh();
-                updateSearchData.Invalidate();
-                if (DuplicateInfoButton != null)
-                {
-                    DuplicateInfoButton.Text = DuplicateInfoButtonPrefix + " " + val;
-                    DuplicateInfoButton.Refresh();
-                    DuplicateInfoButton.Invalidate();
-                }
-            }
-            catch
-            {
-            }
-        }
-
-        bool upToDate = false;
-        List<double[]>[] a_values;// = new List<double[]>[ly.Length];
-        Button DuplicateInfoButton;
-        string DuplicateInfoButtonPrefix;
-        public List<double[]>[] getValues(Button infoBtn,string prefix)
-        {
-            DuplicateInfoButton = infoBtn;
-            DuplicateInfoButtonPrefix = prefix;
-            if (upToDate == false)
-                updateSearchDataThread();
-
-            return (List<double[]>[])a_values.Clone();
-        }
-
-        private void updateSearchDataThread()
-        {
-            String txt = updateSearchData.Text;
-            try
-            {
-                updateSearchData.Enabled = false;
-                double[] ly = getLyList();
-                a_values = new List<double[]>[ly.Length];
-                bool[] enabledSpectr = new bool[ly.Length];
-                for (int i = 0; i < ly.Length && Common.IsRunning; i++)
-                {
-                    List<DataShot> values = DataShotExtractor.extract(Method, search.ElementName, Formula, ly[i],
-                        AdvancedAnalitSearch.WindowSize, search.cbSearchType.SelectedIndex == 1, 0, (double)search.numMax.Value,
-                        search.cbValueType.SelectedIndex == 1);
-                    if (values != null)
-                    {
-                        a_values[i] = search.calcAnalit(values, ly[i], AdvancedAnalitSearch.WindowSize,
-                            0, (double)search.numMax.Value);
-                    }
-                    if (i % 50 == 0)
-                        buttonUpdate("Check " + i + " from " + ly.Length + " analitic lines");
-                }
-                upToDate = true;
-            }
-            catch (Exception ex)
-            {
-                Log.Out(ex);
-            }
-            finally
-            {
-                Th = null;
-                Common.Beep();
-                updateSearchData.Text = txt;
-                updateSearchData.Enabled = true;
-            }
-        }
-
-        Thread Th;
-        private void updateSearchData_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (Th != null)
-                    return;
-                Th = new Thread(new ThreadStart(updateSearchDataThread));
-                Th.Start();
-            }
-            catch (Exception ex)
-            {
-                Log.Out(ex);
-            }
-        }
-
-        private void buttonAddCustomSet_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                Common.CUSTOMDb.setupShowFilter(null, Element, Formula, IsAnalitPriv, IsAnalitPriv == false, Method);
-                Common.CUSTOMDb.ShowDialog(this);
-                if (Common.CUSTOMDb.selectedLine != null)
-                {
-                    for (int i = 0; i < Common.CUSTOMDb.selectedLine.Length; i++)
-                    {
-                        if (listBoxLine.Items.Contains(Common.CUSTOMDb.selectedLine[i].Ly) ||
-                            Common.CUSTOMDb.selectedLine[i].Ly < LyFrom ||
-                            Common.CUSTOMDb.selectedLine[i].Ly > LyTo)// LyList.Contains(Common.GOSTDb.selectedLine[i].Ly))
-                            continue;
-                        insert(Common.CUSTOMDb.selectedLine[i].Ly);
                     }
                 }
             }

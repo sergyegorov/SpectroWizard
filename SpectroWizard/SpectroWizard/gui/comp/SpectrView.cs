@@ -16,19 +16,9 @@ using SpectroWizard.analit.fk;
 namespace SpectroWizard.gui.comp
 {
     public delegate void CursorChanged(float cursor_x, float cursor_y);
-    public delegate void SetLy(bool isAnalit,float ly);
     public partial class SpectrView : UserControl
     {
         public CursorChanged CursorListener = null;
-        private SetLy SetLyListenerPriv = null;
-        public SetLy SetLyListener
-        {
-            set
-            {
-                SetLyListenerPriv = value;
-                mnMainRememberAs.Visible = (value != null);
-            }
-        }
         public SpectrView()
         {
             InitializeComponent();
@@ -207,7 +197,7 @@ namespace SpectroWizard.gui.comp
             if (cbSpectrViewType.Items.Count == 0)
             {
                 cbSpectrViewType.Items.Add(Common.MLS.Get(MLSConst, "Cуммарный спектр"));
-                cbSpectrViewType.Items.Add(Common.MLS.Get(MLSConst, "Все прожиги"));
+                cbSpectrViewType.Items.Add(Common.MLS.Get(MLSConst, "Все прожеги"));
 
                 CheckViewListTypes(40);
                 cbSpectrViewType.SelectedIndex = DefaultViewTypePriv;
@@ -1564,7 +1554,7 @@ namespace SpectroWizard.gui.comp
                     DrawSelection = true;
                     ReDraw();
                 }
-                CurLy = CurrentMouseX;//lbLyInfo.Text = ""+Math.Round(CurrentMouseX,2).ToString();
+                lbLyInfo.Text = ""+(char)0x3BB+Math.Round(CurrentMouseX,2).ToString();
                 lbYInfo.Text = "y"+serv.GetGoodValue(CurrentMouseY,1).ToString();
                 CurrentMousePixel.Clear();
                 CurrentMouseSn.Clear();
@@ -2034,106 +2024,6 @@ namespace SpectroWizard.gui.comp
                 SpAddone = null;
                 SpAddoneView = null;
                 ReDraw();
-            }
-            catch (Exception ex)
-            {
-                Common.Log(ex);
-            }
-        }
-
-        private void cmMainShiftRight20_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                Shift(2F);
-            }
-            catch (Exception ex)
-            {
-                Common.Log(ex);
-            }
-        }
-
-        private void cmMainShiftRight50_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                Shift(5F);
-            }
-            catch (Exception ex)
-            {
-                Common.Log(ex);
-            }
-        }
-
-        private void cmMainShiftLeft20_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                Shift(-2F);
-            }
-            catch (Exception ex)
-            {
-                Common.Log(ex);
-            }
-        }
-
-        private void cmMainShiftLeft50_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                Shift(-5F);
-            }
-            catch (Exception ex)
-            {
-                Common.Log(ex);
-            }
-        }
-
-        string LyTxt;
-        private double CurLy
-        {
-            set
-            {
-                LyTxt = "" + Math.Round(value, 2).ToString();
-                lbLyInfo.Text = LyTxt;
-            }
-        }
-
-        private void lbLyInfo_KeyUp(object sender, KeyEventArgs e)
-        {
-            try
-            {
-                if (e.KeyCode == Keys.Enter)
-                {
-                    CursorX = (float)serv.ParseDouble(lbLyInfo.Text);
-                    btZ_Click(this, null);
-                }
-            }
-            catch (Exception ex)
-            {
-                Common.Log(ex);
-            }
-        }
-
-        private void cmMainSetAnalit_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (SetLyListenerPriv != null)
-                    SetLyListenerPriv(true, CursorX);
-            }
-            catch (Exception ex)
-            {
-                Common.Log(ex);
-            }
-        }
-
-        private void cmMainSetCompare_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (SetLyListenerPriv != null)
-                    SetLyListenerPriv(false, CursorX);
             }
             catch (Exception ex)
             {

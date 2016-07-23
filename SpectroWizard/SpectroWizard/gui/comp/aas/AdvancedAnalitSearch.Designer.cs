@@ -31,20 +31,11 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AdvancedAnalitSearch));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tpAnlitLines = new System.Windows.Forms.TabPage();
-            this.candidateLineListAnalit = new SpectroWizard.gui.comp.aas.CandidateLineList();
             this.tpAllLines = new System.Windows.Forms.TabPage();
-            this.candidateLineListComp = new SpectroWizard.gui.comp.aas.CandidateLineList();
             this.tpCorelView = new System.Windows.Forms.TabPage();
-            this.btnLoadList = new System.Windows.Forms.Button();
-            this.btnSaveList = new System.Windows.Forms.Button();
-            this.btRemoveCompare = new System.Windows.Forms.Button();
-            this.btRemoveAnalit = new System.Windows.Forms.Button();
             this.buttonSetInMethod = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.simpleGraphView = new SpectroWizard.gui.comp.SimpleGraphView();
-            this.dataShotSetViewComp = new SpectroWizard.method.algo.DataShotSetView();
-            this.dataShotSetViewAnalit = new SpectroWizard.method.algo.DataShotSetView();
             this.listboxResult = new System.Windows.Forms.ListBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.cbValueType = new System.Windows.Forms.ComboBox();
@@ -54,6 +45,13 @@
             this.label2 = new System.Windows.Forms.Label();
             this.numMin = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
+            this.btRemoveAnalit = new System.Windows.Forms.Button();
+            this.btRemoveCompare = new System.Windows.Forms.Button();
+            this.candidateLineListAnalit = new SpectroWizard.gui.comp.aas.CandidateLineList();
+            this.candidateLineListComp = new SpectroWizard.gui.comp.aas.CandidateLineList();
+            this.simpleGraphView = new SpectroWizard.gui.comp.SimpleGraphView();
+            this.dataShotSetViewComp = new SpectroWizard.method.algo.DataShotSetView();
+            this.dataShotSetViewAnalit = new SpectroWizard.method.algo.DataShotSetView();
             this.tabControl1.SuspendLayout();
             this.tpAnlitLines.SuspendLayout();
             this.tpAllLines.SuspendLayout();
@@ -88,16 +86,6 @@
             this.tpAnlitLines.Text = "Аналитические линии";
             this.tpAnlitLines.UseVisualStyleBackColor = true;
             // 
-            // candidateLineListAnalit
-            // 
-            this.candidateLineListAnalit.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.candidateLineListAnalit.Location = new System.Drawing.Point(6, 3);
-            this.candidateLineListAnalit.Name = "candidateLineListAnalit";
-            this.candidateLineListAnalit.Size = new System.Drawing.Size(891, 500);
-            this.candidateLineListAnalit.TabIndex = 0;
-            // 
             // tpAllLines
             // 
             this.tpAllLines.Controls.Add(this.candidateLineListComp);
@@ -109,20 +97,8 @@
             this.tpAllLines.Text = "Линии сравнения";
             this.tpAllLines.UseVisualStyleBackColor = true;
             // 
-            // candidateLineListComp
-            // 
-            this.candidateLineListComp.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.candidateLineListComp.Location = new System.Drawing.Point(6, 3);
-            this.candidateLineListComp.Name = "candidateLineListComp";
-            this.candidateLineListComp.Size = new System.Drawing.Size(892, 504);
-            this.candidateLineListComp.TabIndex = 0;
-            // 
             // tpCorelView
             // 
-            this.tpCorelView.Controls.Add(this.btnLoadList);
-            this.tpCorelView.Controls.Add(this.btnSaveList);
             this.tpCorelView.Controls.Add(this.btRemoveCompare);
             this.tpCorelView.Controls.Add(this.btRemoveAnalit);
             this.tpCorelView.Controls.Add(this.buttonSetInMethod);
@@ -140,55 +116,11 @@
             this.tpCorelView.Text = "Кореляций";
             this.tpCorelView.UseVisualStyleBackColor = true;
             // 
-            // btnLoadList
-            // 
-            this.btnLoadList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnLoadList.Location = new System.Drawing.Point(432, 482);
-            this.btnLoadList.Name = "btnLoadList";
-            this.btnLoadList.Size = new System.Drawing.Size(195, 23);
-            this.btnLoadList.TabIndex = 11;
-            this.btnLoadList.Text = "Загрузить список";
-            this.btnLoadList.UseVisualStyleBackColor = true;
-            this.btnLoadList.Click += new System.EventHandler(this.btnLoadList_Click);
-            // 
-            // btnSaveList
-            // 
-            this.btnSaveList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnSaveList.Location = new System.Drawing.Point(228, 482);
-            this.btnSaveList.Name = "btnSaveList";
-            this.btnSaveList.Size = new System.Drawing.Size(198, 23);
-            this.btnSaveList.TabIndex = 10;
-            this.btnSaveList.Text = "Записать список";
-            this.btnSaveList.UseVisualStyleBackColor = true;
-            this.btnSaveList.Click += new System.EventHandler(this.btnSaveList_Click);
-            // 
-            // btRemoveCompare
-            // 
-            this.btRemoveCompare.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btRemoveCompare.Location = new System.Drawing.Point(4, 482);
-            this.btRemoveCompare.Name = "btRemoveCompare";
-            this.btRemoveCompare.Size = new System.Drawing.Size(218, 23);
-            this.btRemoveCompare.TabIndex = 9;
-            this.btRemoveCompare.Text = "Убрать линии сравнения";
-            this.btRemoveCompare.UseVisualStyleBackColor = true;
-            this.btRemoveCompare.Click += new System.EventHandler(this.btRemoveCompare_Click);
-            // 
-            // btRemoveAnalit
-            // 
-            this.btRemoveAnalit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btRemoveAnalit.Location = new System.Drawing.Point(4, 453);
-            this.btRemoveAnalit.Name = "btRemoveAnalit";
-            this.btRemoveAnalit.Size = new System.Drawing.Size(218, 23);
-            this.btRemoveAnalit.TabIndex = 8;
-            this.btRemoveAnalit.Text = "Убрать аналитические";
-            this.btRemoveAnalit.UseVisualStyleBackColor = true;
-            this.btRemoveAnalit.Click += new System.EventHandler(this.btRemoveAnalit_Click);
-            // 
             // buttonSetInMethod
             // 
             this.buttonSetInMethod.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonSetInMethod.Enabled = false;
-            this.buttonSetInMethod.Location = new System.Drawing.Point(228, 453);
+            this.buttonSetInMethod.Location = new System.Drawing.Point(228, 484);
             this.buttonSetInMethod.Name = "buttonSetInMethod";
             this.buttonSetInMethod.Size = new System.Drawing.Size(399, 23);
             this.buttonSetInMethod.TabIndex = 7;
@@ -214,46 +146,11 @@
             this.label3.TabIndex = 4;
             this.label3.Text = "Аналитическая линия";
             // 
-            // simpleGraphView
-            // 
-            this.simpleGraphView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.simpleGraphView.BackColor = System.Drawing.Color.White;
-            this.simpleGraphView.Cursor = System.Windows.Forms.Cursors.Cross;
-            this.simpleGraphView.Location = new System.Drawing.Point(633, 50);
-            this.simpleGraphView.Name = "simpleGraphView";
-            this.simpleGraphView.Size = new System.Drawing.Size(261, 457);
-            this.simpleGraphView.TabIndex = 6;
-            // 
-            // dataShotSetViewComp
-            // 
-            this.dataShotSetViewComp.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)));
-            this.dataShotSetViewComp.BackColor = System.Drawing.Color.White;
-            this.dataShotSetViewComp.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.dataShotSetViewComp.Cursor = System.Windows.Forms.Cursors.Cross;
-            this.dataShotSetViewComp.Location = new System.Drawing.Point(432, 75);
-            this.dataShotSetViewComp.Name = "dataShotSetViewComp";
-            this.dataShotSetViewComp.Size = new System.Drawing.Size(195, 369);
-            this.dataShotSetViewComp.TabIndex = 3;
-            // 
-            // dataShotSetViewAnalit
-            // 
-            this.dataShotSetViewAnalit.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)));
-            this.dataShotSetViewAnalit.BackColor = System.Drawing.Color.White;
-            this.dataShotSetViewAnalit.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.dataShotSetViewAnalit.Cursor = System.Windows.Forms.Cursors.Cross;
-            this.dataShotSetViewAnalit.Location = new System.Drawing.Point(228, 75);
-            this.dataShotSetViewAnalit.Name = "dataShotSetViewAnalit";
-            this.dataShotSetViewAnalit.Size = new System.Drawing.Size(198, 369);
-            this.dataShotSetViewAnalit.TabIndex = 2;
-            // 
             // listboxResult
             // 
-            this.listboxResult.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)));
+            this.listboxResult.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.listboxResult.FormattingEnabled = true;
             this.listboxResult.Location = new System.Drawing.Point(4, 50);
             this.listboxResult.Name = "listboxResult";
@@ -327,7 +224,7 @@
             this.numMax.Size = new System.Drawing.Size(76, 20);
             this.numMax.TabIndex = 3;
             this.numMax.Value = new decimal(new int[] {
-            2300,
+            3000,
             0,
             0,
             0});
@@ -348,7 +245,7 @@
             this.numMin.Size = new System.Drawing.Size(79, 20);
             this.numMin.TabIndex = 1;
             this.numMin.Value = new decimal(new int[] {
-            20,
+            5,
             0,
             0,
             0});
@@ -362,6 +259,86 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Амплитуда от";
             // 
+            // btRemoveAnalit
+            // 
+            this.btRemoveAnalit.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.btRemoveAnalit.Location = new System.Drawing.Point(4, 453);
+            this.btRemoveAnalit.Name = "btRemoveAnalit";
+            this.btRemoveAnalit.Size = new System.Drawing.Size(218, 23);
+            this.btRemoveAnalit.TabIndex = 8;
+            this.btRemoveAnalit.Text = "Убрать аналитические";
+            this.btRemoveAnalit.UseVisualStyleBackColor = true;
+            this.btRemoveAnalit.Click += new System.EventHandler(this.btRemoveAnalit_Click);
+            // 
+            // btRemoveCompare
+            // 
+            this.btRemoveCompare.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.btRemoveCompare.Location = new System.Drawing.Point(4, 482);
+            this.btRemoveCompare.Name = "btRemoveCompare";
+            this.btRemoveCompare.Size = new System.Drawing.Size(218, 23);
+            this.btRemoveCompare.TabIndex = 9;
+            this.btRemoveCompare.Text = "Убрать линии сравнения";
+            this.btRemoveCompare.UseVisualStyleBackColor = true;
+            this.btRemoveCompare.Click += new System.EventHandler(this.btRemoveCompare_Click);
+            // 
+            // candidateLineListAnalit
+            // 
+            this.candidateLineListAnalit.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.candidateLineListAnalit.Location = new System.Drawing.Point(6, 3);
+            this.candidateLineListAnalit.Name = "candidateLineListAnalit";
+            this.candidateLineListAnalit.Size = new System.Drawing.Size(891, 500);
+            this.candidateLineListAnalit.TabIndex = 0;
+            // 
+            // candidateLineListComp
+            // 
+            this.candidateLineListComp.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.candidateLineListComp.Location = new System.Drawing.Point(6, 3);
+            this.candidateLineListComp.Name = "candidateLineListComp";
+            this.candidateLineListComp.Size = new System.Drawing.Size(892, 504);
+            this.candidateLineListComp.TabIndex = 0;
+            // 
+            // simpleGraphView
+            // 
+            this.simpleGraphView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.simpleGraphView.BackColor = System.Drawing.Color.White;
+            this.simpleGraphView.Cursor = System.Windows.Forms.Cursors.Cross;
+            this.simpleGraphView.Location = new System.Drawing.Point(633, 50);
+            this.simpleGraphView.Name = "simpleGraphView";
+            this.simpleGraphView.Size = new System.Drawing.Size(261, 457);
+            this.simpleGraphView.TabIndex = 6;
+            // 
+            // dataShotSetViewComp
+            // 
+            this.dataShotSetViewComp.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)));
+            this.dataShotSetViewComp.BackColor = System.Drawing.Color.White;
+            this.dataShotSetViewComp.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.dataShotSetViewComp.Cursor = System.Windows.Forms.Cursors.Cross;
+            this.dataShotSetViewComp.Location = new System.Drawing.Point(432, 75);
+            this.dataShotSetViewComp.Name = "dataShotSetViewComp";
+            this.dataShotSetViewComp.Size = new System.Drawing.Size(195, 403);
+            this.dataShotSetViewComp.TabIndex = 3;
+            // 
+            // dataShotSetViewAnalit
+            // 
+            this.dataShotSetViewAnalit.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)));
+            this.dataShotSetViewAnalit.BackColor = System.Drawing.Color.White;
+            this.dataShotSetViewAnalit.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.dataShotSetViewAnalit.Cursor = System.Windows.Forms.Cursors.Cross;
+            this.dataShotSetViewAnalit.Location = new System.Drawing.Point(228, 75);
+            this.dataShotSetViewAnalit.Name = "dataShotSetViewAnalit";
+            this.dataShotSetViewAnalit.Size = new System.Drawing.Size(198, 403);
+            this.dataShotSetViewAnalit.TabIndex = 2;
+            // 
             // AdvancedAnalitSearch
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -370,7 +347,7 @@
             this.Controls.Add(this.tabControl1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AdvancedAnalitSearch";
-            this.Text = "Поиск аналитических линий";
+            this.Text = "AdvancedAnalitSearch";
             this.tabControl1.ResumeLayout(false);
             this.tpAnlitLines.ResumeLayout(false);
             this.tpAllLines.ResumeLayout(false);
@@ -393,7 +370,9 @@
         private CandidateLineList candidateLineListAnalit;
         private CandidateLineList candidateLineListComp;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.NumericUpDown numMax;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.NumericUpDown numMin;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button buttonSearch;
         private method.algo.DataShotSetView dataShotSetViewComp;
@@ -403,13 +382,9 @@
         private System.Windows.Forms.Label label3;
         private SimpleGraphView simpleGraphView;
         private System.Windows.Forms.Button buttonSetInMethod;
+        private System.Windows.Forms.ComboBox cbSearchType;
+        private System.Windows.Forms.ComboBox cbValueType;
         private System.Windows.Forms.Button btRemoveCompare;
         private System.Windows.Forms.Button btRemoveAnalit;
-        private System.Windows.Forms.Button btnLoadList;
-        private System.Windows.Forms.Button btnSaveList;
-        public System.Windows.Forms.ComboBox cbSearchType;
-        public System.Windows.Forms.NumericUpDown numMax;
-        public System.Windows.Forms.NumericUpDown numMin;
-        public System.Windows.Forms.ComboBox cbValueType;
     }
 }

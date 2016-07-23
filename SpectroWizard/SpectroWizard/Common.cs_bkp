@@ -11,7 +11,6 @@ using SpectroWizard.dev;
 using SpectroWizard.data;
 using SpectroWizard.gui;
 using SpectroWizard.data.lib;
-using System.Media;
 
 #region BUG List
 /**
@@ -26,7 +25,7 @@ using System.Media;
  * 3.0.3.74 -   Добавлен поиск аналитических линий 
  * 3.0.3.73 -   Изменино поведение программы в вычислении суммарного спектра при слишком 
  *            больших уровнях.
- * 3.0.3.72 -   Исправление ошибок связанных с добавлением новых прожигов в методику
+ * 3.0.3.72 -   Исправление ошибок связанных с добавлением новых прожегов в методику
  * 3.0.3.71 -   Подбор линий сравнения, стандартные образцы в неизвестных пробах
  * 3.0.3.70r -  Финальная версия в Луганске
  * 3.0.2.69 -   Добавлен механизм восстановления нуля и сброса приставки после измерения задания
@@ -54,7 +53,7 @@ using System.Media;
  * 3.0.1.46 -   Исправления и дополнения к первой версии. До полного тестирования.
  * 3.0.1.45r -  После тестирования.
  * 3.0.0.44 -   Добавлена автоматическая система резервного копирования данных.
- * 3.0.0.43 -   Добавлен учёт оценки прожига.
+ * 3.0.0.43 -   Добавлен учёт оценки прожега.
  * 3.0.0.42 -   Добавлена добавлены и улучшены алгоритмы проверки корректности спектров
  * 3.0.0.41 -   Добавлена ручная коррекция графиков
  * 3.0.0.40 -   Добавлена оценка прожига и проверка пустых мест
@@ -91,30 +90,6 @@ namespace SpectroWizard
 {
     class Common
     {
-        public static void ClearMemory()
-        {
-            System.GC.Collect();
-        }
-
-        public static void Beep()
-        {
-            try
-            {
-                SoundPlayer simpleSound = new SoundPlayer(@"c:\Windows\Media\chimes.wav");
-                simpleSound.Play();
-            }
-            catch (Exception exx) { }
-
-            try
-            {
-                SoundPlayer simpleSound = new SoundPlayer(@"completed.wav");//c:\Windows\Media\chimes.wav");
-                simpleSound.Play();
-            }
-            catch (Exception ex)
-            {
-            }
-        }
-
         #region Version....
         public static bool Debug
         {
@@ -126,7 +101,7 @@ namespace SpectroWizard
         }
         public static int TestedBuild = 3;
         public static int DevelopersBuild = 78;
-        public static int TestBuild = 4363;
+        public static int TestBuild = 4080;
         public static string Version = "3.0."+TestedBuild+"."+DevelopersBuild+" ("+TestBuild+")";
         public enum VersionStateTypes
         {
@@ -355,7 +330,7 @@ namespace SpectroWizard
             }
         }
 
-        public static GOSTDb GOSTDb,CUSTOMDb;
+        public static GOSTDb GOSTDb;
         public static LyDb LyData;
         public static bool IsRunning = false;
         public static bool IsClosing = false;
@@ -417,8 +392,6 @@ namespace SpectroWizard
             DefaultResultTableFont[2] = new Font(FontFamily.GenericSerif, fsize);
             GOSTDb = new GOSTDb();
             GOSTDb.Init("lib\\gost\\");
-            CUSTOMDb = new GOSTDb();
-            CUSTOMDb.Init("lib\\custom\\");
         }
 
         public static Form GetTopForm()
@@ -691,7 +664,7 @@ namespace SpectroWizard
         public int ValidSensorDiff = 10;
         public int ValidFillLightAdd = 5;
         public int ValidMemoryUsage = 800;
-        public int MultFactor = 2;
+        public int MultFactor = 10;
         public string USBOrientation = "1 -2 3 -4 5 -6 7 -8 9 -10 11 -12 13 -14 15";
         public int MeasuringTimeOut = 0;
         public int[] USBOrientationVals

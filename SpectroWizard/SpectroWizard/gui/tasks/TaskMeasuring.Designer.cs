@@ -34,6 +34,7 @@
             this.mmAddMeasuring = new System.Windows.Forms.ToolStripMenuItem();
             this.mmUseUnuse = new System.Windows.Forms.ToolStripMenuItem();
             this.mmCommon = new System.Windows.Forms.ToolStripMenuItem();
+            this.mmComShowDebugInfo = new System.Windows.Forms.ToolStripMenuItem();
             this.mmComPrint = new System.Windows.Forms.ToolStripMenuItem();
             this.mmComDeletedProbs = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
@@ -41,7 +42,6 @@
             this.mmCommonReloadFromNew = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem8 = new System.Windows.Forms.ToolStripSeparator();
             this.mmCommonClearBkg = new System.Windows.Forms.ToolStripMenuItem();
-            this.mmComShowDebugInfo = new System.Windows.Forms.ToolStripMenuItem();
             this.mmProb = new System.Windows.Forms.ToolStripMenuItem();
             this.mmProbAddNew = new System.Windows.Forms.ToolStripMenuItem();
             this.mmProbAddAgain = new System.Windows.Forms.ToolStripMenuItem();
@@ -78,7 +78,6 @@
             this.mmAnalitSaveCSVAll = new System.Windows.Forms.ToolStripMenuItem();
             this.mmAnalitSaveCSVEverSelected = new System.Windows.Forms.ToolStripMenuItem();
             this.mmAnalitSaveCSVAllSelected = new System.Windows.Forms.ToolStripMenuItem();
-            this.mmAnalitDd = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.dgTable = new SpectroWizard.gui.comp.FDataGridView();
             this.dgTable_ = new System.Windows.Forms.DataGridView();
@@ -93,6 +92,7 @@
             this.printDocument1 = new System.Drawing.Printing.PrintDocument();
             this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
             this.dlgOpenSpectr = new System.Windows.Forms.OpenFileDialog();
+            this.mmAnalitDd = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -147,17 +147,24 @@
             // mmCommon
             // 
             this.mmCommon.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mmComShowDebugInfo,
             this.mmComPrint,
             this.mmComDeletedProbs,
             this.toolStripMenuItem4,
             this.mmCommonReload,
             this.mmCommonReloadFromNew,
             this.toolStripMenuItem8,
-            this.mmCommonClearBkg,
-            this.mmComShowDebugInfo});
+            this.mmCommonClearBkg});
             this.mmCommon.Name = "mmCommon";
             this.mmCommon.Size = new System.Drawing.Size(54, 20);
             this.mmCommon.Text = "Общее";
+            // 
+            // mmComShowDebugInfo
+            // 
+            this.mmComShowDebugInfo.Name = "mmComShowDebugInfo";
+            this.mmComShowDebugInfo.Size = new System.Drawing.Size(309, 22);
+            this.mmComShowDebugInfo.Text = "Показать окно с внутренними данными";
+            this.mmComShowDebugInfo.Click += new System.EventHandler(this.mmComShowDebugInfo_Click);
             // 
             // mmComPrint
             // 
@@ -204,13 +211,6 @@
             this.mmCommonClearBkg.Text = "Очистить память темновых токов";
             this.mmCommonClearBkg.Click += new System.EventHandler(this.mmCommonClearBkg_Click);
             // 
-            // mmComShowDebugInfo
-            // 
-            this.mmComShowDebugInfo.Name = "mmComShowDebugInfo";
-            this.mmComShowDebugInfo.Size = new System.Drawing.Size(309, 22);
-            this.mmComShowDebugInfo.Text = "Показать окно с внутренними данными";
-            this.mmComShowDebugInfo.Click += new System.EventHandler(this.mmComShowDebugInfo_Click);
-            // 
             // mmProb
             // 
             this.mmProb.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -243,7 +243,7 @@
             // 
             this.mmProbAddAgain.Name = "mmProbAddAgain";
             this.mmProbAddAgain.Size = new System.Drawing.Size(354, 22);
-            this.mmProbAddAgain.Text = "Добавить пустой прожиг выбранной пробы";
+            this.mmProbAddAgain.Text = "Добавить пустой прожег выбранной пробы";
             this.mmProbAddAgain.Click += new System.EventHandler(this.mmProbAddAgain_Click);
             // 
             // mmProbRenam
@@ -312,7 +312,7 @@
             // 
             this.mmProbDeleteBefore.Name = "mmProbDeleteBefore";
             this.mmProbDeleteBefore.Size = new System.Drawing.Size(324, 22);
-            this.mmProbDeleteBefore.Text = "Удалить все раньше выделенного прожига";
+            this.mmProbDeleteBefore.Text = "Удалить все раньше выделенного прожега";
             this.mmProbDeleteBefore.Click += new System.EventHandler(this.mmProbDeleteBefore_Click);
             // 
             // toolStripMenuItem2
@@ -338,7 +338,6 @@
             // 
             this.toolStripMenuItem5.Name = "toolStripMenuItem5";
             this.toolStripMenuItem5.Size = new System.Drawing.Size(351, 6);
-            this.toolStripMenuItem5.Visible = false;
             // 
             // архивИзмеренийToolStripMenuItem
             // 
@@ -346,7 +345,6 @@
             this.архивИзмеренийToolStripMenuItem.Name = "архивИзмеренийToolStripMenuItem";
             this.архивИзмеренийToolStripMenuItem.Size = new System.Drawing.Size(354, 22);
             this.архивИзмеренийToolStripMenuItem.Text = "Архив измерений";
-            this.архивИзмеренийToolStripMenuItem.Visible = false;
             // 
             // отметитьПробуКакЭталонИЗагрузитьКонцентрацииToolStripMenuItem
             // 
@@ -354,7 +352,6 @@
             this.отметитьПробуКакЭталонИЗагрузитьКонцентрацииToolStripMenuItem.Name = "отметитьПробуКакЭталонИЗагрузитьКонцентрацииToolStripMenuItem";
             this.отметитьПробуКакЭталонИЗагрузитьКонцентрацииToolStripMenuItem.Size = new System.Drawing.Size(354, 22);
             this.отметитьПробуКакЭталонИЗагрузитьКонцентрацииToolStripMenuItem.Text = "Отметить пробу как эталон и загрузить концентрации";
-            this.отметитьПробуКакЭталонИЗагрузитьКонцентрацииToolStripMenuItem.Visible = false;
             // 
             // toolStripMenuItem6
             // 
@@ -401,47 +398,47 @@
             // mmAnalitUse
             // 
             this.mmAnalitUse.Name = "mmAnalitUse";
-            this.mmAnalitUse.Size = new System.Drawing.Size(325, 22);
+            this.mmAnalitUse.Size = new System.Drawing.Size(310, 22);
             this.mmAnalitUse.Text = "Использовать пробу для выведения среднего";
             this.mmAnalitUse.Click += new System.EventHandler(this.mmAnalitUse_Click);
             // 
             // mmAnalitUnUse
             // 
             this.mmAnalitUnUse.Name = "mmAnalitUnUse";
-            this.mmAnalitUnUse.Size = new System.Drawing.Size(325, 22);
-            this.mmAnalitUnUse.Text = "Не использовать пробу для выведения среднего";
+            this.mmAnalitUnUse.Size = new System.Drawing.Size(310, 22);
+            this.mmAnalitUnUse.Text = "Не использовать";
             this.mmAnalitUnUse.Click += new System.EventHandler(this.mmAnalitUnUse_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(322, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(307, 6);
             // 
             // mmAnalitRecalcAll
             // 
             this.mmAnalitRecalcAll.Name = "mmAnalitRecalcAll";
-            this.mmAnalitRecalcAll.Size = new System.Drawing.Size(325, 22);
+            this.mmAnalitRecalcAll.Size = new System.Drawing.Size(310, 22);
             this.mmAnalitRecalcAll.Text = "Пересчитать все пробы и элементы";
             this.mmAnalitRecalcAll.Click += new System.EventHandler(this.mmAnalitRecalcAll_Click);
             // 
             // mmAnalitRecalcProb
             // 
             this.mmAnalitRecalcProb.Name = "mmAnalitRecalcProb";
-            this.mmAnalitRecalcProb.Size = new System.Drawing.Size(325, 22);
+            this.mmAnalitRecalcProb.Size = new System.Drawing.Size(310, 22);
             this.mmAnalitRecalcProb.Text = "Пересчитать выбранную пробу";
             this.mmAnalitRecalcProb.Click += new System.EventHandler(this.mmAnalitRecalcProb_Click);
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(322, 6);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(307, 6);
             // 
             // mmAnalitCorrection
             // 
             this.mmAnalitCorrection.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mmAnalitCorrectionByHand});
             this.mmAnalitCorrection.Name = "mmAnalitCorrection";
-            this.mmAnalitCorrection.Size = new System.Drawing.Size(325, 22);
+            this.mmAnalitCorrection.Size = new System.Drawing.Size(310, 22);
             this.mmAnalitCorrection.Text = "Коррекция графиков";
             // 
             // mmAnalitCorrectionByHand
@@ -459,7 +456,7 @@
             this.mmAnalitSaveCSVEverSelected,
             this.mmAnalitSaveCSVAllSelected});
             this.mmAnalitSaveCSV.Name = "mmAnalitSaveCSV";
-            this.mmAnalitSaveCSV.Size = new System.Drawing.Size(325, 22);
+            this.mmAnalitSaveCSV.Size = new System.Drawing.Size(310, 22);
             this.mmAnalitSaveCSV.Text = "Запись результаты в CSV(для XLS)";
             // 
             // mmAnalitSaveCSVEver
@@ -473,7 +470,7 @@
             // 
             this.mmAnalitSaveCSVAll.Name = "mmAnalitSaveCSVAll";
             this.mmAnalitSaveCSVAll.Size = new System.Drawing.Size(272, 22);
-            this.mmAnalitSaveCSVAll.Text = "Средние плюс все прожиги";
+            this.mmAnalitSaveCSVAll.Text = "Средние плюс все прожеги";
             this.mmAnalitSaveCSVAll.Click += new System.EventHandler(this.mmAnalitSaveCSVAll_Click);
             // 
             // mmAnalitSaveCSVEverSelected
@@ -487,16 +484,8 @@
             // 
             this.mmAnalitSaveCSVAllSelected.Name = "mmAnalitSaveCSVAllSelected";
             this.mmAnalitSaveCSVAllSelected.Size = new System.Drawing.Size(272, 22);
-            this.mmAnalitSaveCSVAllSelected.Text = "Средние плюс все прожиги выбранной";
+            this.mmAnalitSaveCSVAllSelected.Text = "Средние плюс все прожеги выбранной";
             this.mmAnalitSaveCSVAllSelected.Click += new System.EventHandler(this.mmAnalitSaveCSVAllSelected_Click);
-            // 
-            // mmAnalitDd
-            // 
-            this.mmAnalitDd.Name = "mmAnalitDd";
-            this.mmAnalitDd.Size = new System.Drawing.Size(325, 22);
-            this.mmAnalitDd.Text = "Вычислить d/D";
-            this.mmAnalitDd.Visible = false;
-            this.mmAnalitDd.Click += new System.EventHandler(this.mmAnalitDd_Click);
             // 
             // splitContainer1
             // 
@@ -659,6 +648,13 @@
             // dlgOpenSpectr
             // 
             this.dlgOpenSpectr.Filter = "Spectr Files|*.ss";
+            // 
+            // mmAnalitDd
+            // 
+            this.mmAnalitDd.Name = "mmAnalitDd";
+            this.mmAnalitDd.Size = new System.Drawing.Size(310, 22);
+            this.mmAnalitDd.Text = "Вычислить d/D";
+            this.mmAnalitDd.Click += new System.EventHandler(this.mmAnalitDd_Click);
             // 
             // TaskMeasuring
             // 

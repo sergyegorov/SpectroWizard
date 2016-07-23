@@ -46,8 +46,6 @@
             this.chbUseSpRates = new System.Windows.Forms.CheckBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.filterElement = new SpectroWizard.method.ElementAnalitFilter();
             this.btUseInAllFormulas = new System.Windows.Forms.Button();
             this.btSelectAllFrames = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -63,6 +61,9 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
             this.analitParamCalc = new SpectroWizard.method.AnalitParamCalc();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.analitParamCalcServ = new SpectroWizard.method.AnalitParamCalc();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tbCorrections = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
@@ -73,24 +74,20 @@
             this.pElInfGraph = new System.Windows.Forms.Panel();
             this.cbElementList = new System.Windows.Forms.ComboBox();
             this.label13 = new System.Windows.Forms.Label();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.analitParamCalcServ = new SpectroWizard.method.AnalitParamCalc();
             ((System.ComponentModel.ISupportInitialize)(this.nmConFrom)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nmConTo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nmMinConMaxError)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nmMinConMinError)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            this.groupBox1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nmMaxConMaxError)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nmMaxConMinError)).BeginInit();
             this.tabPage2.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.tabPage4.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.tabPage4.SuspendLayout();
             this.SuspendLayout();
             // 
             // cbFormulaType
@@ -103,13 +100,13 @@
             this.cbFormulaType.BackColor = System.Drawing.SystemColors.Control;
             this.cbFormulaType.FormattingEnabled = true;
             this.cbFormulaType.Items.AddRange(new object[] {
-            "Рабочая формула для концентраций:",
-            "Пробная формула для концентраций:"});
+            "Рабочаяя формула для концентрацйи:",
+            "Пробная формула для концентрацйи:"});
             this.cbFormulaType.Location = new System.Drawing.Point(6, 6);
             this.cbFormulaType.Name = "cbFormulaType";
             this.cbFormulaType.Size = new System.Drawing.Size(584, 21);
             this.cbFormulaType.TabIndex = 0;
-            this.cbFormulaType.Text = "Рабочая формула для концентраций:";
+            this.cbFormulaType.Text = "Рабочаяя формула для концентрацйи:";
             // 
             // nmConFrom
             // 
@@ -136,13 +133,14 @@
             // 
             // clbConditionList
             // 
-            this.clbConditionList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)));
+            this.clbConditionList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.clbConditionList.FormattingEnabled = true;
             this.clbConditionList.HorizontalScrollbar = true;
             this.clbConditionList.Location = new System.Drawing.Point(6, 52);
             this.clbConditionList.Name = "clbConditionList";
-            this.clbConditionList.Size = new System.Drawing.Size(254, 94);
+            this.clbConditionList.Size = new System.Drawing.Size(545, 94);
             this.clbConditionList.TabIndex = 16;
             this.clbConditionList.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.clbConditionList_ItemCheck);
             // 
@@ -180,7 +178,7 @@
             this.nmMinConMaxError.Size = new System.Drawing.Size(56, 20);
             this.nmMinConMaxError.TabIndex = 28;
             this.nmMinConMaxError.Value = new decimal(new int[] {
-            40,
+            10,
             0,
             0,
             0});
@@ -214,7 +212,7 @@
             this.nmMinConMinError.Size = new System.Drawing.Size(56, 20);
             this.nmMinConMinError.TabIndex = 25;
             this.nmMinConMinError.Value = new decimal(new int[] {
-            20,
+            4,
             0,
             0,
             0});
@@ -238,9 +236,7 @@
             "прямая линия",
             "кривая 2-ого порядка",
             "кривая 3-ого порядка",
-            "прямая в логорифме",
-            "кривая 2-ого порядка в логорифме",
-            "кривая 3-ого порядка в логорифме"});
+            "прямая в логорифме"});
             this.cbCalibrCAType.Location = new System.Drawing.Point(3, 3);
             this.cbCalibrCAType.Name = "cbCalibrCAType";
             this.cbCalibrCAType.Size = new System.Drawing.Size(320, 21);
@@ -284,13 +280,12 @@
             // 
             this.chbUseSpRates.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chbUseSpRates.AutoSize = true;
-            this.chbUseSpRates.Location = new System.Drawing.Point(590, 31);
+            this.chbUseSpRates.Location = new System.Drawing.Point(557, 33);
             this.chbUseSpRates.Name = "chbUseSpRates";
             this.chbUseSpRates.Size = new System.Drawing.Size(187, 17);
             this.chbUseSpRates.TabIndex = 30;
             this.chbUseSpRates.Text = "Использовать оценки качества";
             this.chbUseSpRates.UseVisualStyleBackColor = true;
-            this.chbUseSpRates.Visible = false;
             // 
             // tabControl1
             // 
@@ -299,8 +294,8 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Location = new System.Drawing.Point(2, 2);
             this.tabControl1.MinimumSize = new System.Drawing.Size(508, 265);
             this.tabControl1.Name = "tabControl1";
@@ -310,7 +305,6 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.groupBox1);
             this.tabPage1.Controls.Add(this.btUseInAllFormulas);
             this.tabPage1.Controls.Add(this.btSelectAllFrames);
             this.tabPage1.Controls.Add(this.tableLayoutPanel1);
@@ -344,35 +338,12 @@
             this.tabPage1.Text = "Общие параметры";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // groupBox1
-            // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.filterElement);
-            this.groupBox1.Location = new System.Drawing.Point(406, 52);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(385, 65);
-            this.groupBox1.TabIndex = 43;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Фильтр";
-            this.groupBox1.Visible = false;
-            // 
-            // filterElement
-            // 
-            this.filterElement.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.filterElement.Location = new System.Drawing.Point(6, 19);
-            this.filterElement.MinimumSize = new System.Drawing.Size(0, 26);
-            this.filterElement.Name = "filterElement";
-            this.filterElement.Size = new System.Drawing.Size(373, 26);
-            this.filterElement.TabIndex = 42;
-            // 
             // btUseInAllFormulas
             // 
-            this.btUseInAllFormulas.Location = new System.Drawing.Point(267, 123);
+            this.btUseInAllFormulas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btUseInAllFormulas.Location = new System.Drawing.Point(557, 81);
             this.btUseInAllFormulas.Name = "btUseInAllFormulas";
-            this.btUseInAllFormulas.Size = new System.Drawing.Size(182, 23);
+            this.btUseInAllFormulas.Size = new System.Drawing.Size(237, 23);
             this.btUseInAllFormulas.TabIndex = 41;
             this.btUseInAllFormulas.Text = "Скопировать во все формулы";
             this.btUseInAllFormulas.UseVisualStyleBackColor = true;
@@ -380,9 +351,10 @@
             // 
             // btSelectAllFrames
             // 
-            this.btSelectAllFrames.Location = new System.Drawing.Point(266, 52);
+            this.btSelectAllFrames.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btSelectAllFrames.Location = new System.Drawing.Point(557, 52);
             this.btSelectAllFrames.Name = "btSelectAllFrames";
-            this.btSelectAllFrames.Size = new System.Drawing.Size(134, 23);
+            this.btSelectAllFrames.Size = new System.Drawing.Size(237, 23);
             this.btSelectAllFrames.TabIndex = 40;
             this.btSelectAllFrames.Text = "Использовать все";
             this.btSelectAllFrames.UseVisualStyleBackColor = true;
@@ -419,7 +391,6 @@
             this.cbCalibrZType.Size = new System.Drawing.Size(321, 21);
             this.cbCalibrZType.TabIndex = 24;
             this.cbCalibrZType.Text = "прямая линия";
-            this.cbCalibrZType.Visible = false;
             // 
             // label12
             // 
@@ -450,7 +421,7 @@
             this.nmMaxConMaxError.Size = new System.Drawing.Size(56, 20);
             this.nmMaxConMaxError.TabIndex = 37;
             this.nmMaxConMaxError.Value = new decimal(new int[] {
-            40,
+            5,
             0,
             0,
             0});
@@ -474,7 +445,7 @@
             this.nmMaxConMinError.Size = new System.Drawing.Size(56, 20);
             this.nmMaxConMinError.TabIndex = 34;
             this.nmMaxConMinError.Value = new decimal(new int[] {
-            20,
+            1,
             0,
             0,
             0});
@@ -542,6 +513,39 @@
             this.analitParamCalc.Name = "analitParamCalc";
             this.analitParamCalc.Size = new System.Drawing.Size(794, 259);
             this.analitParamCalc.TabIndex = 0;
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.panel2);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Size = new System.Drawing.Size(800, 263);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Коррекции производятся...";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // panel2
+            // 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.Controls.Add(this.analitParamCalcServ);
+            this.panel2.Location = new System.Drawing.Point(2, 2);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(795, 259);
+            this.panel2.TabIndex = 1;
+            // 
+            // analitParamCalcServ
+            // 
+            this.analitParamCalcServ.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.analitParamCalcServ.Location = new System.Drawing.Point(0, 0);
+            this.analitParamCalcServ.Margin = new System.Windows.Forms.Padding(4);
+            this.analitParamCalcServ.MinimumSize = new System.Drawing.Size(495, 212);
+            this.analitParamCalcServ.Name = "analitParamCalcServ";
+            this.analitParamCalcServ.Size = new System.Drawing.Size(794, 259);
+            this.analitParamCalcServ.TabIndex = 0;
             // 
             // tabPage4
             // 
@@ -660,39 +664,6 @@
             this.label13.TabIndex = 0;
             this.label13.Text = "Элемент для сравнения";
             // 
-            // tabPage3
-            // 
-            this.tabPage3.Controls.Add(this.panel2);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(800, 263);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Экспериментальные функции";
-            this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // panel2
-            // 
-            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel2.Controls.Add(this.analitParamCalcServ);
-            this.panel2.Location = new System.Drawing.Point(2, 2);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(795, 259);
-            this.panel2.TabIndex = 1;
-            // 
-            // analitParamCalcServ
-            // 
-            this.analitParamCalcServ.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.analitParamCalcServ.Location = new System.Drawing.Point(0, 0);
-            this.analitParamCalcServ.Margin = new System.Windows.Forms.Padding(4);
-            this.analitParamCalcServ.MinimumSize = new System.Drawing.Size(495, 212);
-            this.analitParamCalcServ.Name = "analitParamCalcServ";
-            this.analitParamCalcServ.Size = new System.Drawing.Size(794, 259);
-            this.analitParamCalcServ.TabIndex = 0;
-            // 
             // SimpleFormula
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -709,16 +680,15 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.nmMaxConMaxError)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nmMaxConMinError)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
-            this.tabPage4.ResumeLayout(false);
-            this.tabPage4.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -734,6 +704,8 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox tbWarning;
         public System.Windows.Forms.ComboBox cbFormulaType;
+        public System.Windows.Forms.NumericUpDown nmConFrom;
+        public System.Windows.Forms.NumericUpDown nmConTo;
         public System.Windows.Forms.CheckedListBox clbConditionList;
         public System.Windows.Forms.ComboBox cbZOrderType;
         public System.Windows.Forms.ComboBox cbCalibrCAType;
@@ -770,9 +742,5 @@
         private System.Windows.Forms.ComboBox cbElementList1;
         private System.Windows.Forms.TextBox tbCorrections;
         private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.GroupBox groupBox1;
-        public System.Windows.Forms.NumericUpDown nmConFrom;
-        public System.Windows.Forms.NumericUpDown nmConTo;
-        public ElementAnalitFilter filterElement;
     }
 }

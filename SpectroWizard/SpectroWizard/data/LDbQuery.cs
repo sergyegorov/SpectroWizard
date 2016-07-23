@@ -18,12 +18,7 @@ namespace SpectroWizard.data
             ESelector.SelectorListener += new ElementSelectorAction(ElSelListener);
             DialogResult = DialogResult.Cancel;
             Common.SetupFont(this);//Font = Common.GetDefaultFont(Font);
-            IntensTypeCbx.SelectedIndex = Common.Env.DefaultLineDb;
-            Spectr sp = SpectroWizard.gui.tasks.TaskCheckDev.getLinkingMatrixSpectr();
-            Dispers disp = sp.GetDispers();
-            LyFromFld.Value = (decimal)disp.GetLyByLocalPixel(0, 0);
-            int[] ss = disp.GetSensorSizes();
-            LyToFld.Value = (decimal)disp.GetLyByLocalPixel(ss.Length-1, ss[ss.Length-1]);
+            IntensTypeCbx.SelectedIndex = 1;
         }
 
         public float GetQIntens(LineDbRecord r)
@@ -111,8 +106,6 @@ namespace SpectroWizard.data
                 PreviewFromScrollBar.Value = 0;
                 PreviewFromScrollBar.Maximum = CurrentResults.Count;
                 PreviewData.Refresh();
-                Common.Env.DefaultLineDb = IntensTypeCbx.SelectedIndex;
-                Common.Env.Store();
             }
             catch (Exception ex)
             {

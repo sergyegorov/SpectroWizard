@@ -259,18 +259,6 @@
     <Compile Include="gui\comp\FDataGridView.Designer.cs">
       <DependentUpon>FDataGridView.cs</DependentUpon>
     </Compile>
-    <Compile Include="gui\comp\ElementSelectorDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="gui\comp\ElementSelectorDialog.Designer.cs">
-      <DependentUpon>ElementSelectorDialog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="gui\comp\InputDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="gui\comp\InputDialog.Designer.cs">
-      <DependentUpon>InputDialog.cs</DependentUpon>
-    </Compile>
     <Compile Include="gui\comp\InputLinks.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -509,12 +497,6 @@
     <Compile Include="method\CalibrHandCorrection.Designer.cs">
       <DependentUpon>CalibrHandCorrection.cs</DependentUpon>
     </Compile>
-    <Compile Include="method\ElementAnalitFilter.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="method\ElementAnalitFilter.Designer.cs">
-      <DependentUpon>ElementAnalitFilter.cs</DependentUpon>
-    </Compile>
     <Compile Include="method\ExtraLineTester.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -666,12 +648,6 @@
     <EmbeddedResource Include="gui\comp\FDataGridView.resx">
       <DependentUpon>FDataGridView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="gui\comp\ElementSelectorDialog.resx">
-      <DependentUpon>ElementSelectorDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="gui\comp\InputDialog.resx">
-      <DependentUpon>InputDialog.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="gui\comp\InputLinks.resx">
       <DependentUpon>InputLinks.cs</DependentUpon>
     </EmbeddedResource>
@@ -785,9 +761,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="method\CalibrHandCorrection.resx">
       <DependentUpon>CalibrHandCorrection.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="method\ElementAnalitFilter.resx">
-      <DependentUpon>ElementAnalitFilter.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="method\ExtraLineTester.resx">
       <DependentUpon>ExtraLineTester.cs</DependentUpon>

@@ -289,7 +289,7 @@ namespace SpectroWizard.analit
             for (int i = 0; i < vals.Length; i++)
                 ever += vals[i];
             ever /= vals.Length;
-            if (vals.Length < 3)
+            if (vals.Length <= 3)
             {
                 for (int i = 0; i < Used.Length; i++)
                     Used[i] = true;

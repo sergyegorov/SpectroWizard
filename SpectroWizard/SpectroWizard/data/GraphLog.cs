@@ -10,7 +10,6 @@ using System.Collections;
 
 using System.IO;
 using SpectroWizard.util;
-using SpectroWizard.analit.fk;
 
 namespace SpectroWizard.data
 {
@@ -95,18 +94,6 @@ namespace SpectroWizard.data
             }
         }
 
-        public bool ShowLgCheckBox
-        {
-            get
-            {
-                return cbLg.Visible;
-            }
-            set
-            {
-                cbLg.Visible = value;
-            }
-        }
-
         class WindowInfo
         {
             public string Name;
@@ -125,15 +112,9 @@ namespace SpectroWizard.data
 
         List<GLogRecord> DrawData = new List<GLogRecord>();
         List<GLogMsg> DrawLogTxt = new List<GLogMsg>();
-        string ToPrint;
+
         public void Setup(List<GLogRecord> data, string section_nam)
         {
-            Setup(data, section_nam, null);
-        }
-
-        public void Setup(List<GLogRecord> data, string section_nam,string to_print)
-        {
-            ToPrint = to_print;
             DrawData.Clear();
             DrawWindows.Clear();
             DrawWindowIndex.Clear();
@@ -203,12 +184,8 @@ namespace SpectroWizard.data
             DBGr.ReDraw();
         }
 
-        /*void drawLg()
-        {
-        }*/
         public int DrawCount, CurrentDrawIndex;
         public List<GLogRecord.ActivePoint> ActivePoints = new List<GLogRecord.ActivePoint>();
-
         private void DrawPanel_Paint(Graphics g)
         {
             try
@@ -232,13 +209,6 @@ namespace SpectroWizard.data
                         DrawPanel.Height/2-s.Height/2);
                     return;
                 }
-
-                Graphics cg = g;
-                /*if (cbLg.Checked)
-                {
-                    //drawLg();
-                    return;
-                }*/
 
                 RectangleF tmp_s = new RectangleF();
                 if (DrawData.Count != 0)
@@ -324,7 +294,7 @@ namespace SpectroWizard.data
                             GLogRecord spd = DrawData[i];
                             string vname = spd.GetViewName();
                             int w_index = (int)DrawWindowIndex[vname];
-                            DrawData[i].Draw(cg,
+                            DrawData[i].Draw(g,
                                     new Rectangle((int)DrawWindows[w_index].GFrom,
                                         0,
                                         (int)DrawWindows[w_index].GWidht,
@@ -335,7 +305,7 @@ namespace SpectroWizard.data
                                     (GLogRecord.DrawSumType)chbSum.SelectedIndex,
                                     this);
                             draw_index[w_index]++;
-                            DrawData[i].DrawCrosses(cg,CrossLyFrom, CrossLyTo, CrossY, CrossZ);
+                            DrawData[i].DrawCrosses(g,CrossLyFrom, CrossLyTo, CrossY, CrossZ);
                         }
                     }
                     else
@@ -346,7 +316,7 @@ namespace SpectroWizard.data
                             CurrentDrawIndex = i;
                             GLogSpData spd = (GLogSpData)DrawData[i];
                             int w_index = (int)DrawWindowIndex[spd.ViewName];
-                            DrawData[i].Draw(cg,
+                            DrawData[i].Draw(g,
                                     new Rectangle((int)DrawWindows[w_index].GFrom,
                                         0,
                                         (int)DrawWindows[w_index].GWidht,
@@ -375,15 +345,12 @@ namespace SpectroWizard.data
                     int h = (int)1 + step;
                     for (int i = 0; i < DrawLogTxt.Count; i++)
                     {
-                        DrawLogTxt[i].Draw(cg, new Rectangle(3, h, 100, 15), tmp_s, 0, 0, 
+                        DrawLogTxt[i].Draw(g, new Rectangle(3, h, 100, 15), tmp_s, 0, 0, 
                             (GLogRecord.DrawSumType)chbSum.SelectedIndex,//chbSum.Checked, 
                             this);
                         h += DrawLogTxt[i].GetMinHeight();
                     }
                 }
-
-                if(ToPrint != null)
-                    g.DrawString(ToPrint, DefaultFont, Brushes.Black, 30, 40);
             }
             catch (Exception ex)
             {
@@ -447,15 +414,8 @@ namespace SpectroWizard.data
             }
         }
 
-        
-
         public delegate void SelectActivePointListener(int id1,int id2);
 
-        ContextMenuStrip CMenu;
-        public void SetContextMenu(ContextMenuStrip cm)
-        {
-            CMenu = cm;
-        }
         public SelectActivePointListener SelectingActivePoint = null;
         //int SelectedActivePoint = -1;
         private void DrawPanel_MouseUp(object sender, MouseEventArgs e)
@@ -464,8 +424,7 @@ namespace SpectroWizard.data
             {
                 if (e.Button == System.Windows.Forms.MouseButtons.Right)
                 {
-                    if(CMenu != null)
-                        CMenu.Show(this, e.X, e.Y);
+                    CM.Show(this, e.X, e.Y);
                     return;
                 }
                 if (IsClick == false || SelectingActivePoint == null)
@@ -488,26 +447,6 @@ namespace SpectroWizard.data
                 }
                 if(con >= 0)
                     SelectingActivePoint(ActivePoints[con].PointId1, ActivePoints[con].PointId2);
-            }
-            catch (Exception ex)
-            {
-                Common.Log(ex);
-            }
-        }
-
-        public bool IsLg
-        {
-            get
-            {
-                return cbLg.Checked;
-            }
-        }
-
-        private void cbLg_CheckedChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                ReDraw();
             }
             catch (Exception ex)
             {
@@ -721,22 +660,10 @@ namespace SpectroWizard.data
         double Kx, Ky, Kz, X0, Y0, Z0;
         double MaxZ;
         int PanelHeight;
-        bool IsLg;
         void ConvertXYZ(double x, double y, double z, out int xg, out int yg)
         {
             int dx = (int)((z - Z0) * Kz);
             int dy = dx;
-            if (IsLg)
-            {
-                if (x >= minLg)
-                    x = Math.Log(x);
-                else
-                    x = Math.Log(minLg);
-                if (y >= minLg)
-                    y = Math.Log(y);
-                else
-                    y = Math.Log(minLg);
-            }
             xg = 5 + (int)((x - X0) * Kx) + dx;
             yg = (int)(PanelHeight - (y - Y0) * Ky) - dy - 5;
         }
@@ -754,10 +681,8 @@ namespace SpectroWizard.data
                 g.DrawLine(Pens.Green, x1 - size, y1 + size, x1 + size, y1 - size);
                 g.DrawLine(Pens.Green, x1 - size, y1 - size, x1 + size, y1 + size);
             }
-
         }
 
-        const double minLg = 0.000001;
         public override void Draw(Graphics g, Rectangle client, RectangleF y_size,
             int level, int level_max,
             DrawSumType draw_sum,
@@ -765,38 +690,16 @@ namespace SpectroWizard.data
         {
             double xmin, xmax, ymin;
             double ymax, zmin, zmax;
-
-            IsLg = master.IsLg;
-
+            
             GetMinMaxVals(out xmin, out ymin, out zmin, out xmax, out ymax, out zmax);
             PanelHeight = client.Height;
 
             int z_fild_size = client.Width / 10;
 
-            if (IsLg)
-            {
-                if (xmin >= minLg)
-                    xmin = Math.Log(xmin);
-                else
-                    xmin = Math.Log(minLg);
-                if (xmin >= minLg)
-                    ymin = Math.Log(ymin);
-                else
-                    ymin = Math.Log(minLg);
-                if (xmax >= minLg)
-                    xmax = Math.Log(xmin);
-                else
-                    xmax = Math.Log(minLg);
-                if (xmax >= minLg)
-                    ymax = Math.Log(ymin);
-                else
-                    ymax = Math.Log(minLg);
-            }
-            Z0 = zmin;
-            MaxZ = zmax;
             X0 = xmin;
             Y0 = ymin;
             Z0 = zmin;
+            MaxZ = zmax;
 
             Kx = (client.Width - z_fild_size - 20) / (xmax - xmin);
             Ky = (client.Height - z_fild_size - 20) / (ymax - ymin);
@@ -1276,30 +1179,15 @@ namespace SpectroWizard.data
 
         double Kx, Ky, X0, Y0;
         int PanelHeight;
-        bool IsLog;
         //override public 
         int ConvertXToPaint(double x)
         {
-            if (IsLog)
-            {
-                if(x >= minLog)
-                    x = Math.Log(x);
-                else
-                    x = Math.Log(minLog);
-            }
             return (int)((x - X0) * Kx);
         }
 
         //override public 
         int ConvertYToPaint(double y)
         {
-            if (IsLog)
-            {
-                if (y >= minLog)
-                    y = Math.Log(y);
-                else
-                    y = Math.Log(minLog);
-            }
             return (int)(PanelHeight - (y - Y0) * Ky);
         }
 
@@ -1332,32 +1220,11 @@ namespace SpectroWizard.data
             }
         }
 
-        const double minLog = 0.0001;
         public override void Draw(Graphics g, Rectangle client, RectangleF y_size,
             int level, int level_max,
             DrawSumType draw_sum,
             GraphLog master)
         {
-            IsLog = master.IsLg;
-            if (IsLog)
-            {
-                double x = XPoints[0];
-                for (int i = 0; i < XPoints.Length; i++)
-                    if (x > XPoints[i] && XPoints[i] >= minLog)
-                        x = XPoints[i];
-                x -= x / 100;
-                double x1 = y_size.X + y_size.Width;
-
-                double y = YPoints[0];
-                for (int i = 0; i < YPoints.Length; i++)
-                    if (y > YPoints[i] && YPoints[i] >= minLog)
-                        y = YPoints[i];
-                y -= y / 100;
-                double y1 = y_size.Y + y_size.Height;
-
-
-                y_size = new RectangleF((float)x, (float)y, (float)(x1 - x), (float)(y1 - y));
-            }
             //y_size = new RectangleF();
             //GetMinMaxVal(ref y_size);
             if (y_size.Width == 0 || y_size.Height == 0)
@@ -1386,59 +1253,23 @@ namespace SpectroWizard.data
                     g.DrawLine(GetGrayPen(i, 128), 20 + i, 26, 20 + i, 28);
                 }
 
-            double kx, ky;
-            if (IsLog)
-            {
-                double from,to;
-                from = y_size.X;
-                to = y_size.X + y_size.Width;
-                
-                if(from < minLog)
-                    from = minLog;
-                from = Math.Log(from);
-                
-                if(to < minLog)
-                    to = minLog;
-                to = Math.Log(to);
-
-                X0 = from;
-                kx = client.Width / (to - from);//y_size.Width;
-
-                from = y_size.Y;
-                to = y_size.Y + y_size.Height;
-
-                if (from < minLog)
-                    from = minLog;
-                from = Math.Log(from);
-
-                if (to < minLog)
-                    to = minLog;
-                to = Math.Log(to);
-                
-                ky = client.Height / (to - from);
-                Y0 = from;
-            }
-            else
-            {
-                kx = client.Width / y_size.Width;
-                ky = client.Height / y_size.Height;
-                X0 = y_size.X;
-                Y0 = y_size.Y;
-            }
+            double kx = client.Width / y_size.Width;
+            double ky = client.Height / y_size.Height;
 
             Kx = kx;
             Ky = ky;
-            
+            X0 = y_size.X;
+            Y0 = y_size.Y;
             PanelHeight = client.Height;
             if (level == level_max)
             {
-                double[] xval = serv.GetGoodValues(y_size.X, y_size.X + y_size.Width, client.Width / 70,IsLog);
-                double[] yval = serv.GetGoodValues(y_size.Y, y_size.Y + y_size.Height, client.Height / 50,IsLog);
+                double[] xval = serv.GetGoodValues(y_size.X, y_size.X + y_size.Width, client.Width / 70);
+                double[] yval = serv.GetGoodValues(y_size.Y, y_size.Y + y_size.Height, client.Height / 50);
                 if (xval != null)
                 {
                     for (int i = 0; i < xval.Length; i++)
                     {
-                        int x = (int)ConvertXToPaint(xval[i]);// ((xval[i] - y_size.X) * kx);
+                        int x = (int)((xval[i] - y_size.X) * kx);
                         g.DrawLine(Pens.LightGray, x, 0, x, client.Height);
                     }
                 }
@@ -1446,7 +1277,7 @@ namespace SpectroWizard.data
                 {
                     for (int i = 0; i < yval.Length; i++)
                     {
-                        int y = (int)ConvertYToPaint(yval[i]);// (client.Height - (yval[i] - y_size.Y) * ky);
+                        int y = (int)(client.Height - (yval[i] - y_size.Y) * ky);
                         g.DrawLine(Pens.LightGray, 0, y, client.Width, y);
                     }
                 }
@@ -1454,7 +1285,7 @@ namespace SpectroWizard.data
                 {
                     for (int i = 0; i < xval.Length; i++)
                     {
-                        int x = (int)ConvertXToPaint(xval[i]);// ((xval[i] - y_size.X) * kx);
+                        int x = (int)((xval[i] - y_size.X) * kx);
                         string tval = serv.GetGoodValue(xval[i], 3);
                         if (i < xval.Length / 2)
                             g.DrawString(tval,
@@ -1471,7 +1302,7 @@ namespace SpectroWizard.data
                 {
                     for (int i = 0; i < yval.Length; i++)
                     {
-                        int y = (int)ConvertYToPaint(yval[i]);// (client.Height - (yval[i] - y_size.Y) * ky);
+                        int y = (int)(client.Height - (yval[i] - y_size.Y) * ky);
                         string tval = serv.GetGoodValue(yval[i], 3);
                         if (i >= yval.Length / 2)
                             g.DrawString(tval,
@@ -1489,10 +1320,10 @@ namespace SpectroWizard.data
             Pen p = new Pen(GetColor(ColSp,level,level_max));
             for (int i = 1; i < XVals.Length; i++)
             {
-                int x1 = (int)ConvertXToPaint(XVals[i-1]);//((XVals[i-1] - y_size.X)*kx);
-                int y1 = (int)ConvertYToPaint(YVals[i-1]);//(client.Height - (YVals[i-1] - y_size.Y)*ky);
-                int x2 = (int)ConvertXToPaint(XVals[i]);//((XVals[i] - y_size.X)*kx);
-                int y2 = (int)ConvertYToPaint(YVals[i]);//(client.Height - (YVals[i] - y_size.Y)*ky);
+                int x1 = (int)((XVals[i-1] - y_size.X)*kx);
+                int y1 = (int)(client.Height - (YVals[i-1] - y_size.Y)*ky);
+                int x2 = (int)((XVals[i] - y_size.X)*kx);
+                int y2 = (int)(client.Height - (YVals[i] - y_size.Y)*ky);
                 g.DrawLine(p, x1, y1, x2, y2);
             }
 
@@ -1548,10 +1379,10 @@ namespace SpectroWizard.data
                 {
                     case DrawSumType.Sum:
                         size = 6;
-                        x = (int)ConvertXToPaint(xp[0]);//((xp[0] - y_size.X) * kx);
+                        x = (int)((xp[0] - y_size.X) * kx);
                         if (IsValid(ever))
                         {
-                            y = (int)ConvertYToPaint(ever);// (client.Height - (ever - y_size.Y) * ky);
+                            y = (int)(client.Height - (ever - y_size.Y) * ky);
                             g.DrawLine(act_p, x - size, y, x + size, y);
                             g.DrawLine(act_p, x, y - size, x, y + size);
                         }
@@ -1560,7 +1391,7 @@ namespace SpectroWizard.data
                             if (IsValid(ever1))
                             {
                                 size /= 2;
-                                y = (int)ConvertYToPaint(ever1);//((client.Height - (ever1 - y_size.Y) * ky);
+                                y = (int)(client.Height - (ever1 - y_size.Y) * ky);
                                 g.DrawEllipse(pas_p, x - size, y - size, size * 2 + 1, size * 2 + 1);
                             }
                         }
@@ -1571,8 +1402,8 @@ namespace SpectroWizard.data
                             if (IsValid(xp[i]) == false ||
                                 IsValid(yp[i]) == false)
                                 continue;
-                            x = (int)ConvertXToPaint(xp[i]);// ((xp[i] - y_size.X) * kx);
-                            y = (int)ConvertYToPaint(yp[i]);// (client.Height - (yp[i] - y_size.Y) * ky);
+                            x = (int)((xp[i] - y_size.X) * kx);
+                            y = (int)(client.Height - (yp[i] - y_size.Y) * ky);
                             master.ActivePoints.Add(new ActivePoint(x, y, PointId1[con_from + i], PointId2[con_from + i]));
                             const int size_low = 3;
                             const int size_hi = 5;
@@ -1624,8 +1455,8 @@ namespace SpectroWizard.data
                             ever = SpectroWizard.analit.Stat.GetEver(yy);
 
                             size = 6;
-                            x = (int)ConvertXToPaint(xp[0]);// ((xp[0] - y_size.X) * kx);
-                            y = (int)ConvertYToPaint(ever);// (client.Height - (ever - y_size.Y) * ky);
+                            x = (int)((xp[0] - y_size.X) * kx);
+                            y = (int)(client.Height - (ever - y_size.Y) * ky);
                             if (IsValid(ever) && en_p)
                             {
                                 g.DrawLine(act_p, x - size, y, x + size, y);

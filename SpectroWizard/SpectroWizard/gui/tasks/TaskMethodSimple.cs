@@ -100,7 +100,7 @@ namespace SpectroWizard.gui.tasks
                     Method.IsChanged())
                     Method.Save();
                 Common.Dev.Reg.ClearNullMonitor();
-                glCalibrGraph.Setup(null, "",SelectedFormula.Formula.GetDescription());
+                glCalibrGraph.Setup(null, "");
                 spSpectrView.ClearSpectrList();
                 glCalcDetails.Setup(null, "");
                 tabControl1.SelectedIndex = 0;
@@ -198,17 +198,6 @@ namespace SpectroWizard.gui.tasks
             Log.Reg(MLSConst, menuCalibr);
 
             glCalibrGraph.setSumAsProbSums();
-            glCalibrGraph.SetContextMenu(cmGraph);
-
-            spSpectrView.SetLyListener = new SetLy(SetLy);
-        }
-
-        void SetLy(bool isAnalit, float ly)
-        {
-            if (isAnalit)
-                SelectedFormula.SetupAnalitLy(ly);
-            else
-                SelectedFormula.SetupCompareLy(ly);
         }
 
         void SelectGraphPoint(int prob, int sub_prob)
@@ -447,7 +436,7 @@ namespace SpectroWizard.gui.tasks
                     try
                     {
                         if (mscf == null)
-                            glCalcDetails.Setup(null, null, null);
+                            glCalcDetails.Setup(null, null);
                         else
                             glCalcDetails.Setup(msc.GetData(StandartSubProbTableMap[SelectedRow], f.FormulaIndex).LogData, Common.LogCalcSectionName);
                         glCalcDetails.ReDraw();//.Refresh();
@@ -496,7 +485,7 @@ namespace SpectroWizard.gui.tasks
             }
 
             if (SelectedFormula != null)
-                glCalibrGraph.Setup(SelectedFormula.CalibGraphicsLog, Common.LogCalcGraphSectionName,SelectedFormula.Formula.GetDescription());
+                glCalibrGraph.Setup(SelectedFormula.CalibGraphicsLog, Common.LogCalcGraphSectionName);
 
             glCalibrGraph.ClearCross();
             if (SelectedCellResult != null && 
@@ -601,11 +590,7 @@ namespace SpectroWizard.gui.tasks
                 MethodSimpleCell msc = Method.GetCell(sel, p);
                 if (row == dgConTable.RowCount)
                     dgConTable.Rows.Add();
-                string name = msp.Name + "(";
-                name += msc.Prefix;
-                name += msc.Con;
-                name += "%) Среднее по графику:";
-                dgConTable.Rows[row].HeaderCell.Value = name;
+                dgConTable.Rows[row].HeaderCell.Value = msp.Name;
                 for (int f = 0; f < dgConTable.ColumnCount;f++ )
                     dgConTable.Rows[row].Cells[f] = new SMProbCell(f,msc, msc.Con, msc.Prefix, dgConTable.Rows[row], chbShowSko.Checked);
                 StandartTableMap.Add(p);
@@ -620,20 +605,15 @@ namespace SpectroWizard.gui.tasks
                     //    dgConTable.Rows[row].HeaderCell.Value = Common.MLS.Get(MLSConst,"профиль?");
                     //else
                     DateTime dt = msp.MeasuredSpectrs[sp].SpDateTime;
-                    string tmp = "  ";
+                    string tmp = " ";
                     if (dt.Ticks != 0)
                     {
-                        if (dt.Day != DateTime.Now.Day || dt.Month != DateTime.Now.Month || dt.Year != DateTime.Now.Year)
-                            tmp += dt.Day;
-                        if (dt.Month != DateTime.Now.Month || dt.Year != DateTime.Now.Year)
-                            tmp += "." + dt.Month;
-                        if (dt.Month >= DateTime.Now.Month && dt.Year != DateTime.Now.Year)
-                            tmp += "." + (dt.Year - 2000);
+                        tmp += dt.Day + "." + dt.Month + "." + (dt.Year - 2000);
                         tmp += " " + dt.Hour + ":" + dt.Minute;
                     }
                     else
                     {
-                        //tmp = "|";
+                        tmp = "-";
                     }
                     dgConTable.Rows[row].HeaderCell.Value = tmp;
                         //dgConTable.Rows[row].HeaderCell.Value = Common.MLS.Get(MLSConst,"Эталон ")+(char)0x3BB;
@@ -716,54 +696,26 @@ namespace SpectroWizard.gui.tasks
                 DialogResult dr = StSelector.ShowDialog();
                 if (dr != DialogResult.OK)
                     return;
-                if (StSelector.SelectedAll == false)
+                for (int pr = 0; pr < Method.GetProbCount(); pr++)
                 {
-                    for (int pr = 0; pr < Method.GetProbCount(); pr++)
+                    MethodSimpleProb msp = Method.GetProbHeader(pr);
+                    if (msp.StLibPath.Equals(StSelector.SelectedStName) &&
+                        msp.StIndex == StSelector.SelectedProb)
                     {
-                        MethodSimpleProb msp = Method.GetProbHeader(pr);
-                        if (msp.StLibPath.Equals(StSelector.SelectedStName) &&
-                            msp.StIndex == StSelector.SelectedProb)
-                        {
-                            dr = MessageBox.Show(MainForm.MForm,
-                                Common.MLS.Get(MLSConst, "Стандарт с выбранным именем уже вставлен в градуировку.") + " '" + msp.Name + "' " +
-                                Common.MLS.Get(MLSConst, "Добавить ещё одну копию?"),
-                                Common.MLS.Get(MLSConst, "Дублирование"), MessageBoxButtons.YesNo,
-                                MessageBoxIcon.Question);
-                            if (dr != DialogResult.Yes)
-                                return;
-                            break;
-                        }
-                    }
-                    int i = Method.AddStandart(StSelector.SelectedStName,
-                        StSelector.SelectedProb,
-                        StSelector.Get(), StSelector.SelectedProbName
-                        );
-                }
-                else
-                {
-                    List<string> probList = StSelector.GetAllProbs();
-                    for (int prob = 0; prob < probList.Count; prob++)
-                    {
-                        String probName = probList[prob];
-                        bool skip = false;
-                        for (int pr = 0; pr < Method.GetProbCount(); pr++)
-                        {
-                            MethodSimpleProb msp = Method.GetProbHeader(pr);
-                            if (msp.StLibPath.Equals(StSelector.SelectedStName) &&
-                                msp.Name.Equals(probName))
-                            {
-                                skip = true;
-                                break;
-                            }
-                        }
-                        if (skip)
-                            continue;
-                        int i = Method.AddStandart(StSelector.SelectedStName,
-                            prob,
-                            StSelector.Get(), probName
-                            );
+                        dr = MessageBox.Show(MainForm.MForm,
+                            Common.MLS.Get(MLSConst, "Стандарт с выбранным именем уже вставлен в градуировку.")+" '"+msp.Name+"' "+
+                            Common.MLS.Get(MLSConst, "Добавить ещё одну копию?"),
+                            Common.MLS.Get(MLSConst, "Дублирование"), MessageBoxButtons.YesNo,
+                            MessageBoxIcon.Question);
+                        if (dr != DialogResult.Yes)
+                            return;
+                        break;
                     }
                 }
+                int i = Method.AddStandart(StSelector.SelectedStName,
+                    StSelector.SelectedProb,
+                    StSelector.Get(),StSelector.SelectedProbName
+                    );
                 //mmStandReloadCons_Click(sender, e);
                 ReloadTableAndCheckSelection(true);
                 //CheckSelection();
@@ -796,49 +748,22 @@ namespace SpectroWizard.gui.tasks
                 DialogResult dr = StSelector.ShowDialog();
                 if (dr != DialogResult.OK)
                     return;
+                if (StSelector.SelectedElement == null)
+                    return;
 
-                if (StSelector.SelectedAll == false)
-                {
-                    if (StSelector.SelectedElement == null)
-                        return;
-
-                    int elem_index = ElementTable.FindIndex(StSelector.SelectedElement);
-                    for (int el = 0; el < Method.GetElementCount(); el++)
-                        if (Method.GetElHeader(el).ElementIndex == elem_index)
-                        {
-                            MessageBox.Show(MainForm.MForm,
-                            Common.MLS.Get(MLSConst, "Нельзя добавлять уже добавленный элемент. Если хотите расчитать его ещё одним способом - добавте новую формулу в уже добавленный элемент."),
-                            Common.MLS.Get(MLSConst, "Ошибка"),
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error);
-                            return;
-                        }
-
-                    Method.AddElement(elem_index);
-                }
-                else
-                {
-                    List<string> elements = StSelector.GetAllElements();
-                    for (int eli = 0; eli < elements.Count; eli++)
+                int elem_index = ElementTable.FindIndex(StSelector.SelectedElement);
+                for (int el = 0; el < Method.GetElementCount(); el++)
+                    if (Method.GetElHeader(el).ElementIndex == elem_index)
                     {
-                        int elem_index = ElementTable.FindIndex(elements[eli]);
-                        bool skip = false;
-                        for (int el = 0; el < Method.GetElementCount(); el++)
-                            if (Method.GetElHeader(el).ElementIndex == elem_index)
-                            {
-                                MessageBox.Show(MainForm.MForm,
-                                Common.MLS.Get(MLSConst, "Нельзя добавлять уже добавленный элемент. Если хотите расчитать его ещё одним способом - добавте новую формулу в уже добавленный элемент."),
-                                Common.MLS.Get(MLSConst, "Ошибка"),
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Error);
-                                skip = true;
-                                break;
-                            }
-                        if (skip)
-                            continue;
-                        Method.AddElement(elem_index);
+                        MessageBox.Show(MainForm.MForm,
+                        Common.MLS.Get(MLSConst, "Нельзя добавлять уже добавленный элемент. Если хотите расчитать его ещё одним способом - добавте новую формулу в уже добавленный элемент."),
+                        Common.MLS.Get(MLSConst, "Ошибка"),
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                        return;
                     }
-                }
+
+                Method.AddElement(elem_index);
                 ReloadElementList();
                 ReloadTableAndCheckSelection(true);
                 //CheckSelection();
@@ -888,7 +813,7 @@ namespace SpectroWizard.gui.tasks
                 if(SelectedRow < 0)
                 {
                     MessageBox.Show(MainForm.MForm,
-                        Common.MLS.Get(MLSConst, "Для добавления ещё одного прожига - выберите пробу."),
+                        Common.MLS.Get(MLSConst, "Для добавления ещё одного прожега - выберите пробу."),
                         Common.MLS.Get(MLSConst, "Предупреждение"),
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Hand);
@@ -919,7 +844,6 @@ namespace SpectroWizard.gui.tasks
                 if (SelectedFormula != null)
                     SimpleFormulaEditor.Setup(SelectedElementName,SelectedFormula.Formula,
                         Method, spSpectrView,tcElementList.SelectedIndex,SelectedCol);
-                Common.ClearMemory();
             }
             catch (Exception ex)
             {
@@ -1732,7 +1656,7 @@ namespace SpectroWizard.gui.tasks
                 if (dgConTable.CurrentCell.RowIndex < 0)
                 {
                     MessageBox.Show(MainForm.MForm,
-                        Common.MLS.Get(MLSConst, "Выберите прожиг, который надо удалить."),
+                        Common.MLS.Get(MLSConst, "Выберите прожег, который надо удалить."),
                         Common.MLS.Get(MLSConst, "Удаление"), MessageBoxButtons.OK,
                         MessageBoxIcon.Information);
                     return;
@@ -1743,7 +1667,7 @@ namespace SpectroWizard.gui.tasks
                 if (sub_prob2delete >= 0)
                 {
                     dr = MessageBox.Show(MainForm.MForm,
-                        Common.MLS.Get(MLSConst, "Удалить следующий прожиг:") + SelectedProb.Name + " №" + (sub_prob2delete + 1) + "",
+                        Common.MLS.Get(MLSConst, "Удалить следующий прожег:") + SelectedProb.Name + " №" + (sub_prob2delete + 1) + "",
                         Common.MLS.Get(MLSConst, "Удаление"), MessageBoxButtons.YesNo,
                         MessageBoxIcon.Question);
                     if (dr != DialogResult.Yes)
@@ -1752,7 +1676,7 @@ namespace SpectroWizard.gui.tasks
                 if (SelectedProb.MeasuredSpectrs.Count <= 1 || sub_prob2delete < 0)
                 {
                     dr = MessageBox.Show(MainForm.MForm,
-                        Common.MLS.Get(MLSConst, "Удалить всю пробу со всеми прожигами?")+" '"+SelectedProb.Name+"'",
+                        Common.MLS.Get(MLSConst, "Удалить всю пробу со всеми прожегами?")+" '"+SelectedProb.Name+"'",
                         Common.MLS.Get(MLSConst, "Удаление"), MessageBoxButtons.YesNo,
                         MessageBoxIcon.Question);
                     if(dr != DialogResult.Yes)
@@ -2337,143 +2261,6 @@ namespace SpectroWizard.gui.tasks
                 Common.Log(ex);
             }
         }
-
-        void removeProbsByCon(double from, double to)
-        {
-            bool found = false;
-            for (int p = 0; p < Method.GetProbCount(); p++)
-            {
-                MethodSimpleProb pr = Method.GetProbHeader(p);
-                MethodSimpleCell msc = Method.GetCell(tcElementList.SelectedIndex, p);
-                if (from <= msc.Con && msc.Con <= to)
-                {
-                    Method.RemoveProb(p);
-                    p--;
-                    found = true;
-                }
-            }
-            if (found)
-            {
-                dgConTable.CurrentCell.Selected = false;
-                ReloadTableAndCheckSelection(true);
-                dgConTable.Invalidate();
-                Method.SavePermited();
-            }
-        }
-
-        private void mmAnalitRemoveBiggerThen_Click(object sender, EventArgs e)
-        {
-            while(true)
-                try
-                {
-                    string txt = InputDialog.getText(this, "Введите порог", "Введите порог концентраций. Все пробы с меньшими концентрациями будут удалены", "12");
-                    if (txt == null)
-                        return;
-                    float val = float.Parse(txt);
-                    removeProbsByCon(val, 100);
-                    return;
-                }
-                catch (Exception ex)
-                {
-                    Common.Log(ex);
-                }
-        }
-
-        private void mmAnalitRemoveLowerThen_Click(object sender, EventArgs e)
-        {
-            while(true)
-                try
-                {
-                    string txt = InputDialog.getText(this, "Введите порог", "Введите порог концентраций. Все пробы с меньшими концентрациями будут удалены", "12");
-                    if (txt == null)
-                        return;
-                    float val = float.Parse(txt);
-                    removeProbsByCon(0, val);
-                    return;
-                }
-                catch (Exception ex)
-                {
-                    Common.Log(ex);
-                }
-        }
-
-        private void mnFormulaLine_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                SelectedFormula.Formula.SetInterpolationType(0);
-                mmAnalitReCalcElement_Click(this, null);
-            }
-            catch (Exception ex)
-            {
-                Common.Log(ex);
-            }
-        }
-
-        private void mnFormulaLine2_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                SelectedFormula.Formula.SetInterpolationType(1);
-                mmAnalitReCalcElement_Click(this, null);
-            }
-            catch (Exception ex)
-            {
-                Common.Log(ex);
-            }
-        }
-
-        private void mnFormulaLine3_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                SelectedFormula.Formula.SetInterpolationType(2);
-                mmAnalitReCalcElement_Click(this, null);
-            }
-            catch (Exception ex)
-            {
-                Common.Log(ex);
-            }
-        }
-
-        private void mnFormulaLgLine_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                SelectedFormula.Formula.SetInterpolationType(3);
-                mmAnalitReCalcElement_Click(this, null);
-            }
-            catch (Exception ex)
-            {
-                Common.Log(ex);
-            }
-        }
-
-        private void mnFormulaLgLine2_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                SelectedFormula.Formula.SetInterpolationType(4);
-                mmAnalitReCalcElement_Click(this, null);
-            }
-            catch (Exception ex)
-            {
-                Common.Log(ex);
-            }
-        }
-
-        private void mnFormulaLgLine3_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                SelectedFormula.Formula.SetInterpolationType(5);
-                mmAnalitReCalcElement_Click(this, null);
-            }
-            catch (Exception ex)
-            {
-                Common.Log(ex);
-            }
-        }
     }
 
 
@@ -2640,10 +2427,10 @@ namespace SpectroWizard.gui.tasks
         {
             Row = row;
             Enabled = fr.Enabled;
-            //if (formula == 0)
-            //    Con = prefix + serv.GetGoodValue(con, 3);
-            //else
-            Con = "";
+            if (formula == 0)
+                Con = prefix + serv.GetGoodValue(con, 3);
+            else
+                Con = "";
             double sko, good_sko;
             double c_con = fr.CalcRealCon(formula, out sko, out good_sko);
             if (fr.Con == 0 && sko == 0)

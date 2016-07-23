@@ -130,7 +130,7 @@
             // 
             this.MMStructDirCreate.Name = "MMStructDirCreate";
             this.MMStructDirCreate.Size = new System.Drawing.Size(202, 22);
-            this.MMStructDirCreate.Text = "Создать папку прожигов";
+            this.MMStructDirCreate.Text = "Создать папку прожегов";
             this.MMStructDirCreate.Click += new System.EventHandler(this.MMStructDirCreate_Click);
             // 
             // MMStructProbCreate
@@ -160,14 +160,14 @@
             // 
             this.MMStructDelMeasuring.Name = "MMStructDelMeasuring";
             this.MMStructDelMeasuring.Size = new System.Drawing.Size(137, 22);
-            this.MMStructDelMeasuring.Text = "Прожиг";
+            this.MMStructDelMeasuring.Text = "Прожег";
             this.MMStructDelMeasuring.Click += new System.EventHandler(this.MMStructDelMeasuring_Click);
             // 
             // MMStructDelAllMeasurings
             // 
             this.MMStructDelAllMeasurings.Name = "MMStructDelAllMeasurings";
             this.MMStructDelAllMeasurings.Size = new System.Drawing.Size(137, 22);
-            this.MMStructDelAllMeasurings.Text = "Все прожиги";
+            this.MMStructDelAllMeasurings.Text = "Все прожеги";
             // 
             // MMStructDelProb
             // 
@@ -192,7 +192,7 @@
             this.MMMeasuringAddBase});
             this.MMMeasuring.Name = "MMMeasuring";
             this.MMMeasuring.Size = new System.Drawing.Size(57, 20);
-            this.MMMeasuring.Text = "Прожиг";
+            this.MMMeasuring.Text = "Прожег";
             // 
             // MMMeasuringExp
             // 
@@ -205,7 +205,7 @@
             // 
             this.MMMeasuringAddMeasuring.Name = "MMMeasuringAddMeasuring";
             this.MMMeasuringAddMeasuring.Size = new System.Drawing.Size(364, 22);
-            this.MMMeasuringAddMeasuring.Text = "Добавить прожиг пробы";
+            this.MMMeasuringAddMeasuring.Text = "Добавить прожег пробы";
             this.MMMeasuringAddMeasuring.Click += new System.EventHandler(this.MMMeasuringAddMeasuring_Click);
             // 
             // MMMeasuringReMeasuring

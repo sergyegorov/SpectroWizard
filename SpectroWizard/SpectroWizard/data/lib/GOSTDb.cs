@@ -18,9 +18,9 @@ namespace SpectroWizard.data.lib
             InitializeComponent();
         }
 
-        public List<GOST> GOSTList = new List<GOST>();
+        public static List<GOST> GOSTList = new List<GOST>();
         public void Init(String path){
-            string[] fileList = Directory.GetFiles(path);
+            string[] fileList = Directory.GetFiles("lib\\gost\\");
             for (int i = 0; i < fileList.Length; i++)
             {
                 GOST gost = null;

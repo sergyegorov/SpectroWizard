@@ -32,9 +32,8 @@
             this.SelectBtn = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.standartSelectorControl1 = new SpectroWizard.data.StandartSelectorControl();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.btnSelectAll = new System.Windows.Forms.Button();
+            this.standartSelectorControl1 = new SpectroWizard.data.StandartSelectorControl();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -43,7 +42,7 @@
             // SelectBtn
             // 
             this.SelectBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.SelectBtn.Location = new System.Drawing.Point(366, 11);
+            this.SelectBtn.Location = new System.Drawing.Point(534, 11);
             this.SelectBtn.Name = "SelectBtn";
             this.SelectBtn.Size = new System.Drawing.Size(151, 23);
             this.SelectBtn.TabIndex = 1;
@@ -70,17 +69,8 @@
             this.panel3.Size = new System.Drawing.Size(697, 327);
             this.panel3.TabIndex = 1;
             // 
-            // standartSelectorControl1
-            // 
-            this.standartSelectorControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.standartSelectorControl1.Location = new System.Drawing.Point(0, 0);
-            this.standartSelectorControl1.Name = "standartSelectorControl1";
-            this.standartSelectorControl1.Size = new System.Drawing.Size(697, 327);
-            this.standartSelectorControl1.TabIndex = 1;
-            // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.btnSelectAll);
             this.panel2.Controls.Add(this.SelectBtn);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel2.Location = new System.Drawing.Point(0, 327);
@@ -88,16 +78,13 @@
             this.panel2.Size = new System.Drawing.Size(697, 46);
             this.panel2.TabIndex = 0;
             // 
-            // btnSelectAll
+            // standartSelectorControl1
             // 
-            this.btnSelectAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSelectAll.Location = new System.Drawing.Point(523, 11);
-            this.btnSelectAll.Name = "btnSelectAll";
-            this.btnSelectAll.Size = new System.Drawing.Size(171, 23);
-            this.btnSelectAll.TabIndex = 2;
-            this.btnSelectAll.Text = "Выбрать все";
-            this.btnSelectAll.UseVisualStyleBackColor = true;
-            this.btnSelectAll.Click += new System.EventHandler(this.btnSelectAll_Click);
+            this.standartSelectorControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.standartSelectorControl1.Location = new System.Drawing.Point(0, 0);
+            this.standartSelectorControl1.Name = "standartSelectorControl1";
+            this.standartSelectorControl1.Size = new System.Drawing.Size(697, 327);
+            this.standartSelectorControl1.TabIndex = 1;
             // 
             // StandartSelectorForm
             // 
@@ -124,6 +111,5 @@
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panel2;
         private StandartSelectorControl standartSelectorControl1;
-        private System.Windows.Forms.Button btnSelectAll;
     }
 }

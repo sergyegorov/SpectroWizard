@@ -30,8 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.lbLyInfo = new System.Windows.Forms.TextBox();
             this.btNextView = new System.Windows.Forms.Button();
             this.btPrevView = new System.Windows.Forms.Button();
             this.cbSpectrViewType = new System.Windows.Forms.ComboBox();
@@ -44,6 +42,7 @@
             this.btXPlus = new System.Windows.Forms.Button();
             this.lbSNInfo = new System.Windows.Forms.Label();
             this.lbNInfo = new System.Windows.Forms.Label();
+            this.lbLyInfo = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.hScrollBar1 = new System.Windows.Forms.HScrollBar();
@@ -62,20 +61,13 @@
             this.cmMainShiftRight01 = new System.Windows.Forms.ToolStripMenuItem();
             this.cmMainShiftRight05 = new System.Windows.Forms.ToolStripMenuItem();
             this.cmMainShiftRight10 = new System.Windows.Forms.ToolStripMenuItem();
-            this.cmMainShiftRight20 = new System.Windows.Forms.ToolStripMenuItem();
-            this.cmMainShiftRight50 = new System.Windows.Forms.ToolStripMenuItem();
             this.cmMainShiftLeft = new System.Windows.Forms.ToolStripMenuItem();
             this.cmMainShiftLeft01 = new System.Windows.Forms.ToolStripMenuItem();
             this.cmMainShiftLeft05 = new System.Windows.Forms.ToolStripMenuItem();
             this.cmMainShiftLeft10 = new System.Windows.Forms.ToolStripMenuItem();
-            this.cmMainShiftLeft20 = new System.Windows.Forms.ToolStripMenuItem();
-            this.cmMainShiftLeft50 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
             this.cmMainAddSpectr = new System.Windows.Forms.ToolStripMenuItem();
             this.cmMainRemoveSpectr = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnMainRememberAs = new System.Windows.Forms.ToolStripMenuItem();
-            this.cmMainSetAnalit = new System.Windows.Forms.ToolStripMenuItem();
-            this.cmMainSetCompare = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -85,8 +77,6 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.lbLyInfo);
             this.panel1.Controls.Add(this.btNextView);
             this.panel1.Controls.Add(this.btPrevView);
             this.panel1.Controls.Add(this.cbSpectrViewType);
@@ -99,34 +89,18 @@
             this.panel1.Controls.Add(this.btXPlus);
             this.panel1.Controls.Add(this.lbSNInfo);
             this.panel1.Controls.Add(this.lbNInfo);
+            this.panel1.Controls.Add(this.lbLyInfo);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(837, 24);
             this.panel1.TabIndex = 0;
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(4, 5);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(12, 13);
-            this.label1.TabIndex = 19;
-            this.label1.Text = "λ";
-            // 
-            // lbLyInfo
-            // 
-            this.lbLyInfo.Location = new System.Drawing.Point(20, 2);
-            this.lbLyInfo.Name = "lbLyInfo";
-            this.lbLyInfo.Size = new System.Drawing.Size(84, 20);
-            this.lbLyInfo.TabIndex = 18;
-            this.lbLyInfo.KeyUp += new System.Windows.Forms.KeyEventHandler(this.lbLyInfo_KeyUp);
-            // 
             // btNextView
             // 
             this.btNextView.Enabled = false;
             this.btNextView.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btNextView.Location = new System.Drawing.Point(588, 1);
+            this.btNextView.Location = new System.Drawing.Point(535, 1);
             this.btNextView.Name = "btNextView";
             this.btNextView.Size = new System.Drawing.Size(23, 23);
             this.btNextView.TabIndex = 17;
@@ -138,7 +112,7 @@
             // 
             this.btPrevView.Enabled = false;
             this.btPrevView.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btPrevView.Location = new System.Drawing.Point(564, 1);
+            this.btPrevView.Location = new System.Drawing.Point(511, 1);
             this.btPrevView.Name = "btPrevView";
             this.btPrevView.Size = new System.Drawing.Size(23, 23);
             this.btPrevView.TabIndex = 15;
@@ -149,7 +123,7 @@
             // cbSpectrViewType
             // 
             this.cbSpectrViewType.FormattingEnabled = true;
-            this.cbSpectrViewType.Location = new System.Drawing.Point(616, 2);
+            this.cbSpectrViewType.Location = new System.Drawing.Point(564, 3);
             this.cbSpectrViewType.Name = "cbSpectrViewType";
             this.cbSpectrViewType.Size = new System.Drawing.Size(159, 21);
             this.cbSpectrViewType.TabIndex = 14;
@@ -158,16 +132,16 @@
             // lbYInfo
             // 
             this.lbYInfo.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lbYInfo.Location = new System.Drawing.Point(236, 0);
+            this.lbYInfo.Location = new System.Drawing.Point(183, 0);
             this.lbYInfo.Name = "lbYInfo";
-            this.lbYInfo.Size = new System.Drawing.Size(55, 23);
+            this.lbYInfo.Size = new System.Drawing.Size(56, 23);
             this.lbYInfo.TabIndex = 11;
             this.lbYInfo.Text = "-";
             this.lbYInfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // btZ
             // 
-            this.btZ.Location = new System.Drawing.Point(531, 1);
+            this.btZ.Location = new System.Drawing.Point(478, 1);
             this.btZ.Name = "btZ";
             this.btZ.Size = new System.Drawing.Size(29, 23);
             this.btZ.TabIndex = 8;
@@ -177,7 +151,7 @@
             // 
             // btAll
             // 
-            this.btAll.Location = new System.Drawing.Point(490, 1);
+            this.btAll.Location = new System.Drawing.Point(437, 1);
             this.btAll.Name = "btAll";
             this.btAll.Size = new System.Drawing.Size(41, 23);
             this.btAll.TabIndex = 7;
@@ -187,7 +161,7 @@
             // 
             // btYMinus
             // 
-            this.btYMinus.Location = new System.Drawing.Point(450, 1);
+            this.btYMinus.Location = new System.Drawing.Point(397, 1);
             this.btYMinus.Name = "btYMinus";
             this.btYMinus.Size = new System.Drawing.Size(36, 23);
             this.btYMinus.TabIndex = 6;
@@ -197,7 +171,7 @@
             // 
             // btYPlus
             // 
-            this.btYPlus.Location = new System.Drawing.Point(414, 1);
+            this.btYPlus.Location = new System.Drawing.Point(361, 1);
             this.btYPlus.Name = "btYPlus";
             this.btYPlus.Size = new System.Drawing.Size(36, 23);
             this.btYPlus.TabIndex = 5;
@@ -207,7 +181,7 @@
             // 
             // btLyMinus
             // 
-            this.btLyMinus.Location = new System.Drawing.Point(378, 1);
+            this.btLyMinus.Location = new System.Drawing.Point(325, 1);
             this.btLyMinus.Name = "btLyMinus";
             this.btLyMinus.Size = new System.Drawing.Size(36, 23);
             this.btLyMinus.TabIndex = 4;
@@ -217,7 +191,7 @@
             // 
             // btXPlus
             // 
-            this.btXPlus.Location = new System.Drawing.Point(342, 1);
+            this.btXPlus.Location = new System.Drawing.Point(289, 1);
             this.btXPlus.Name = "btXPlus";
             this.btXPlus.Size = new System.Drawing.Size(36, 23);
             this.btXPlus.TabIndex = 3;
@@ -228,7 +202,7 @@
             // lbSNInfo
             // 
             this.lbSNInfo.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lbSNInfo.Location = new System.Drawing.Point(292, 0);
+            this.lbSNInfo.Location = new System.Drawing.Point(239, 0);
             this.lbSNInfo.Name = "lbSNInfo";
             this.lbSNInfo.Size = new System.Drawing.Size(49, 23);
             this.lbSNInfo.TabIndex = 2;
@@ -239,12 +213,22 @@
             // lbNInfo
             // 
             this.lbNInfo.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lbNInfo.Location = new System.Drawing.Point(106, 0);
+            this.lbNInfo.Location = new System.Drawing.Point(53, 0);
             this.lbNInfo.Name = "lbNInfo";
-            this.lbNInfo.Size = new System.Drawing.Size(129, 23);
+            this.lbNInfo.Size = new System.Drawing.Size(130, 23);
             this.lbNInfo.TabIndex = 1;
             this.lbNInfo.Text = "-";
             this.lbNInfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lbLyInfo
+            // 
+            this.lbLyInfo.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lbLyInfo.Location = new System.Drawing.Point(0, 0);
+            this.lbLyInfo.Name = "lbLyInfo";
+            this.lbLyInfo.Size = new System.Drawing.Size(53, 23);
+            this.lbLyInfo.TabIndex = 0;
+            this.lbLyInfo.Text = "-";
+            this.lbLyInfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // panel2
             // 
@@ -347,29 +331,28 @@
             this.cmMainShiftLeft,
             this.toolStripMenuItem3,
             this.cmMainAddSpectr,
-            this.cmMainRemoveSpectr,
-            this.mnMainRememberAs});
+            this.cmMainRemoveSpectr});
             this.cmMain.Name = "contextMenuStrip1";
-            this.cmMain.Size = new System.Drawing.Size(253, 220);
+            this.cmMain.Size = new System.Drawing.Size(245, 198);
             // 
             // cmMainShowLib
             // 
             this.cmMainShowLib.Name = "cmMainShowLib";
-            this.cmMainShowLib.Size = new System.Drawing.Size(252, 22);
+            this.cmMainShowLib.Size = new System.Drawing.Size(244, 22);
             this.cmMainShowLib.Text = "Справочник спектральных линий";
             this.cmMainShowLib.Click += new System.EventHandler(this.btShowLib_Click);
             // 
             // cmMainAskLine
             // 
             this.cmMainAskLine.Name = "cmMainAskLine";
-            this.cmMainAskLine.Size = new System.Drawing.Size(252, 22);
+            this.cmMainAskLine.Size = new System.Drawing.Size(244, 22);
             this.cmMainAskLine.Text = "Справочник для области";
             this.cmMainAskLine.Click += new System.EventHandler(this.btAskLine_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(249, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(241, 6);
             // 
             // cmMainAutoZoom
             // 
@@ -377,7 +360,7 @@
             this.cmMainAutoZoom.CheckOnClick = true;
             this.cmMainAutoZoom.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cmMainAutoZoom.Name = "cmMainAutoZoom";
-            this.cmMainAutoZoom.Size = new System.Drawing.Size(252, 22);
+            this.cmMainAutoZoom.Size = new System.Drawing.Size(244, 22);
             this.cmMainAutoZoom.Text = "Авто увеличение";
             this.cmMainAutoZoom.Click += new System.EventHandler(this.chbAutoZoom_CheckedChanged);
             // 
@@ -385,7 +368,7 @@
             // 
             this.cmMainSmooth.CheckOnClick = true;
             this.cmMainSmooth.Name = "cmMainSmooth";
-            this.cmMainSmooth.Size = new System.Drawing.Size(252, 22);
+            this.cmMainSmooth.Size = new System.Drawing.Size(244, 22);
             this.cmMainSmooth.Text = "Сгладить спектр";
             this.cmMainSmooth.Visible = false;
             this.cmMainSmooth.Click += new System.EventHandler(this.cmMainSmooth_Click);
@@ -393,18 +376,16 @@
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(249, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(241, 6);
             // 
             // cmMainShiftRight
             // 
             this.cmMainShiftRight.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.cmMainShiftRight01,
             this.cmMainShiftRight05,
-            this.cmMainShiftRight10,
-            this.cmMainShiftRight20,
-            this.cmMainShiftRight50});
+            this.cmMainShiftRight10});
             this.cmMainShiftRight.Name = "cmMainShiftRight";
-            this.cmMainShiftRight.Size = new System.Drawing.Size(252, 22);
+            this.cmMainShiftRight.Size = new System.Drawing.Size(244, 22);
             this.cmMainShiftRight.Text = "Сдвинуть вправо";
             // 
             // cmMainShiftRight01
@@ -428,30 +409,14 @@
             this.cmMainShiftRight10.Text = "на 1";
             this.cmMainShiftRight10.Click += new System.EventHandler(this.cmMainShiftRight10_Click);
             // 
-            // cmMainShiftRight20
-            // 
-            this.cmMainShiftRight20.Name = "cmMainShiftRight20";
-            this.cmMainShiftRight20.Size = new System.Drawing.Size(105, 22);
-            this.cmMainShiftRight20.Text = "на 2";
-            this.cmMainShiftRight20.Click += new System.EventHandler(this.cmMainShiftRight20_Click);
-            // 
-            // cmMainShiftRight50
-            // 
-            this.cmMainShiftRight50.Name = "cmMainShiftRight50";
-            this.cmMainShiftRight50.Size = new System.Drawing.Size(105, 22);
-            this.cmMainShiftRight50.Text = "на 5";
-            this.cmMainShiftRight50.Click += new System.EventHandler(this.cmMainShiftRight50_Click);
-            // 
             // cmMainShiftLeft
             // 
             this.cmMainShiftLeft.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.cmMainShiftLeft01,
             this.cmMainShiftLeft05,
-            this.cmMainShiftLeft10,
-            this.cmMainShiftLeft20,
-            this.cmMainShiftLeft50});
+            this.cmMainShiftLeft10});
             this.cmMainShiftLeft.Name = "cmMainShiftLeft";
-            this.cmMainShiftLeft.Size = new System.Drawing.Size(252, 22);
+            this.cmMainShiftLeft.Size = new System.Drawing.Size(244, 22);
             this.cmMainShiftLeft.Text = "Сдвинуть влево";
             // 
             // cmMainShiftLeft01
@@ -475,62 +440,24 @@
             this.cmMainShiftLeft10.Text = "на 1";
             this.cmMainShiftLeft10.Click += new System.EventHandler(this.cmMainShiftLeft10_Click);
             // 
-            // cmMainShiftLeft20
-            // 
-            this.cmMainShiftLeft20.Name = "cmMainShiftLeft20";
-            this.cmMainShiftLeft20.Size = new System.Drawing.Size(105, 22);
-            this.cmMainShiftLeft20.Text = "на 2";
-            this.cmMainShiftLeft20.Click += new System.EventHandler(this.cmMainShiftLeft20_Click);
-            // 
-            // cmMainShiftLeft50
-            // 
-            this.cmMainShiftLeft50.Name = "cmMainShiftLeft50";
-            this.cmMainShiftLeft50.Size = new System.Drawing.Size(105, 22);
-            this.cmMainShiftLeft50.Text = "на 5";
-            this.cmMainShiftLeft50.Click += new System.EventHandler(this.cmMainShiftLeft50_Click);
-            // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(249, 6);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(241, 6);
             // 
             // cmMainAddSpectr
             // 
             this.cmMainAddSpectr.Name = "cmMainAddSpectr";
-            this.cmMainAddSpectr.Size = new System.Drawing.Size(252, 22);
+            this.cmMainAddSpectr.Size = new System.Drawing.Size(244, 22);
             this.cmMainAddSpectr.Text = "Добавить спектр для сравнения";
             this.cmMainAddSpectr.Click += new System.EventHandler(this.cmMainAddSpectr_Click);
             // 
             // cmMainRemoveSpectr
             // 
             this.cmMainRemoveSpectr.Name = "cmMainRemoveSpectr";
-            this.cmMainRemoveSpectr.Size = new System.Drawing.Size(252, 22);
+            this.cmMainRemoveSpectr.Size = new System.Drawing.Size(244, 22);
             this.cmMainRemoveSpectr.Text = "Скрыть спектр для сравнения";
             this.cmMainRemoveSpectr.Click += new System.EventHandler(this.cmMainRemoveSpectr_Click);
-            // 
-            // mnMainRememberAs
-            // 
-            this.mnMainRememberAs.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.cmMainSetAnalit,
-            this.cmMainSetCompare});
-            this.mnMainRememberAs.Name = "mnMainRememberAs";
-            this.mnMainRememberAs.Size = new System.Drawing.Size(252, 22);
-            this.mnMainRememberAs.Text = "Запомнить положение курсора как";
-            this.mnMainRememberAs.Visible = false;
-            // 
-            // cmMainSetAnalit
-            // 
-            this.cmMainSetAnalit.Name = "cmMainSetAnalit";
-            this.cmMainSetAnalit.Size = new System.Drawing.Size(191, 22);
-            this.cmMainSetAnalit.Text = "Аналитическую линию";
-            this.cmMainSetAnalit.Click += new System.EventHandler(this.cmMainSetAnalit_Click);
-            // 
-            // cmMainSetCompare
-            // 
-            this.cmMainSetCompare.Name = "cmMainSetCompare";
-            this.cmMainSetCompare.Size = new System.Drawing.Size(191, 22);
-            this.cmMainSetCompare.Text = "Линию сравнения";
-            this.cmMainSetCompare.Click += new System.EventHandler(this.cmMainSetCompare_Click);
             // 
             // SpectrView
             // 
@@ -541,7 +468,6 @@
             this.Name = "SpectrView";
             this.Size = new System.Drawing.Size(837, 277);
             this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.DrawPanel.ResumeLayout(false);
@@ -558,6 +484,7 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.HScrollBar hScrollBar1;
         private System.Windows.Forms.Panel DrawPanel;
+        private System.Windows.Forms.Label lbLyInfo;
         private System.Windows.Forms.Button btXPlus;
         private System.Windows.Forms.Label lbSNInfo;
         private System.Windows.Forms.Label lbNInfo;
@@ -591,14 +518,5 @@
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
         private System.Windows.Forms.ToolStripMenuItem cmMainAddSpectr;
         private System.Windows.Forms.ToolStripMenuItem cmMainRemoveSpectr;
-        private System.Windows.Forms.ToolStripMenuItem cmMainShiftRight20;
-        private System.Windows.Forms.ToolStripMenuItem cmMainShiftRight50;
-        private System.Windows.Forms.ToolStripMenuItem cmMainShiftLeft20;
-        private System.Windows.Forms.ToolStripMenuItem cmMainShiftLeft50;
-        private System.Windows.Forms.TextBox lbLyInfo;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ToolStripMenuItem mnMainRememberAs;
-        private System.Windows.Forms.ToolStripMenuItem cmMainSetAnalit;
-        private System.Windows.Forms.ToolStripMenuItem cmMainSetCompare;
     }
 }

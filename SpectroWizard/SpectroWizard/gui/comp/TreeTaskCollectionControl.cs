@@ -301,33 +301,21 @@ namespace SpectroWizard.gui.comp
                     Common.MLS.Get(MLSConst, "Введите имя для пустой копии методики: ")+src_name, "", true);
                 if (name == null)
                     return;
-                string base_folder = Folder.GetPath() + src_name + "." + DbFDriver.ElementExt;
-                base_folder = Common.Db.GetFoladerPath(base_folder);
-                src_name = base_folder + "\\method";
+                src_name = Folder.GetPath() + src_name + "." + DbFDriver.ElementExt;
+                src_name = Common.Db.GetFoladerPath(src_name);
+                src_name += "\\method";
                 if (File.Exists(src_name) == false)
                     return;
                 Folder.CreateFolder(name + "." + DbFDriver.ElementExt);
-                string dest_folder = Folder.GetPath() + name + "." + DbFDriver.ElementExt;
-                dest_folder = Common.Db.GetFoladerPath(dest_folder);
+                name = Folder.GetPath() + name + "." + DbFDriver.ElementExt;
+                name = Common.Db.GetFoladerPath(name);
+                File.Copy(src_name, name+"\\method");
 
                 if (clear)
                 {
-                    File.Copy(src_name, dest_folder + "\\method");
                     MethodSimple ms = new MethodSimple(name + "\\method");
                     ms.ClearProbRecords();
                     ms.Save();
-                }
-                else
-                {
-                    string[] list = Directory.GetFiles(base_folder);
-                    for (int i = 0; i < list.Length;i++ )
-                    {
-                        int ind = list[i].LastIndexOf('\\');
-                        string fname = list[i].Substring(ind+1);
-                        if (!(fname.EndsWith(".sf") || fname.EndsWith(".ss") || fname.IndexOf("method") == 0))
-                            continue;
-                        File.Copy(list[i], dest_folder + "\\" + fname);
-                    }
                 }
 
                 ReloadList();
