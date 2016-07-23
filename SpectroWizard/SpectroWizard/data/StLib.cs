@@ -366,55 +366,73 @@ namespace SpectroWizard.data
                 ResultText += ((char)0xD);
                 ResultText += ((char)0xA);
             }
-            ResultText += Common.MLS.Get(MLSConst,"--------- Конец файла ---------") + serv.Endl;
-            ResultText += Common.MLS.Get(MLSConst,"Всего распознано:") + Count + Common.MLS.Get(MLSConst," стандартов.") + serv.Endl;
-            double[] max_cons = null;
-            if (Count > 0)
+            try
             {
-                max_cons = new double[this[0].Count];
-                for (int mc = 0; mc < max_cons.Length; mc++)
-                    max_cons[mc] = -double.MaxValue;
-                for (int st = 0; st < Count; st++)
+                ResultText += Common.MLS.Get(MLSConst, "--------- Конец файла ---------") + serv.Endl;
+                ResultText += Common.MLS.Get(MLSConst, "Всего распознано:") + Count + Common.MLS.Get(MLSConst, " стандартов.") + serv.Endl;
+                double[] max_cons = null;
+                if (Count > 0)
                 {
-                    for (i = 0; i < this[st].Count; i++)
-                        try
-                        {
-                            if (this[st][i].Con > max_cons[i])
-                                max_cons[i] = this[st][i].Con;
-                        }
-                        catch
-                        {
-                            ResultText += Common.MLS.Get(MLSConst,"Oшибка. В стандарте:") + (st+1) + " нехватает элементов." + serv.Endl;
-                            ret = false;
-                        }
-                }
-            }
-            for (int st = 0; st < Count; st++)
-            {
-                double sum = 0;
-                double sko = 0;
-                for (i = 0; i < this[st].Count; i++)
-                {
-                    if (this[st][i].Con > 0)
+                    max_cons = new double[this[0].Count];
+                    for (int mc = 0; mc < max_cons.Length; mc++)
+                        max_cons[mc] = -double.MaxValue;
+                    for (int st = 0; st < Count; st++)
                     {
-                        sum += this[st][i].Con;
-                        double dlt = this[st][i].Con-max_cons[i];
-                        if (max_cons[i] > 0)
-                            dlt *= 100 / max_cons[i];
-                        else
-                            dlt = 0;
-                        sko += dlt * dlt;
+                        for (i = 0; i < this[st].Count; i++)
+                            try
+                            {
+                                if (this[st][i].Con > max_cons[i])
+                                    max_cons[i] = this[st][i].Con;
+                            }
+                            catch
+                            {
+                                ResultText += Common.MLS.Get(MLSConst, "Oшибка. В стандарте:") + (st + 1) + " нехватает элементов." + serv.Endl;
+                                ret = false;
+                            }
                     }
                 }
-                sko = Math.Sqrt(sko / this[st].Count);
-                if (sum <= 100)
-                    ResultText += Common.MLS.Get(MLSConst, "Сумма концентраций по ") + (st + 1) + Common.MLS.Get(MLSConst, " стандарту ") + Math.Round(sum, 5) + "%";
-                else
+                for (int st = 0; st < Count; st++)
                 {
-                    ResultText += Common.MLS.Get(MLSConst, "Предупруждение!!!! Сумма концентраций по ") + (st + 1) + Common.MLS.Get(MLSConst, " стандарту больше 100%: ") + Math.Round(sum, 1) + "%";
-                    ret = false;
+                    double sum = 0;
+                    double sko = 0;
+                    for (i = 0; i < this[st].Count; i++)
+                    {
+                        if (this[st][i].Con > 0)
+                        {
+                            sum += this[st][i].Con;
+                            double dlt;
+                            try
+                            {
+                                dlt = this[st][i].Con - max_cons[i];
+                            }
+                            catch (Exception ex)
+                            {
+                                dlt = 0;
+                                ret = false;
+                                ResultText += Common.MLS.Get(MLSConst, "Ошибка вычисления суммы на стандарте "+(st+1)+" элемент "+(i+1));
+                            }
+                            if (max_cons[i] > 0)
+                                dlt *= 100 / max_cons[i];
+                            else
+                                dlt = 0;
+                            sko += dlt * dlt;
+                        }
+                    }
+                    sko = Math.Sqrt(sko / this[st].Count);
+                    if (sum <= 100)
+                        ResultText += Common.MLS.Get(MLSConst, "Сумма концентраций по ") + (st + 1) + Common.MLS.Get(MLSConst, " стандарту ") + Math.Round(sum, 5) + "%";
+                    else
+                    {
+                        ResultText += Common.MLS.Get(MLSConst, "Предупруждение!!!! Сумма концентраций по ") + (st + 1) + Common.MLS.Get(MLSConst, " стандарту больше 100%: ") + Math.Round(sum, 1) + "%";
+                        ret = false;
+                    }
+                    ResultText += Common.MLS.Get(MLSConst, " СКО от максимума ") + Math.Round(sko, 1) + "%" + serv.Endl;
                 }
-                ResultText += Common.MLS.Get(MLSConst," СКО от максимума ") + Math.Round(sko,1) + "%" + serv.Endl;
+            }
+            catch (Exception ex)
+            {
+                ResultText += Common.MLS.Get(MLSConst, "Ошибка вычисления суммы...");
+                Log.Out(ex);
             }
             return ret;
         }

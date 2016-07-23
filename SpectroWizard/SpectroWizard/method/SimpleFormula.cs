@@ -38,6 +38,16 @@ namespace SpectroWizard.method
             }
         }
 
+        public void SetupAnalit()
+        {
+            analitParamCalc.SetupAnalitLy();
+        }
+
+        public void SetupCompare()
+        {
+            analitParamCalc.SetupCompareLy();
+        }
+
         static int PrevSelectedTab = 0;
         public void VisibleChangedProc(bool flag)
         {
@@ -100,6 +110,8 @@ namespace SpectroWizard.method
         {
             InitializeComponent();
             serv.SetAllComboBoxesSelectOnly(this);
+            //filterElement.initBy(Method, this);
+            tabControl1.TabPages.RemoveAt(3);
         }
 
         public string GetDebugReport()
@@ -124,6 +136,8 @@ namespace SpectroWizard.method
                 case 2: ret += "Кубическая парабола"; break;
                 //Прямая в логорифме
                 case 3: ret += "Прямая в логорифмическом масштабе"; break;
+                case 4: ret += "Папабола в логорифмическом масштабе"; break;
+                case 5: ret += "Кубическая парабола в логорифмическом масштабе"; break;
                 //Кривая 2-ого порядка в логорифме
                 //case 4: ret += "Парабола в логорифмическом масштабе"; break;
                 //Кривая 3-ого порядка в логорифме
@@ -141,10 +155,14 @@ namespace SpectroWizard.method
                 //по спектрам с коррекцией по критерию
                 case 3: ret += "по спектрам с коррекцией по критерию"; break;
             }
+            if(Calibrs != null && Calibrs.Length > 0)
+                ret += serv.Endl + Calibrs[0].GetDescription();
             ret += serv.Endl + "Основная пара:" + serv.Endl;
             ret += analitParamCalc.GetDebugReport() + serv.Endl;
             ret += "Вспомогательная пара:" + serv.Endl;
-            ret += analitParamCalcServ.GetDebugReport();
+            ret += analitParamCalcServ.GetDebugReport()+serv.Endl;
+            ret += filterElement.GetDebugReport();
+
             return ret;
         }
 
@@ -547,6 +565,13 @@ namespace SpectroWizard.method
             }
         }
 
+        public string GetDescription()
+        {
+            if(Calibrs != null && Calibrs.Length > 0)
+                return Calibrs[0].GetDescription();
+            return "";
+        }
+
         //Function[] Calibrs;
         CalibrFunction[] Calibrs;
         double[] Cons;
@@ -804,6 +829,12 @@ namespace SpectroWizard.method
             Method = method;
             InitializeComponent();
             CheckFormula();
+            //filterElement.initBy(Method, this);
+        }
+
+        public void init()
+        {
+            filterElement.initBy(Method, this);
         }
 
         SpectrView Spv;
@@ -822,11 +853,15 @@ namespace SpectroWizard.method
         {
             int selected_index1 = cbElementList.SelectedIndex;
             int selected_index2 = cbElementList.SelectedIndex;
+            
+
             ElementIndex = element_index;
             FormulaIndex = formula_index;
             DoNotReloadChecked = true;
             Method = formula.Method;
+            filterElement.initBy(Method, this);
             cbElementList.Items.Clear();
+            
             cbElementList1.Items.Clear();
             cbElementList1.Items.Add("-");
             Element[] elems = formula.Method.GetElementList();
@@ -834,6 +869,7 @@ namespace SpectroWizard.method
             {
                 cbElementList.Items.Add("" + elems[i].Name);// + " [" + elems[i].FullName+"]");
                 cbElementList1.Items.Add("" + elems[i].Name);
+                //cbElLimitElement.Items.Add("" + elems[i].Name);
             }
             MemoryStream ms = new MemoryStream();
             BinaryWriter bw = new BinaryWriter(ms);
@@ -960,7 +996,7 @@ namespace SpectroWizard.method
             CheckCondList();
 
             byte ver = br.ReadByte();
-            if (ver < 1 || ver > 7)
+            if (ver < 1 || ver > 8)
                 throw new Exception("Unsupported AnalitcLineCalc version");
 
             //cbFormulaType
@@ -1070,10 +1106,13 @@ namespace SpectroWizard.method
             }
 
             if (ver >= 7)
-            {
                 tbCorrections.Text = br.ReadString();
-            }
 
+            if (ver >= 8)
+                filterElement.read(br);
+            
+            filterElement.initBy(Method, this);
+            
             ver = br.ReadByte();
             Loading = false;
             if (ver != 77)
@@ -1086,9 +1125,7 @@ namespace SpectroWizard.method
 
         public void Save(BinaryWriter bw)
         {
-            //CheckSelection();
-
-            bw.Write((byte)7);
+            bw.Write((byte)8); // 8 - added ElementAlanitFilter
             //cbFormulaType
             bw.Write(cbFormulaType.SelectedIndex);
             //nmConFrom
@@ -1164,6 +1201,8 @@ namespace SpectroWizard.method
             }
 
             bw.Write(tbCorrections.Text);
+
+            filterElement.write(bw);
 
             bw.Write((byte)77);
         }
@@ -1593,6 +1632,17 @@ namespace SpectroWizard.method
                             SelectedExpositions.Add(i);
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                Common.LogNoMsg(ex);
+            }
+        }
+        public void SetInterpolationType(int type)
+        {
+            try
+            {
+                cbCalibrCAType.SelectedIndex = type;
             }
             catch (Exception ex)
             {

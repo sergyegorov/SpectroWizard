@@ -25,6 +25,11 @@ namespace SpectroWizard.method
             InitializeComponent();
         }
 
+        public void SetupLyAndProfile()
+        {
+            btSetupSp_Click(this, null);
+        }
+
         public string GetDebugReport()
         {
             string ret = "Ly = " + nmLy.Value + 
@@ -89,10 +94,10 @@ namespace SpectroWizard.method
 
         public void SetupLy()
         {
-            SetupLy((float)nmLy.Value, true);
+            SetupLy((float)nmLy.Value, true);//,50);
         }
 
-        public bool SetupLy(float ly,bool force)
+        public bool SetupLy(float ly,bool force)//,int PixelDlt)
         {
             Spectr sp = Sp;
             if(sp == null)
@@ -124,16 +129,54 @@ namespace SpectroWizard.method
             float[] ly_cand = new float[pixel_to - pixel_from + 1];
             for (int i = 0; i < ly_cand.Length; i++)
                 if (i + pixel_from >= 0 && i + pixel_from < sig_data.Length)
-                    ly_cand[i] = sig_data[i + pixel_from] - nul_data[i + pixel_from];
+                    ly_cand[i] = (sig_data[i + pixel_from] - nul_data[i + pixel_from])+10;
                 else
                     ly_cand[i] = 0;
             GraphPreview gp = new GraphPreview();
-            if (gp.check(ParentForm, ly_cand) || force)
+            if (force || gp.check(ParentForm, ly_cand))
             {
+                double min = double.MaxValue, max = -double.MaxValue;
+                for (int i = 0; i < ly_cand.Length; i++)
+                {
+                    if (ly_cand[i] == 0)
+                        continue;
+                    if (min > ly_cand[i])
+                        min = ly_cand[i];
+                    if (max < ly_cand[i])
+                        max = ly_cand[i];
+                }
+
+                double weight = 0;
+                double noise = 0;
+                for (int i = Common.Conf.MultFactor; i < ly_cand.Length - Common.Conf.MultFactor; i += Common.Conf.MultFactor)
+                {
+                    if (ly_cand[i] == 0 || ly_cand[i - Common.Conf.MultFactor] == 0)
+                        continue;
+                    double dlt = Math.Abs(ly_cand[i - Common.Conf.MultFactor] - ly_cand[i]);
+                    double ever = (ly_cand[i - Common.Conf.MultFactor] + ly_cand[i]) / 2;
+                    noise += dlt / ever;
+                    weight += 1/ever;
+                }
+                noise /= weight;
+                noise *= gp.NoiseCenselationLevel;
+                float level = (float)(min+noise);
+                float[] fly_cand = new float[ly_cand.Length];
+                for (int i = 0; i < ly_cand.Length; i++)
+                {
+                    if (ly_cand[i] < level)
+                        fly_cand[i] = 0;
+                    else
+                        fly_cand[i] = ly_cand[i] - level;
+                }
+
+                if (force || gp.check(ParentForm, fly_cand))
+                    ly_cand = fly_cand;
+
                 ForLy = _ForLy;
                 LySpectrLocalPixel = _LySpectrLocalPixel;
                 LySpectrEtalon = ly_cand;
                 LySpectrEtalonPixelFrom = _LySpectrEtalonPixelFrom;
+
                 return true;
             }
             return false;
@@ -371,7 +414,7 @@ namespace SpectroWizard.method
                 double crit = Corel(LySpectrEtalonCalc, working_data,
                     shift,start_pixel,spectr.OverloadLevel,
                     ref min_etalon, ref min_sig);
-                for (int i = 0; i < 10 * Common.Conf.MultFactor; i++)
+                for (int i = 0; i < 4 * Common.Conf.MultFactor; i++)
                 {
                     double cand_crit = Corel(LySpectrEtalonCalc, working_data,
                         shift + 1, start_pixel, spectr.OverloadLevel,
@@ -385,7 +428,7 @@ namespace SpectroWizard.method
                     else
                         break;
                 }
-                for (int i = 0; i < 10 * Common.Conf.MultFactor; i++)
+                for (int i = 0; i < 4 * Common.Conf.MultFactor; i++)
                 {
                     double cand_crit = Corel(LySpectrEtalonCalc, working_data,
                         shift - 1, start_pixel, spectr.OverloadLevel,

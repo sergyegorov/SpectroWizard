@@ -42,6 +42,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.nmStep = new System.Windows.Forms.NumericUpDown();
             this.btnGenerate = new System.Windows.Forms.Button();
+            this.updateSearchData = new System.Windows.Forms.Button();
+            this.buttonAddCustomSet = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.nmFrom)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nmTo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nmStep)).BeginInit();
@@ -59,7 +61,7 @@
             // 
             // buttonClearAll
             // 
-            this.buttonClearAll.Location = new System.Drawing.Point(240, 146);
+            this.buttonClearAll.Location = new System.Drawing.Point(240, 174);
             this.buttonClearAll.Name = "buttonClearAll";
             this.buttonClearAll.Size = new System.Drawing.Size(75, 23);
             this.buttonClearAll.TabIndex = 1;
@@ -72,15 +74,15 @@
             this.listBoxLine.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)));
             this.listBoxLine.FormattingEnabled = true;
-            this.listBoxLine.Location = new System.Drawing.Point(3, 175);
+            this.listBoxLine.Location = new System.Drawing.Point(3, 201);
             this.listBoxLine.Name = "listBoxLine";
-            this.listBoxLine.Size = new System.Drawing.Size(312, 173);
+            this.listBoxLine.Size = new System.Drawing.Size(312, 147);
             this.listBoxLine.TabIndex = 2;
             this.listBoxLine.SelectedIndexChanged += new System.EventHandler(this.listBoxLine_SelectedIndexChanged);
             // 
             // buttonRemove
             // 
-            this.buttonRemove.Location = new System.Drawing.Point(103, 146);
+            this.buttonRemove.Location = new System.Drawing.Point(103, 174);
             this.buttonRemove.Name = "buttonRemove";
             this.buttonRemove.Size = new System.Drawing.Size(131, 23);
             this.buttonRemove.TabIndex = 4;
@@ -94,15 +96,16 @@
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.dataShotSetView.BackColor = System.Drawing.Color.White;
+            this.dataShotSetView.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.dataShotSetView.Cursor = System.Windows.Forms.Cursors.Cross;
-            this.dataShotSetView.Location = new System.Drawing.Point(321, 3);
+            this.dataShotSetView.Location = new System.Drawing.Point(321, 32);
             this.dataShotSetView.Name = "dataShotSetView";
-            this.dataShotSetView.Size = new System.Drawing.Size(483, 347);
+            this.dataShotSetView.Size = new System.Drawing.Size(483, 318);
             this.dataShotSetView.TabIndex = 3;
             // 
             // buttonFromMethod
             // 
-            this.buttonFromMethod.Location = new System.Drawing.Point(3, 32);
+            this.buttonFromMethod.Location = new System.Drawing.Point(3, 60);
             this.buttonFromMethod.Name = "buttonFromMethod";
             this.buttonFromMethod.Size = new System.Drawing.Size(312, 23);
             this.buttonFromMethod.TabIndex = 5;
@@ -112,7 +115,7 @@
             // 
             // buttonAddFromLineCatalog
             // 
-            this.buttonAddFromLineCatalog.Location = new System.Drawing.Point(3, 61);
+            this.buttonAddFromLineCatalog.Location = new System.Drawing.Point(3, 89);
             this.buttonAddFromLineCatalog.Name = "buttonAddFromLineCatalog";
             this.buttonAddFromLineCatalog.Size = new System.Drawing.Size(312, 23);
             this.buttonAddFromLineCatalog.TabIndex = 6;
@@ -123,7 +126,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 92);
+            this.label1.Location = new System.Drawing.Point(3, 120);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(14, 13);
             this.label1.TabIndex = 7;
@@ -131,7 +134,7 @@
             // 
             // nmFrom
             // 
-            this.nmFrom.Location = new System.Drawing.Point(23, 90);
+            this.nmFrom.Location = new System.Drawing.Point(23, 118);
             this.nmFrom.Maximum = new decimal(new int[] {
             15,
             0,
@@ -153,7 +156,7 @@
             // 
             // nmTo
             // 
-            this.nmTo.Location = new System.Drawing.Point(141, 90);
+            this.nmTo.Location = new System.Drawing.Point(141, 118);
             this.nmTo.Maximum = new decimal(new int[] {
             15,
             0,
@@ -176,7 +179,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(71, 92);
+            this.label2.Location = new System.Drawing.Point(71, 120);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(64, 13);
             this.label2.TabIndex = 10;
@@ -185,7 +188,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(187, 92);
+            this.label3.Location = new System.Drawing.Point(187, 120);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(40, 13);
             this.label3.TabIndex = 11;
@@ -193,7 +196,7 @@
             // 
             // nmStep
             // 
-            this.nmStep.Location = new System.Drawing.Point(233, 90);
+            this.nmStep.Location = new System.Drawing.Point(233, 118);
             this.nmStep.Minimum = new decimal(new int[] {
             1,
             0,
@@ -210,7 +213,7 @@
             // 
             // btnGenerate
             // 
-            this.btnGenerate.Location = new System.Drawing.Point(103, 116);
+            this.btnGenerate.Location = new System.Drawing.Point(103, 144);
             this.btnGenerate.Name = "btnGenerate";
             this.btnGenerate.Size = new System.Drawing.Size(212, 23);
             this.btnGenerate.TabIndex = 13;
@@ -218,10 +221,34 @@
             this.btnGenerate.UseVisualStyleBackColor = true;
             this.btnGenerate.Click += new System.EventHandler(this.btnGenerate_Click);
             // 
+            // updateSearchData
+            // 
+            this.updateSearchData.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.updateSearchData.Location = new System.Drawing.Point(321, 3);
+            this.updateSearchData.Name = "updateSearchData";
+            this.updateSearchData.Size = new System.Drawing.Size(483, 23);
+            this.updateSearchData.TabIndex = 14;
+            this.updateSearchData.Text = "Подготовить данные для поиска";
+            this.updateSearchData.UseVisualStyleBackColor = true;
+            this.updateSearchData.Click += new System.EventHandler(this.updateSearchData_Click);
+            // 
+            // buttonAddCustomSet
+            // 
+            this.buttonAddCustomSet.Location = new System.Drawing.Point(3, 32);
+            this.buttonAddCustomSet.Name = "buttonAddCustomSet";
+            this.buttonAddCustomSet.Size = new System.Drawing.Size(312, 23);
+            this.buttonAddCustomSet.TabIndex = 15;
+            this.buttonAddCustomSet.Text = "Добавить пользовательский набор";
+            this.buttonAddCustomSet.UseVisualStyleBackColor = true;
+            this.buttonAddCustomSet.Click += new System.EventHandler(this.buttonAddCustomSet_Click);
+            // 
             // CandidateLineList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.buttonAddCustomSet);
+            this.Controls.Add(this.updateSearchData);
             this.Controls.Add(this.btnGenerate);
             this.Controls.Add(this.nmStep);
             this.Controls.Add(this.label3);
@@ -262,5 +289,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.NumericUpDown nmStep;
         private System.Windows.Forms.Button btnGenerate;
+        private System.Windows.Forms.Button updateSearchData;
+        private System.Windows.Forms.Button buttonAddCustomSet;
     }
 }

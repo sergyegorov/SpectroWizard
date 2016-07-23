@@ -252,6 +252,8 @@ namespace SpectroWizard
                 }
             }
         }
+        public int DefaultLineDb = 1;
+
 
         public void Store(string base_folder)
         {
@@ -259,7 +261,7 @@ namespace SpectroWizard
             Commit();
             Stream stream = File.Open(Common.DBBaseEnv + "env.bin", FileMode.OpenOrCreate);
             BinaryWriter bw = new BinaryWriter(stream);
-            bw.Write(3);
+            bw.Write(4);
             //public string LinkintEditorText = "";
             bw.Write(LinkintEditorText);
             bw.Write(LinkingEditorGlobalLyText);
@@ -297,7 +299,9 @@ namespace SpectroWizard
             else
                 bw.Write(DefaultDispText.Trim());
 
-            bw.Write(2394852);
+            bw.Write(DefaultLineDb);
+
+           // bw.Write(2394852);
 
             bw.Flush();
             stream.Close();
@@ -399,10 +403,15 @@ namespace SpectroWizard
                 tmp = 0;
             }
 
-            if (tmp != 2394852)
+            if (ver >= 4)
+                ret.DefaultLineDb = tmp;
+            if (ret.DefaultLineDb < 0 || ret.DefaultLineDb > 2)
+                ret.DefaultLineDb = 1;
+
+            /*if (tmp != 2394852)
             {
                 ret.MaxAmplDltPrs = 30;
-            }
+            }*/
 
             stream.Close();
             return ret;
