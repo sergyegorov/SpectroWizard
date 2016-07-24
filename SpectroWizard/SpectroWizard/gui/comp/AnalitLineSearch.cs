@@ -109,7 +109,7 @@ namespace SpectroWizard.gui.comp
                 Cons = DataExtractor.getData(Method, Element, Formula);
                 if (Th != null && Cons != null)
                 {
-                    Log("Загруженно "+Cons.Count+" прожегов.");
+                    Log("Загруженно "+Cons.Count+" прожигов.");
                     int sn_count = Cons[0].DataMinusNull.Length;
                     
                     for (int sn = 0; sn < sn_count && Th != null; sn++)
@@ -229,7 +229,7 @@ namespace SpectroWizard.gui.comp
                         Log("Не найдено отношений...");
                 }
                 else
-                    Log("Не найдено данных по прожегам...");
+                    Log("Не найдено данных по прожигам...");
                 InitList();
                 chbViewFilter.Items.Clear();
                 chbViewFilter.Items.Add("");

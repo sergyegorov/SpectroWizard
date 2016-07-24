@@ -16,6 +16,14 @@ namespace SpectroWizard.util
             InitializeComponent();
         }
 
+        public int NoiseCenselationLevel
+        {
+            get
+            {
+                return (int)numNoiseCenseletionLevel.Value;
+            }
+        }
+
         bool IsOk;
         float[] Data;
         float MinData, MaxData;

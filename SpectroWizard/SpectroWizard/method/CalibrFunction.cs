@@ -18,6 +18,13 @@ namespace SpectroWizard.method
         Function F3Dxy; //z
         Function F3Derr; //z
 
+        public string GetDescription()
+        {
+            if (F2D != null)
+                return F2D.GetDescription();
+            return "";
+        }
+
         public void SetuDefault()
         {
             double[] val = {1,2};

@@ -270,6 +270,23 @@ namespace SpectroWizard
             return true;
         }
 
+        static double[] logVals = { 0.0001, 0.0002, 0.0005, 0.001, 0.002, 0.0015, 0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1, 2, 5, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000, 50000, 100000, 200000, 500000, 1000000 };
+        public static double[] GetGoodValues(double lfrom, double lto, int n,bool isLog)
+        {
+            if (isLog == false)
+                return GetGoodValues(lfrom, lto, n);
+            int from = 0;
+            for (; from <= logVals.Length && logVals[from] < lfrom; from++) ;
+            int to = from;
+            for (; to <= logVals.Length && logVals[to] < lto; to++) ;
+            if(to-from < 2)
+                return GetGoodValues(lfrom, lto, n);
+            double[] ret = new double[to-from];
+            for (int i = 0; i < ret.Length; i++)
+                ret[i] = logVals[i + from];
+            return ret;
+        }
+
         public static double[] GetGoodValues(double lfrom, double lto, int n)
         {
             if (IsValid(lfrom) == false || IsValid(lto) == false)

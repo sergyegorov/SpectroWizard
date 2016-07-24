@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.DrawPanel = new System.Windows.Forms.Panel();
+            this.cbLg = new System.Windows.Forms.CheckBox();
             this.chbSum = new System.Windows.Forms.ComboBox();
             this.chbTextLogShow = new System.Windows.Forms.CheckBox();
             this.CM = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -45,6 +46,7 @@
             // DrawPanel
             // 
             this.DrawPanel.BackColor = System.Drawing.Color.White;
+            this.DrawPanel.Controls.Add(this.cbLg);
             this.DrawPanel.Controls.Add(this.chbSum);
             this.DrawPanel.Controls.Add(this.chbTextLogShow);
             this.DrawPanel.Cursor = System.Windows.Forms.Cursors.Cross;
@@ -56,6 +58,20 @@
             this.DrawPanel.SizeChanged += new System.EventHandler(this.DrawPanel_SizeChanged);
             this.DrawPanel.Click += new System.EventHandler(this.DrawPanel_Click);
             this.DrawPanel.MouseUp += new System.Windows.Forms.MouseEventHandler(this.DrawPanel_MouseUp);
+            // 
+            // cbLg
+            // 
+            this.cbLg.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbLg.AutoSize = true;
+            this.cbLg.BackColor = System.Drawing.Color.Transparent;
+            this.cbLg.Location = new System.Drawing.Point(372, 254);
+            this.cbLg.Name = "cbLg";
+            this.cbLg.Size = new System.Drawing.Size(38, 17);
+            this.cbLg.TabIndex = 3;
+            this.cbLg.Text = "Lg";
+            this.cbLg.UseVisualStyleBackColor = false;
+            this.cbLg.Visible = false;
+            this.cbLg.CheckedChanged += new System.EventHandler(this.cbLg_CheckedChanged);
             // 
             // chbSum
             // 
@@ -95,32 +111,32 @@
             this.toolStripMenuItem1,
             this.CMTextVisible});
             this.CM.Name = "contextMenuStrip1";
-            this.CM.Size = new System.Drawing.Size(335, 120);
+            this.CM.Size = new System.Drawing.Size(324, 98);
             // 
             // CMViewAll
             // 
             this.CMViewAll.Checked = true;
             this.CMViewAll.CheckState = System.Windows.Forms.CheckState.Checked;
             this.CMViewAll.Name = "CMViewAll";
-            this.CMViewAll.Size = new System.Drawing.Size(334, 22);
+            this.CMViewAll.Size = new System.Drawing.Size(323, 22);
             this.CMViewAll.Text = "Показывать отдельно все точки";
             // 
             // CMViewSum
             // 
             this.CMViewSum.Name = "CMViewSum";
-            this.CMViewSum.Size = new System.Drawing.Size(334, 22);
+            this.CMViewSum.Size = new System.Drawing.Size(323, 22);
             this.CMViewSum.Text = "Показывать только среднее по всем точкам";
             // 
             // CMViewProbSum
             // 
             this.CMViewProbSum.Name = "CMViewProbSum";
-            this.CMViewProbSum.Size = new System.Drawing.Size(334, 22);
+            this.CMViewProbSum.Size = new System.Drawing.Size(323, 22);
             this.CMViewProbSum.Text = "Показывать среднее отдельно по каждой пробе";
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(331, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(320, 6);
             // 
             // CMTextVisible
             // 
@@ -128,7 +144,7 @@
             this.CMTextVisible.CheckOnClick = true;
             this.CMTextVisible.CheckState = System.Windows.Forms.CheckState.Checked;
             this.CMTextVisible.Name = "CMTextVisible";
-            this.CMTextVisible.Size = new System.Drawing.Size(334, 22);
+            this.CMTextVisible.Size = new System.Drawing.Size(323, 22);
             this.CMTextVisible.Text = "Показывать текстовую информацию";
             // 
             // GraphLog
@@ -157,5 +173,6 @@
         private System.Windows.Forms.ToolStripMenuItem CMViewProbSum;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem CMTextVisible;
+        private System.Windows.Forms.CheckBox cbLg;
     }
 }

@@ -25,7 +25,7 @@ namespace SpectroWizard.gui.tasks
 
         public string taskGetName()
         {
-            return Common.MLS.Get("tasklist","Общие натройки");
+            return Common.MLS.Get("tasklist","Общие наcтройки");
         }
 
         public ToolStripItem[] GetContextMenu()

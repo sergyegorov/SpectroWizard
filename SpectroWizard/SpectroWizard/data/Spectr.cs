@@ -44,6 +44,11 @@ namespace SpectroWizard.data
             Disp = new Dispers(disp,false);
         }
 
+        public Dispers GetDispers()
+        {
+            return Disp;
+        }
+
         public void ApplySifts(float[] shifts)
         {
             for (int s = 0; s < shifts.Length; s++)

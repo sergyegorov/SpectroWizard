@@ -9,6 +9,7 @@ using System.Windows.Forms;
 
 namespace SpectroWizard.dev
 {
+    // Удалено: Управление заливающим светом
     public partial class SpCondSENewLineTypeSelector : Form
     {
         public SpCondSENewLineTypeSelector()

@@ -156,5 +156,18 @@ namespace SpectroWizard.method
             {
             }
         }
+
+        public void SetInterpolationType(int type)
+        {
+            try
+            {
+                simpleFormula.SetInterpolationType(type);
+                btOk_Click(this, null);
+            }
+            catch (Exception ex)
+            {
+                Common.LogNoMsg(ex);
+            }
+        }
     }
 }

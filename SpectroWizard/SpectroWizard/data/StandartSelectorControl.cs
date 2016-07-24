@@ -162,7 +162,22 @@ namespace SpectroWizard.data
         public string SelectedElementName;
         public string SelectedProbName;
         float[,] Cons;
+        bool[,] ConsPrelim;
         List<String> ElementNames;
+        public List<String> GetElementList()
+        {
+            return ElementNames;
+        }
+
+        public List<String> GetProbList()
+        {
+            //StandartDetails.Rows[e.RowIndex].HeaderCell.Value;
+            List<String> ret = new List<string>();
+            for (int i = 0; i < StandartDetails.Rows.Count; i++)
+                ret.Add((string)StandartDetails.Rows[i].HeaderCell.Value);
+            return ret;
+        }
+
         private void LibTree_AfterSelect(object sender, TreeViewEventArgs e)
         {
             try
@@ -212,6 +227,7 @@ namespace SpectroWizard.data
                 }
 
                 Cons = new float[lib.Count, col_count];
+                ConsPrelim = new bool[lib.Count, col_count];
 
                 for (int p = 0; p < lib.Count; p++)
                 {
@@ -229,8 +245,12 @@ namespace SpectroWizard.data
                                 break;
                             }
 
+                        
                         row[col] = elem.Con.ToString();
+                        if (elem.IsAproxim)
+                            row[col] = "~" + row[col];
                         Cons[p, el] = (float)elem.Con;
+                        ConsPrelim[p, el] = elem.IsAproxim;
                     }
 
                     StandartDetails.Rows.Add(row);

@@ -444,6 +444,7 @@ namespace SpectroWizard.gui
                 SelectNode(e.Node);
                 //HideFk();
                 //OpenNode(e.Node, false);
+                Common.ClearMemory();
             }
             catch (Exception ex)
             {

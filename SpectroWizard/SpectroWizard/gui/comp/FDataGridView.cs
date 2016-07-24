@@ -39,6 +39,20 @@ namespace SpectroWizard.gui.comp
             }
         }
 
+        int col = 0;
+        int row = 0;
+        public void StoreView()
+        {
+            col = ColScrollBar.Value;
+            row = RowScrollBar.Value;
+        }
+
+        public void ResotreView()
+        {
+            ColScrollBar.Value = col;
+            RowScrollBar.Value = row;
+        }
+
         public FDataGridViewSelectChanged SelectChanged = null;
         public FDataGridViewDoubleClick CellDoubleClick = null;
         public FDataGridView()

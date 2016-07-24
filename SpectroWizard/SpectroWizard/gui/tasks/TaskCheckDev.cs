@@ -28,6 +28,7 @@ namespace SpectroWizard.gui.tasks
 
         public TaskCheckDev()
         {
+            This = this;
             InitializeComponent();
             Common.Reg(this, MLSConst);
             for (int i = 0; i < Tests.Length; i++)
@@ -185,6 +186,14 @@ namespace SpectroWizard.gui.tasks
             {
                 Common.Log(ex);
             }
+        }
+
+        static TaskCheckDev This;
+        public static Spectr getLinkingMatrixSpectr()
+        {
+            string[] names;
+            int view_type;
+            return This.Tests[0].GetSpectrResults(out names, out view_type)[0];
         }
 
         private void cbTestList_SelectedIndexChanged(object sender, EventArgs e)

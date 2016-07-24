@@ -225,6 +225,12 @@ namespace SpectroWizard.method
                 try
                 {
                     Load(br);
+                    for (int el = 0; el < GetElementCount(); el++)
+                    {
+                        MethodSimpleElement mse = GetElHeader(el);
+                        for (int f = 0; f < mse.Formula.Count; f++)
+                            mse.Formula[f].Formula.init();
+                    }
                 }
                 finally
                 {
@@ -955,7 +961,7 @@ namespace SpectroWizard.method
             string endl = "" + (char)0xD + (char)0xA;
             string ret = "";
             ret += "--------Промерянный спектр:" + endl + "Путь: '" + SpectrPath + "'" + endl;
-            ret += "Оценки прожега: ";
+            ret += "Оценки прожига: ";
             if (SpRates == null || SpRates.Length == 0)
                 ret += "Механизм оценок не применялся...";
             else
@@ -1332,6 +1338,20 @@ namespace SpectroWizard.method
         //int Prob = 0, SubProb = 0;
         public double ConMin = 0,ConMax = 30;
 
+        public void SetupAnalitLy(float ly)
+        {
+            Formula.SetupAnalit();
+        }
+
+        public void SetupCompareLy(float ly)
+        {
+            Formula.SetupCompare();
+        }
+
+        public string GetDescription()
+        {
+            return Formula.GetDescription();
+        }
 
         //public double Base100MinusCon = 0;
 
@@ -1688,14 +1708,19 @@ namespace SpectroWizard.method
                 }
                 if (Results[r].ReCalcCon == null || Results[r].Enabled == false)
                     continue;
-                int n = Results[r].ReCalcCon.Length;
-                for (int ri = 0; ri < n; ri++)
+                //int n = Results[r].ReCalcCon.Length;
+                double sko,skoe;
+                double val = Results[r].GetEver(out sko, out skoe);
+                /*for (int ri = 0; ri < n; ri++)
                 {
                     if (Results[r].ReCalcCon[ri] < Results[r].ConFrom ||
                         Results[r].ReCalcCon[ri] > Results[r].ConTo)
                         continue;
                     r_count++;
-                }
+                }*/
+                if (val < Results[r].ConFrom || val > Results[r].ConTo)
+                    continue;
+                r_count++;
             }
             SpRates =  new double[r_count];
             double[] ret = new double[r_count];
@@ -1710,8 +1735,14 @@ namespace SpectroWizard.method
                 }
                 if (Results[r].ReCalcCon == null || Results[r].Enabled == false)
                     continue;
-                int n = Results[r].ReCalcCon.Length;
-                for (int ri = 0; ri < n; ri++)
+                //int n = Results[r].ReCalcCon.Length;
+                double sko, skoe;
+                double val = Results[r].GetEver(out sko, out skoe);
+                if (val < Results[r].ConFrom ||val > Results[r].ConTo)
+                    continue;
+                ret[r_count] = val;
+                r_count++;
+                /*for (int ri = 0; ri < n; ri++)
                 {
                     if (Results[r].ReCalcCon[ri] < Results[r].ConFrom ||
                         Results[r].ReCalcCon[ri] > Results[r].ConTo)
@@ -1722,7 +1753,7 @@ namespace SpectroWizard.method
                     else
                         SpRates[r_count] = 1;
                     r_count++;
-                }
+                }*/
             }
             return ret;
         }
@@ -1952,7 +1983,7 @@ namespace SpectroWizard.method
                 ret += " Среднее значение = " + ever + serv.Endl;
                 ret += " СКО = " + sko + " " + (sko * 100 / ever) + "%" + endl;
                 ret += " Хор.СКО = " + good_sko + " " + (good_sko * 100 / ever) + "%" + endl;
-                ret += "   Кон." + "   Аналит." + "  Оценка прожега" + endl;
+                ret += "   Кон." + "   Аналит." + "  Оценка прожига" + endl;
                 for (int i = 0; i < ReCalcCon.Length; i++)
                 {
                     ret += "   " + ReCalcCon[i] + "  " + AnalitValue[i];// +endl;

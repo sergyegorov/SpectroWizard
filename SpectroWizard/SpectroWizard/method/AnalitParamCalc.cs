@@ -43,6 +43,16 @@ namespace SpectroWizard.method
             }
         }
 
+        public void SetupAnalitLy()
+        {
+            methodLineCalc1.SetupLyAndProfile();
+        }
+
+        public void SetupCompareLy()
+        {
+            methodLineCalc2.SetupLyAndProfile();
+        }
+
         /*public void SetupLy(double ly,Spectr sp)
         {
             methodLineCalc1.SetupLy(ly, sp);

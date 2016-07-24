@@ -12,6 +12,7 @@ namespace SpectroWizard.method.algo
             double ly,int widthPlusMinus,bool useConDlt,
             double min,double max,bool relative)
         {
+            int mul_k = (int)Common.Conf.MultFactor;
             int is_ok = 0;
             int is_over = 0;
             List<DataShot> ret = new List<DataShot>();
@@ -37,7 +38,9 @@ namespace SpectroWizard.method.algo
                             }//*/
                             for (int measuring_index = 0; measuring_index < prob.MeasuredSpectrs.Count; measuring_index++)
                             {
-
+                                MethodSimpleCellFormulaResult mscfr = msc.GetData(measuring_index,formula);
+                                if(mscfr.Enabled == false)
+                                    continue;
                                 MethodSimpleProbMeasuring mspm = prob.MeasuredSpectrs[measuring_index];
                                 Spectr sp = mspm.Sp;
                                 if (sp == null)
@@ -57,14 +60,25 @@ namespace SpectroWizard.method.algo
                                         continue;
                                     SpectrDataView sig = viewSet[shotIndexes[shot_index]];
                                     SpectrDataView nul = sp.GetNullFor(shotIndexes[shot_index]);
-                                    for (int sn = 0; sn < sensors.Count; sn++)
+                                    for (int sn = 0; sn < 1 && sn < sensors.Count; sn++)
                                     {
                                         int sensorIndex = sensors[sn];
                                         int n = (int)disp.GetLocalPixelByLy(sensorIndex, ly);
                                         float[] sigData = sig.GetSensorData(sensorIndex);
                                         float[] nulData = nul.GetSensorData(sensorIndex);
+                                        float minSignal = float.MaxValue;
+                                        float[] signal = new float[sigData.Length];
+                                        for (int i = 0; i < signal.Length; i++)
+                                            signal[i] = sigData[i] - nulData[i];
+                                        for (int i = 500; i < sigData.Length - 500; i++)
+                                        {
+                                            float val = (signal[i - 1] + signal[i] + signal[i + 1]) / 3;
+                                            if (val < minSignal)
+                                                minSignal = val;
+                                        }
 
                                         float[] data = new float[widthPlusMinus * 2 + 1];
+                                        double maxSignal = -double.MaxValue;
                                         for (int i = 0; i < data.Length; i++)
                                         {
                                             int index = n - widthPlusMinus + i;
@@ -74,10 +88,14 @@ namespace SpectroWizard.method.algo
                                                 isEnabled = false;
                                                 continue;
                                             }
-                                            data[i] = sigData[index] - nulData[index];
+                                            data[i] = signal[index];//sigData[index] - nulData[index];
                                             if (data[i] > max)
                                                 isEnabled = false;
+                                            if (data[i] > maxSignal && i > widthPlusMinus-4 && i < widthPlusMinus+4)
+                                                maxSignal = data[i];
                                         }
+                                        if (maxSignal < min)
+                                            isEnabled = false;
                                         if (isEnabled)
                                             is_ok++;
                                         else

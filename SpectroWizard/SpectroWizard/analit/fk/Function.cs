@@ -19,6 +19,71 @@ namespace SpectroWizard.analit.fk
             TestFunctionCreated = true;
         }
 
+        public string GetDescription()
+        {
+            string ret = "f(x)=";
+            if(K[(int)Ks.A] != 0)
+                ret += Math.Round(K[(int)Ks.A],4);
+            string x;
+            if(K[(int)Ks.LgScale] != 0)
+                x = "lg(x)";
+            else
+                x = "x";
+            if (K[(int)Ks.B] != 0)
+            {
+                if(K[(int)Ks.B] > 0)
+                    ret += "+";
+                ret += Math.Round(K[(int)Ks.B], 4)+"*"+x;
+            }
+            if (K[(int)Ks.C] != 0)
+            {
+                if (K[(int)Ks.C] > 0)
+                    ret += "+";
+                ret += Math.Round(K[(int)Ks.C], 4) + "*"+x+"^2";
+            }
+            if (K[(int)Ks.D] != 0)
+            {
+                if (K[(int)Ks.D] > 0)
+                    ret += "+";
+                ret += Math.Round(K[(int)Ks.D], 4) + "*"+x+"^3";
+            }
+            if (K[(int)Ks.E] != 0)
+            {
+                if (K[(int)Ks.E] > 0)
+                    ret += "+";
+                ret += Math.Round(K[(int)Ks.E], 4) + "*"+x+"^4";
+            }
+            ret += " ";
+            double evx = 0;
+            double evy = 0;
+            int n = 0;
+            if (X == null)
+                return ret;
+            for (int i = 0; i < X.Length; i++)
+            {
+                evx += X[i];
+                evy += Y[i];
+                n ++;
+            }
+            if (n < 3)
+                return ret;
+            evx /= n;
+            evy /= n;
+            double kk = 0,sch = 0,sznx = 0,szny = 0;
+            for (int i = 0; i < X.Length; i++)
+            {
+                sch += (X[i] - evx)*(Y[i] - evy);
+                sznx += (X[i] - evx) * (X[i] - evx);
+                szny += (Y[i] - evy) * (Y[i] - evy);
+            }
+            if (szny != 0 && sznx != 0)
+            {
+                ret += " K.корел=" + Math.Round(sch / (Math.Sqrt(sznx) * Math.Sqrt(szny)), 5);
+                //ret += " Kкорел=" + sch / (Math.Sqrt(sznx) * Math.Sqrt(szny));
+            }
+            return ret;
+        }
+
         public override string GetName()
         {
             return "Interpolation Function Test";
@@ -374,12 +439,14 @@ namespace SpectroWizard.analit.fk
             K = new double[n];
             for (int i = 0; i < n; i++)
                 K[i] = br.ReadDouble();
+            restoreXY();
             CheckLineExtrapolation();
         }
 
         public Function(Function fk)
         {
             K = (double[])fk.K.Clone();
+            restoreXY();
             CheckLineExtrapolation();
         }
 
@@ -517,8 +584,12 @@ namespace SpectroWizard.analit.fk
                     miny = LgNull;
             }
 
-            K = new double[(int)Ks.KSize];
-
+            K = new double[(int)Ks.KSize + X.Length + Y.Length];
+            for (int i = 0; i < X.Length; i++)
+            {
+                K[(int)Ks.KSize + i * 2] = X[i];
+                K[(int)Ks.KSize + i * 2 + 1] = Y[i];
+            }
             K[(int)Ks.Type] = (double)type;
             K[(int)Ks.A] = 0;
             K[(int)Ks.B] = 1;
@@ -530,12 +601,12 @@ namespace SpectroWizard.analit.fk
                 K[(int)Ks.LineExtra] = 1;
             else
                 K[(int)Ks.LineExtra] = 0;
-            if(lg_scale)
+            if (lg_scale)
                 K[(int)Ks.LgScale] = 1;
             else
                 K[(int)Ks.LgScale] = 0;
-            K[(int)Ks.XMin] = (double)minx;
-            K[(int)Ks.XMax] = (double)maxx;
+            K[(int)Ks.XMin] = minx;
+            K[(int)Ks.XMax] = maxx;
 
             if (count > 1)
             {
@@ -622,33 +693,62 @@ namespace SpectroWizard.analit.fk
             K[(int)Ks.D] = k[3];
         }
 
+        void restoreXY()
+        {
+            int size = (K.Length - (int)Ks.KSize) / 2;
+            if (size == 0)
+                return;
+            X = new double[size];
+            Y = new double[size];
+            for (int i = 0; i < size; i++)
+            {
+                X[i] = K[(int)Ks.KSize + i * 2];
+                Y[i] = K[(int)Ks.KSize + i * 2 + 1];
+            }
+        }
+
         public Function(double[] k)
         {
             K = (double[])k.Clone();
+            restoreXY();
         }
 
-        public double CalckDyDx(double x_)
+        public double CalckDyDx(double x)
         {
-            double x = GetVal(x_+K[(int)Ks.XShift]);
+            /*double x = GetVal(x_+K[(int)Ks.XShift]);
             double xx = x * x,
                 xxx = xx * x;
             return GetRevVal(//K[(int)Ks.A]+
                     K[(int)Ks.B] +//K[(int)Ks.B]*x+
                     K[(int)Ks.C] * x * 2 +//K[(int)Ks.C]*xx+
                     K[(int)Ks.D] * xx * 3 +//K[(int)Ks.D]*xxx+
-                    K[(int)Ks.E] * xxx * 4);//K[(int)Ks.E]*xxxx;
+                    K[(int)Ks.E] * xxx * 4);//K[(int)Ks.E]*xxxx;*/
+            double dx = K[(int)Ks.XMax] - K[(int)Ks.XMin];
+            dx /= 1000000;
+            double x1 = x - dx;
+            double x2 = x + dx;
+            double y1 = CalcYNoExtra(x1);
+            double y2 = CalcYNoExtra(x2);
+            dx = (x2 - x1);
+            double dy = (y2 - y1);
+            return dy / dx;
         }
 
-        public double CalcY(double x_)
+        public double CalcY(double x)
         {
-            double x = GetVal(x_ + K[(int)Ks.XShift]);
             if (K[(int)Ks.LineExtra] == 1)
             {
                 if (x < K[(int)Ks.XMin])
-                    return GetRevVal(K[(int)Ks.YMin] + (x - K[(int)Ks.XMin]) * KLineLeft);
+                    return K[(int)Ks.YMin] + (x - K[(int)Ks.XMin]) * KLineLeft;
                 if (x > K[(int)Ks.XMax])
-                    return GetRevVal(K[(int)Ks.YMax] + (x - K[(int)Ks.XMax]) * KLineRight);
+                    return K[(int)Ks.YMax] + (x - K[(int)Ks.XMax]) * KLineRight;
             }
+            return CalcYNoExtra(x);
+        }
+
+        public double CalcYNoExtra(double x)
+        {
+            x = GetVal(x + K[(int)Ks.XShift]);
             double xx = x * x,
                 xxx = xx * x,
                 xxxx = xxx * x;
@@ -665,11 +765,31 @@ namespace SpectroWizard.analit.fk
             RevYFrom, RevYTo,
             RevDltY,RevX0;
         bool KRevEnable = true;
+        //double[] kRev = null;
         public double CalcX(double y_)
         {
-            double y = GetVal(y_);
+            /*if (kRev == null)
+            {
+                double xmin = K[(int)Ks.XMin];
+                double xmax = K[(int)Ks.XMax];
+                double dx = (xmax-xmin)/KRevNum;
+                double[] x = new double[KRevNum];
+                double[] y = new double[KRevNum];
+                for (int i = 0; i < x.Length; i++)
+                {
+                    x[i] = xmin + dx * i;
+                    y[i] = CalcY(x[i]);
+                }
+                kRev = Interpolation.mInterpol3(x, y);
+            }//*/
+            double y = y_;// GetVal(y_);
             if (K[(int)Ks.C] == 0 && K[(int)Ks.D] == 0 && K[(int)Ks.E] == 0)
-                return GetRevVal((y - K[(int)Ks.A]) / K[(int)Ks.B]) - K[(int)Ks.XShift];
+            {
+                return GetRevVal((GetVal(y) - K[(int)Ks.A]) / K[(int)Ks.B]) - K[(int)Ks.XShift];
+            }
+
+            if (K[(int)Ks.LgScale] == 1)
+                y = y_;
 
             if (K[(int)Ks.LineExtra] == 1)
             {
@@ -772,10 +892,7 @@ namespace SpectroWizard.analit.fk
                 }
                 y_from = CalcY(x_from);
             }
-            if (Math.Abs(y_from - y) > Aquracy)
-                throw new Exception("Aquracy error. Error = " + Math.Abs(y_from - y) + " " +
-                        (Math.Abs(y_from - y) * 100 / y) + "%");
-            return x_from;
+            return x_from;//*/
         }
     }
 }

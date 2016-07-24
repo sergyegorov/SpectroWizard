@@ -216,7 +216,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(80, 107);
+            this.label8.Location = new System.Drawing.Point(81, 132);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(18, 13);
             this.label8.TabIndex = 13;
@@ -224,7 +224,7 @@
             // 
             // IntFromFld
             // 
-            this.IntFromFld.Location = new System.Drawing.Point(104, 105);
+            this.IntFromFld.Location = new System.Drawing.Point(105, 130);
             this.IntFromFld.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -233,12 +233,17 @@
             this.IntFromFld.Name = "IntFromFld";
             this.IntFromFld.Size = new System.Drawing.Size(61, 20);
             this.IntFromFld.TabIndex = 14;
+            this.IntFromFld.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
             this.IntFromFld.ValueChanged += new System.EventHandler(this.LyFromFld_ValueChanged);
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(171, 107);
+            this.label9.Location = new System.Drawing.Point(172, 132);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(19, 13);
             this.label9.TabIndex = 15;
@@ -246,7 +251,7 @@
             // 
             // IntToFld
             // 
-            this.IntToFld.Location = new System.Drawing.Point(196, 105);
+            this.IntToFld.Location = new System.Drawing.Point(197, 130);
             this.IntToFld.Maximum = new decimal(new int[] {
             10001,
             0,
@@ -294,7 +299,7 @@
             // IntUnknownIncl
             // 
             this.IntUnknownIncl.AutoSize = true;
-            this.IntUnknownIncl.Location = new System.Drawing.Point(84, 131);
+            this.IntUnknownIncl.Location = new System.Drawing.Point(85, 156);
             this.IntUnknownIncl.Name = "IntUnknownIncl";
             this.IntUnknownIncl.Size = new System.Drawing.Size(218, 17);
             this.IntUnknownIncl.TabIndex = 22;
@@ -365,9 +370,9 @@
             this.panel7.Controls.Add(this.PreviewData);
             this.panel7.Controls.Add(this.panel8);
             this.panel7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel7.Location = new System.Drawing.Point(0, 155);
+            this.panel7.Location = new System.Drawing.Point(0, 177);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(307, 287);
+            this.panel7.Size = new System.Drawing.Size(307, 265);
             this.panel7.TabIndex = 2;
             // 
             // PreviewData
@@ -377,7 +382,7 @@
             this.PreviewData.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PreviewData.Location = new System.Drawing.Point(0, 25);
             this.PreviewData.Name = "PreviewData";
-            this.PreviewData.Size = new System.Drawing.Size(307, 262);
+            this.PreviewData.Size = new System.Drawing.Size(307, 240);
             this.PreviewData.TabIndex = 21;
             this.PreviewData.Paint += new System.Windows.Forms.PaintEventHandler(this.PreviewData_Paint);
             // 
@@ -430,7 +435,7 @@
             this.panel5.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel5.Location = new System.Drawing.Point(0, 0);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(307, 155);
+            this.panel5.Size = new System.Drawing.Size(307, 177);
             this.panel5.TabIndex = 0;
             // 
             // LDbQuery

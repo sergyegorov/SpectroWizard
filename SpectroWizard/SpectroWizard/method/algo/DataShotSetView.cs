@@ -33,7 +33,7 @@ namespace SpectroWizard.method.algo
             else
             {
                 Data = DataShotExtractor.extract(method, element, formula, ly, WindowSize, isConDlt, 0, 20000, isRel);
-                if (Data.Count == 0)
+                if (Data == null || Data.Count == 0)
                     Data = null;
                 else
                 {
