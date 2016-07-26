@@ -9,10 +9,14 @@ namespace SpectroWizard.gui.comp
 {
     class PrintTableDoc : PrintingObjectDoc
     {
+        Font FntN;
+        Font FntB;
         string Caption;
         public PrintTableDoc(string caption)
         {
             Caption = caption;
+            FntN = new Font(FontFamily.GenericSerif, Common.Env.DefaultFontSize);
+            FntB = new Font(FontFamily.GenericSerif, Common.Env.DefaultFontSize, FontStyle.Bold);
         }
 
         string[,] Data;
@@ -41,8 +45,6 @@ namespace SpectroWizard.gui.comp
             Data[0,row+1] = val;
         }
 
-        Font FntN = new Font(FontFamily.GenericSerif, 10);
-        Font FntB = new Font(FontFamily.GenericSerif, 10, FontStyle.Bold);
         public override void Paint(System.Drawing.Graphics g, 
             System.Drawing.Rectangle draw_region, 
             ref int x, ref int y, ref bool need_more_page)

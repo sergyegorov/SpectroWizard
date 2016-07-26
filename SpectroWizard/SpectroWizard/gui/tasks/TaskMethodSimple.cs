@@ -93,7 +93,7 @@ namespace SpectroWizard.gui.tasks
         public void Close()
         {
             try{
-                util.WaitDlg msg = new util.WaitDlg();
+                util.WaitDlg msg = util.WaitDlg.getDlg();//new util.WaitDlg();
                 msg.Show();
                 msg.Refresh();
                 if(Method != null &&
@@ -604,7 +604,7 @@ namespace SpectroWizard.gui.tasks
                 string name = msp.Name + "(";
                 name += msc.Prefix;
                 name += msc.Con;
-                name += "%) Среднее по графику:";
+                name += "%)";
                 dgConTable.Rows[row].HeaderCell.Value = name;
                 for (int f = 0; f < dgConTable.ColumnCount;f++ )
                     dgConTable.Rows[row].Cells[f] = new SMProbCell(f,msc, msc.Con, msc.Prefix, dgConTable.Rows[row], chbShowSko.Checked);

@@ -11,14 +11,33 @@ namespace SpectroWizard.util
 {
     public partial class WaitDlg : Form
     {
-        public WaitDlg()
+        private WaitDlg()
         {
             InitializeComponent();
+        }
+
+        public static WaitDlg dlg;
+        public static WaitDlg getDlg()
+        {
+            if (dlg == null)
+                dlg = new WaitDlg();
+            return dlg;
         }
 
         public void setText(String str)
         {
             label1.Text = str;
+        }
+
+        private void label1_VisibleChanged(object sender, EventArgs e)
+        {
+            try
+            {
+            }
+            catch (Exception ex)
+            {
+                Log.Out(ex);
+            }
         }
     }
 }

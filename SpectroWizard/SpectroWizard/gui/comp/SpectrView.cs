@@ -1162,9 +1162,37 @@ namespace SpectroWizard.gui.comp
                 if(SpInfo.Count == 0)
                     return;
                 float dlt = (float)SpInfo[0].GetPixelSize((ViewMinLy + ViewMaxLy) / 2);
-                dlt *= DrawPanel.Width / 4;
+                dlt *= DrawPanel.Width / 10;
                 ViewMinLy = CursorX - dlt;
                 ViewMaxLy = CursorX + dlt;
+                
+                float fromLy = CursorX - 20;
+                float toLy = CursorX + 20;
+                SpectrViewInfo v = SpInfo[0];
+                float minV = float.MaxValue;
+                float maxV = -float.MaxValue;
+                for (int sn = 0; sn < v.Lys.Length; sn++)
+                {
+                    float[] ly = v.Lys[sn];
+                    int[] data = v.SpData[sn];
+                    for (int i = 0; i < ly.Length; i++)
+                    {
+                        if (ly[i] > fromLy && ly[i] < toLy)
+                        {
+                            int val = data[i];
+                            if (val < minV)
+                                minV = val-20;
+                            if (val > maxV)
+                                maxV = val+20;
+                        }
+                    }
+                }
+                if (minV != float.MaxValue && maxV - minV < 1000000)
+                {
+                    ViewMinY = minV;
+                    ViewMaxY = maxV;
+                }
+
                 CheckVScrollBar();
                 CheckHScrollBar();
                 ReDraw();
@@ -2134,6 +2162,26 @@ namespace SpectroWizard.gui.comp
             {
                 if (SetLyListenerPriv != null)
                     SetLyListenerPriv(false, CursorX);
+            }
+            catch (Exception ex)
+            {
+                Common.Log(ex);
+            }
+        }
+
+        private void lbLyInfo_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                String val = StringDialog.GetString(this, "Быстрый переход", "Быстрый пререход по длине волны", "", false);
+                if (val == null)
+                    return;
+                val = val.Trim();
+                if (val.Length == 0)
+                    return;
+                double dval = serv.ParseDouble(val);
+                CursorX = (float)dval;
+                btZ_Click(null, null);
             }
             catch (Exception ex)
             {

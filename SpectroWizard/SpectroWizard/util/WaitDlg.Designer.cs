@@ -68,6 +68,7 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Завершение...";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label1.VisibleChanged += new System.EventHandler(this.label1_VisibleChanged);
             // 
             // WaitDlg
             // 

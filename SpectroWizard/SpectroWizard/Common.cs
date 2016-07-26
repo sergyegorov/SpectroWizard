@@ -126,7 +126,7 @@ namespace SpectroWizard
         }
         public static int TestedBuild = 3;
         public static int DevelopersBuild = 78;
-        public static int TestBuild = 4364;
+        public static int TestBuild = 4403;
         public static string Version = "3.0."+TestedBuild+"."+DevelopersBuild+" ("+TestBuild+")";
         public enum VersionStateTypes
         {

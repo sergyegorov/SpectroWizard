@@ -125,8 +125,10 @@ namespace SpectroWizard.method
                     e.Cancel = false;
                     return;
                 }
-                Dlg = null;
+                //Dlg = null;
                 CurrentFormula = null;
+                Dlg.Visible = false;
+                e.Cancel = true;
             }
             catch (Exception ex)
             {

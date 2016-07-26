@@ -93,6 +93,7 @@
             this.printDocument1 = new System.Drawing.Printing.PrintDocument();
             this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
             this.dlgOpenSpectr = new System.Windows.Forms.OpenFileDialog();
+            this.mmCommonFullView = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -147,6 +148,7 @@
             // mmCommon
             // 
             this.mmCommon.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mmCommonFullView,
             this.mmComPrint,
             this.mmComDeletedProbs,
             this.toolStripMenuItem4,
@@ -570,6 +572,7 @@
             this.glGrLog.Dock = System.Windows.Forms.DockStyle.Fill;
             this.glGrLog.Location = new System.Drawing.Point(0, 0);
             this.glGrLog.Name = "glGrLog";
+            this.glGrLog.ShowLgCheckBox = false;
             this.glGrLog.ShowPalitra = false;
             this.glGrLog.ShowSumCheckBox = true;
             this.glGrLog.ShowSumDefaultValue = true;
@@ -605,6 +608,7 @@
             this.glCalcDetails.Dock = System.Windows.Forms.DockStyle.Fill;
             this.glCalcDetails.Location = new System.Drawing.Point(3, 3);
             this.glCalcDetails.Name = "glCalcDetails";
+            this.glCalcDetails.ShowLgCheckBox = false;
             this.glCalcDetails.ShowPalitra = false;
             this.glCalcDetails.ShowSumCheckBox = false;
             this.glCalcDetails.ShowSumDefaultValue = false;
@@ -659,6 +663,16 @@
             // dlgOpenSpectr
             // 
             this.dlgOpenSpectr.Filter = "Spectr Files|*.ss";
+            // 
+            // mmCommonFullView
+            // 
+            this.mmCommonFullView.Checked = true;
+            this.mmCommonFullView.CheckOnClick = true;
+            this.mmCommonFullView.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.mmCommonFullView.Name = "mmCommonFullView";
+            this.mmCommonFullView.Size = new System.Drawing.Size(309, 22);
+            this.mmCommonFullView.Text = "Полный вид";
+            this.mmCommonFullView.Click += new System.EventHandler(this.mmCommonFullView_Click);
             // 
             // TaskMeasuring
             // 
@@ -753,5 +767,6 @@
         private System.Windows.Forms.ToolStripMenuItem mmAnalitSaveCSVEverSelected;
         private System.Windows.Forms.ToolStripMenuItem mmAnalitSaveCSVAllSelected;
         private System.Windows.Forms.ToolStripMenuItem mmAnalitDd;
+        private System.Windows.Forms.ToolStripMenuItem mmCommonFullView;
     }
 }

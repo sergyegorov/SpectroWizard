@@ -181,7 +181,7 @@ namespace SpectroWizard.gui.tasks
             {
                 DeletedRecordTextPriv = null;
                 Path = null;
-                util.WaitDlg msg = new util.WaitDlg();
+                util.WaitDlg msg = util.WaitDlg.getDlg();//new util.WaitDlg();
                 msg.Show();
                 msg.Refresh();
 
@@ -349,15 +349,114 @@ namespace SpectroWizard.gui.tasks
         List<int> TableElementIndex = new List<int>();
         List<int> TableFormulaIndex = new List<int>();
         bool InitTableInProcess = false;
+
+        void InitShortTableProc()
+        {
+            if (dgTable.ColumnCount == 0 || dgTable.ColumnCount != Task.Data.GetElementCount())
+            {
+                glCalcDetails1.SelectedIndex = 1;
+                TableElementIndex.Clear();
+                TableFormulaIndex.Clear();
+                dgTable.Clear();
+                for (int e = 0; e < Task.Data.GetElementCount(); e++)
+                {
+                    MethodSimpleElement mse = Task.Data.GetElHeader(e);
+                    dgTable.ColumnAdd(mse.Element.Name);
+                    TableElementIndex.Add(e);
+                    TableFormulaIndex.Add(0);
+                }
+                dgTable.ColumnAdd(Common.MLS.Get(MLSConst, "Примечание"));
+                TableElementIndex.Add(-1);
+                TableFormulaIndex.Add(-1);
+
+                int row = 0;
+                for (int p = 0; p < Task.Data.GetProbCount(); p++)
+                {
+                    MethodSimpleProb msp = Task.Data.GetProbHeader(p);
+                    for (int sp = 0; sp < msp.MeasuredSpectrs.Count; sp++, row++)
+                    {
+                        int col = 0;
+                        if (sp == 0)
+                        {
+                            if (dgTable.RowCount >= row)
+                                dgTable.RowAdd();
+
+                            TableProbIndex.Add(p);
+                            TableSubProbIndex.Add(-1);
+
+                            string prob_name = msp.Name;
+                            if (msp.IsStandart)
+                                prob_name = ">" + prob_name + "<";
+                            dgTable.SetRow(row, prob_name);//Rows[row] = msp.Name;
+                            for (int e = 0; e < Task.Data.GetElementCount(); e++)
+                            {
+                                MethodSimpleCell msc = Task.Data.GetCell(e, p);
+                                MethodSimpleElement mse = Task.Data.GetElHeader(e);
+                                //if (mse.Formula.Count == 0)
+                                dgTable[col, row] = new MTProbCell(Task.Data.GetCell(e, p),
+                                        mse.Formula[0].Formula, msp, msc);
+                                //else
+                                //    dgTable[col, row] = new MTProbCell(Task.Data.GetCell(e, p),
+                                //        null, msp, msc);
+                                dgTable[col, row].Selected = false;
+                                col++;
+                            }
+                            row++;
+                            col = 0;
+                        }
+
+                        TableProbIndex.Add(p);
+                        TableSubProbIndex.Add(sp);
+
+                        if (dgTable.RowCount >= row)
+                            dgTable.RowAdd();
+                        dgTable.SetRow(row, "");//.Rows[row] = "";
+                        for (int e = 0; e < Task.Data.GetElementCount(); e++)
+                        {
+                            MethodSimpleElement mse = Task.Data.GetElHeader(e);
+                            if (mse.Formula.Count == 1)
+                            {
+                                MethodSimpleElementFormula msef = mse.Formula[0];
+                                MethodSimpleCell msc = Task.Data.GetCell(e, p);
+                                dgTable[col, row] = new MTProbSpectrCell(msc.GetData(sp, msef.FormulaIndex),
+                                    msef,mmCommonFullView.Checked == false);//,msc);
+                                dgTable[col, row].Selected = false;
+                            }
+                            else
+                            {
+                                dgTable[col, row] = new MTIntegralProbSpectrCell(Task.Data.GetCell(e, p), sp, e, mse.Formula.Count);
+                            }
+                            col++;
+                        }
+                        try
+                        {
+                            DateTime dt = msp.MeasuredSpectrs[sp].SpDateTime;
+                            if (dt.Ticks != 0)
+                                dgTable[col, row].Value = dt.ToString();
+                            else
+                                dgTable[col, row].Value = "       -";
+                            dgTable[col, row].Selected = false;
+                            dgTable[0, row].Value = msp.MeasuredSpectrs[sp].CalcSpRateStr() + " " + msp.MeasuredSpectrs[sp].GetExtraLineInfo();
+                            dgTable[0, row].Selected = false;
+                            /*if (msp.MeasuredSpectrs[sp].Sp != null && msp.MeasuredSpectrs[sp].Sp.IsEmpty() == false)
+                            {
+                                dgTable[col, row].Value = msp.MeasuredSpectrs[sp].Sp.CreatedDate.ToString();
+                                dgTable[col, row].Selected = false;
+                                dgTable[0, row].Value = msp.MeasuredSpectrs[sp].CalcSpRateStr() + " " + msp.MeasuredSpectrs[sp].GetExtraLineInfo();
+                                dgTable[0, row].Selected = false;
+                            }*/
+                        }
+                        catch { }//*/
+                    }
+                }
+            }
+        }
+
         void InitTableProc()
         {
             try
             {
                 dgTable.StoreView();
-                //dgTable.SuspendLayout();
-                //dgTable.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
-                //dgTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
-                //dgTable.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
                 InitTableInProcess = true;
                 int selected_row = 0;
                 int selected_col = 0;
@@ -371,6 +470,13 @@ namespace SpectroWizard.gui.tasks
 
                 TableProbIndex.Clear();
                 TableSubProbIndex.Clear();
+
+                if (mmCommonFullView.Checked == false)
+                {
+                    InitShortTableProc();
+                    return;
+                }
+
                 int col_count = 1;
 
                 for (int e = 0; e < Task.Data.GetElementCount(); e++)
@@ -476,7 +582,7 @@ namespace SpectroWizard.gui.tasks
                                 MethodSimpleElementFormula msef = mse.Formula[f];
                                 MethodSimpleCell msc = Task.Data.GetCell(e, p);
                                 dgTable[col, row] = new MTProbSpectrCell(msc.GetData(sp, msef.FormulaIndex),
-                                    msef);//,msc);
+                                    msef, mmCommonFullView.Checked == false);//,msc);
                                 dgTable[col, row].Selected = false;
                                 col++;
                             }
@@ -513,9 +619,6 @@ namespace SpectroWizard.gui.tasks
             finally
             {
                 InitTableInProcess = false;
-                //dgTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
-                //dgTable.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCells;
-                //dgTable.ResumeLayout();
             }
 
             if (SelectedProbIndex < 0)
@@ -2438,6 +2541,19 @@ namespace SpectroWizard.gui.tasks
                 Common.Log(ex);
             }
         }
+
+        private void mmCommonFullView_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                InitTable();
+                CheckSelection();
+            }
+            catch (Exception ex)
+            {
+                Common.Log(ex);
+            }
+        }
     }
 
     class MTProbSpectrCell : FDataGridViewTextBoxCell
@@ -2447,7 +2563,7 @@ namespace SpectroWizard.gui.tasks
         string Str1, Str2 = "";
         Brush TColor;
         public MTProbSpectrCell(MethodSimpleCellFormulaResult fr,
-            MethodSimpleElementFormula formula)
+            MethodSimpleElementFormula formula,bool short_view)
         {
             Selected = false;
             Enabled = fr.Enabled;
@@ -2488,7 +2604,7 @@ namespace SpectroWizard.gui.tasks
                             if (sko != 0)
                             {
                                 Str2 = "" + (char)0xB1;
-                                Str2 += serv.GetGoodValue(skop, 1) + "%";
+                                //Str2 += serv.GetGoodValue(skop, 1) + "%";
                                 Str2 += serv.GetGoodValue(sko, 1);
                             }
                         }
@@ -2526,6 +2642,8 @@ namespace SpectroWizard.gui.tasks
                     }//---
                 }
             }
+            if (short_view)
+                Str2 = "";
             //Str1 += "MSC";
         }
 
@@ -2602,6 +2720,109 @@ namespace SpectroWizard.gui.tasks
         }
     }
 
+    class MTIntegralProbSpectrCell : FDataGridViewTextBoxCell
+    {
+        const string MLSConst = "SMCell";
+        bool Enabled = true;
+        string Str1 = "?", Str2 = "";
+        Brush TColor = Brushes.Black;
+        public MTIntegralProbSpectrCell(MethodSimpleCell msc, int spectr, int element,int fc)
+        {
+            Selected = false;
+            double res = 0;
+            int res_count = 0;
+            for (int f = 0; f < fc; f++)
+            {
+                MethodSimpleCellFormulaResult fr = msc.GetData(spectr,f);
+                double[] cons = fr.ReCalcCon;
+                if(cons == null)
+                {
+                    return;
+                }
+                for (int i = 0; i < cons.Length; i++)
+                {
+                    res += cons[i];
+                    res_count++;
+                }
+            }
+            if (res_count > 0)
+                res /= res_count;
+            Str1 = serv.GetGoodValue(res, 3);
+        }
+
+        public Size NormalSize;
+        bool SizeInited = false;
+        public override Size GetPreferredSize(Graphics graphics)//, DataGridViewCellStyle cellStyle, int rowIndex, Size constraintSize)
+        {
+            if (SizeInited == true)
+                return NormalSize;
+            SizeInited = true;
+            Size ret;
+            try
+            {
+                SizeF s = graphics.MeasureString(Str1, Common.DefaultResultTableFont[1]);
+                ret = new Size((int)s.Width, (int)s.Height);
+                ret.Width += (int)graphics.MeasureString(Str2, Common.DefaultResultTableFont[2]).Width;
+                ret.Width += 4;
+            }
+            catch (Exception ex)
+            {
+                Common.Log(ex);
+                ret = new Size(30, 15);
+            }
+            NormalSize = ret;
+            return ret;
+        }
+
+        public Brush DisBr = new SolidBrush(Color.FromArgb(192, 192, 0));
+        public override void Paint(Graphics graphics,
+            //Rectangle clipBounds, 
+                Rectangle cellBounds/*,
+                int rowIndex, DataGridViewElementStates cellState, object value,
+                object formattedValue, string errorText,
+                DataGridViewCellStyle cellStyle,
+                DataGridViewAdvancedBorderStyle advancedBorderStyle,
+                DataGridViewPaintParts paintParts*/)
+        {
+            try
+            {
+                //graphics.SetClip(clipBounds);
+
+                if (Selected == true)//(cellState & DataGridViewElementStates.Selected) != 0)
+                    graphics.FillRectangle(Brushes.LightBlue, cellBounds);
+                else
+                    graphics.FillRectangle(Brushes.White, cellBounds);
+
+                int x = cellBounds.X + 1;
+                Brush br;
+                if (Enabled)
+                    br = TColor;//Brushes.Black;
+                else
+                    br = DisBr;// Brushes.Gray;
+
+                SizeF bs = graphics.MeasureString(Str1, Common.DefaultResultTableFont[1]);
+                graphics.DrawString(Str1, Common.DefaultResultTableFont[1],
+                    br, x, cellBounds.Y + cellBounds.Height - bs.Height - 1);
+                x += (int)bs.Width;
+
+                bs = graphics.MeasureString(Str2, Common.DefaultResultTableFont[2]);
+                graphics.DrawString(Str2, Common.DefaultResultTableFont[2],
+                    br, x, cellBounds.Y + cellBounds.Height - bs.Height - 1);
+                x += (int)bs.Width;
+
+                graphics.DrawRectangle(Pens.DarkGray, cellBounds);
+            }
+            catch (Exception ex)
+            {
+                Common.Log(ex);
+            }
+        }
+        public override string ToString()
+        {
+            return Str1 + " " + Str2;
+        }
+    }
+
     class MTProbCell : FDataGridViewTextBoxCell
     {
         const string MLSConst = "SMCell";
@@ -2620,7 +2841,7 @@ namespace SpectroWizard.gui.tasks
             Enabled = fr.Enabled;
             double sko, good_sko;
             double c_con;
-            if (formula.chbUseSpRates.Checked)
+            if (formula != null && formula.chbUseSpRates.Checked)
                 c_con = fr.CalcRealConWithRates(out sko, out good_sko);
             else
                 c_con = fr.CalcRealCon(out sko, out good_sko);
@@ -2630,7 +2851,7 @@ namespace SpectroWizard.gui.tasks
                 Str3 += " (" + Math.Round(cell.Con, 3) + ")";
             if (double.IsNaN(c_con))
             {
-                if (formula.chbUseSpRates.Checked)
+                if (formula != null && formula.chbUseSpRates.Checked)
                     c_con = fr.CalcRealPrelimConWithRates(out sko);
                 else
                     c_con = fr.CalcRealPrelimCon(out sko);
@@ -2672,7 +2893,7 @@ namespace SpectroWizard.gui.tasks
                         if (c_con > 0)
                         {
                             Str2 = ""+(char)0xB1;
-                            Str2 += serv.GetGoodValue(sko * 100 / c_con, 1) + "%";
+                            //Str2 += serv.GetGoodValue(sko * 100 / c_con, 1) + "%";
                             Str2 += serv.GetGoodValue(sko, 2);
                         }
                     }

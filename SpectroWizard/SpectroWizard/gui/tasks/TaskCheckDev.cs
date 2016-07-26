@@ -176,7 +176,7 @@ namespace SpectroWizard.gui.tasks
                 NeedToSave = true;
                 MainForm.MForm.EnableToolExit(false,
                     Common.MLS.Get(MLSConst,"Проверка состояния оборудования..."));*/
-                dlg = new WaitDlg();
+                dlg = util.WaitDlg.getDlg();//new WaitDlg();
                 dlg.setText("Ожидайте");
                 dlg.ShowDialog(MainForm.MForm);
                 cbTestList.SelectedIndex = -1;

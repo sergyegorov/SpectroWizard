@@ -31,7 +31,6 @@
             this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
-            this.lbLyInfo = new System.Windows.Forms.TextBox();
             this.btNextView = new System.Windows.Forms.Button();
             this.btPrevView = new System.Windows.Forms.Button();
             this.cbSpectrViewType = new System.Windows.Forms.ComboBox();
@@ -76,6 +75,7 @@
             this.mnMainRememberAs = new System.Windows.Forms.ToolStripMenuItem();
             this.cmMainSetAnalit = new System.Windows.Forms.ToolStripMenuItem();
             this.cmMainSetCompare = new System.Windows.Forms.ToolStripMenuItem();
+            this.lbLyInfo = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -85,8 +85,8 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.lbLyInfo);
+            this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.btNextView);
             this.panel1.Controls.Add(this.btPrevView);
             this.panel1.Controls.Add(this.cbSpectrViewType);
@@ -108,19 +108,13 @@
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.label1.Location = new System.Drawing.Point(4, 5);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(12, 13);
             this.label1.TabIndex = 19;
             this.label1.Text = "λ";
-            // 
-            // lbLyInfo
-            // 
-            this.lbLyInfo.Location = new System.Drawing.Point(20, 2);
-            this.lbLyInfo.Name = "lbLyInfo";
-            this.lbLyInfo.Size = new System.Drawing.Size(84, 20);
-            this.lbLyInfo.TabIndex = 18;
-            this.lbLyInfo.KeyUp += new System.Windows.Forms.KeyEventHandler(this.lbLyInfo_KeyUp);
+            this.label1.Click += new System.EventHandler(this.lbLyInfo_Click);
             // 
             // btNextView
             // 
@@ -532,6 +526,16 @@
             this.cmMainSetCompare.Text = "Линию сравнения";
             this.cmMainSetCompare.Click += new System.EventHandler(this.cmMainSetCompare_Click);
             // 
+            // lbLyInfo
+            // 
+            this.lbLyInfo.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lbLyInfo.Location = new System.Drawing.Point(17, 4);
+            this.lbLyInfo.Name = "lbLyInfo";
+            this.lbLyInfo.Size = new System.Drawing.Size(87, 19);
+            this.lbLyInfo.TabIndex = 20;
+            this.lbLyInfo.Text = "-";
+            this.lbLyInfo.Click += new System.EventHandler(this.lbLyInfo_Click);
+            // 
             // SpectrView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -595,10 +599,10 @@
         private System.Windows.Forms.ToolStripMenuItem cmMainShiftRight50;
         private System.Windows.Forms.ToolStripMenuItem cmMainShiftLeft20;
         private System.Windows.Forms.ToolStripMenuItem cmMainShiftLeft50;
-        private System.Windows.Forms.TextBox lbLyInfo;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ToolStripMenuItem mnMainRememberAs;
         private System.Windows.Forms.ToolStripMenuItem cmMainSetAnalit;
         private System.Windows.Forms.ToolStripMenuItem cmMainSetCompare;
+        private System.Windows.Forms.Label lbLyInfo;
     }
 }

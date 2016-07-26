@@ -467,7 +467,11 @@ namespace SpectroWizard.gui
             PrevTC = tcc.Contr;
             UserControl uc = (UserControl)PrevTC;//(UserControl)e.Node.Tag;
             while (TaskPanel.Controls.Count > 0)
+            {
+                Control c = TaskPanel.Controls[0];
                 TaskPanel.Controls.RemoveAt(0);
+                //c.Dispose();
+            }
             uc.Dock = DockStyle.Fill;
             TaskPanel.Controls.Add(uc);
             //TaskPanel.Enabled = true;// (PrevTC.NeedEnter() == false);

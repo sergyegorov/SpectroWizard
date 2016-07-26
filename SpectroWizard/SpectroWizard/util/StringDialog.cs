@@ -20,7 +20,7 @@ namespace SpectroWizard.util
 
         bool FileNameFilter = false;
         string Title;
-        public static string GetString(Form master, 
+        public static string GetString(IWin32Window master, 
             string title, string text, string default_val,bool file_name_filter)
         {
             StringDialog dlg = new StringDialog();
