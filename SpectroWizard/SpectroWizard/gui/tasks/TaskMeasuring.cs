@@ -393,7 +393,7 @@ namespace SpectroWizard.gui.tasks
                                 MethodSimpleCell msc = Task.Data.GetCell(e, p);
                                 MethodSimpleElement mse = Task.Data.GetElHeader(e);
                                 //if (mse.Formula.Count == 0)
-                                dgTable[col, row] = new MTProbCell(Task.Data.GetCell(e, p),
+                                dgTable[col, row] = new MTProbSumCell(Task.Data.GetCell(e, p),
                                         mse.Formula[0].Formula, msp, msc);
                                 //else
                                 //    dgTable[col, row] = new MTProbCell(Task.Data.GetCell(e, p),
@@ -517,6 +517,20 @@ namespace SpectroWizard.gui.tasks
                                 name = mse.Element.Name;
                             else
                                 name = msef.Name;
+                            double conFrom = (double)msef.Formula.nmConFrom.Value;
+                            double conTo = (double)msef.Formula.nmConTo.Value;
+                            if (conFrom != 0 || conTo != 100)
+                            {
+                                if (conFrom == 0)
+                                    name += "<" + Math.Round(conTo,3);
+                                else
+                                {
+                                    if (conTo == 100)
+                                        name += ">" + Math.Round(conFrom, 3);
+                                    else
+                                        name += Math.Round(conFrom, 3) + "-" + Math.Round(conTo, 3);
+                                }
+                            }
                             dgTable.ColumnAdd(name);
                             f_c++;
                         }
@@ -553,7 +567,7 @@ namespace SpectroWizard.gui.tasks
                                     if (mse.Formula[f].Formula.cbFormulaType.SelectedIndex != 0)
                                         continue;
                                     if (f == 0)
-                                        dgTable[col, row] = new MTProbCell(Task.Data.GetCell(e, p),
+                                        dgTable[col, row] = new MTProbSumCell(Task.Data.GetCell(e, p),
                                             //dgTable.Rows[row],
                                             mse.Formula[f].Formula, msp, msc);
                                     else
@@ -2823,7 +2837,7 @@ namespace SpectroWizard.gui.tasks
         }
     }
 
-    class MTProbCell : FDataGridViewTextBoxCell
+    class MTProbSumCell : FDataGridViewTextBoxCell
     {
         const string MLSConst = "SMCell";
         //string CalcCon, Error, ErrorPs;
@@ -2831,7 +2845,7 @@ namespace SpectroWizard.gui.tasks
         bool Enabled;
         //string Msg = null;
         //FDGVRowData Row;
-        public MTProbCell(MethodSimpleCell fr,// FDGVRowData row,
+        public MTProbSumCell(MethodSimpleCell fr,// FDGVRowData row,
             SimpleFormula formula, MethodSimpleProb prob,
             MethodSimpleCell cell//*/
             )
@@ -2841,10 +2855,10 @@ namespace SpectroWizard.gui.tasks
             Enabled = fr.Enabled;
             double sko, good_sko;
             double c_con;
-            if (formula != null && formula.chbUseSpRates.Checked)
-                c_con = fr.CalcRealConWithRates(out sko, out good_sko);
-            else
-                c_con = fr.CalcRealCon(out sko, out good_sko);
+            //if (formula != null)// && formula.chbUseSpRates.Checked)
+                //c_con = fr.CalcRealConWithRates(out sko, out good_sko);
+            //else
+                c_con = fr.CalcRealConForMeasuring(out sko, out good_sko);
             string con_prefix = "";
             Str3 = "";
             if (prob.IsStandart && cell.Con > 0)

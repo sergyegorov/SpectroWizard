@@ -73,7 +73,7 @@ namespace SpectroWizard
         }
         public Hashtable LongValues = new Hashtable();
         public Hashtable DoubleValues = new Hashtable();
-        public int DefaultFontSize = 10;
+        public int DefaultFontSize = 11;
 
         //[NonSerialized()]
         OpticFk DefaultOpticFkPriv = null;

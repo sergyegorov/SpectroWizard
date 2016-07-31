@@ -707,7 +707,7 @@ namespace SpectroWizard.gui.tasks
                 return StSelectorPriv;
             }
         }
-
+ 
         private void mmStandAddNew_Click(object sender, EventArgs e)
         {
             try
@@ -2324,11 +2324,13 @@ namespace SpectroWizard.gui.tasks
             }
         }
 
+        PresparkControl pc;
         private void mmParametersPresparkControl_Click(object sender, EventArgs e)
         {
             try
             {
-                PresparkControl pc = new PresparkControl();
+                if(pc == null)
+                    pc = new PresparkControl();
                 pc.initBy(Method, spSpectrView);
                 pc.ShowDialog(MainForm.MForm);
             }
@@ -2468,6 +2470,109 @@ namespace SpectroWizard.gui.tasks
             {
                 SelectedFormula.Formula.SetInterpolationType(5);
                 mmAnalitReCalcElement_Click(this, null);
+            }
+            catch (Exception ex)
+            {
+                Common.Log(ex);
+            }
+        }
+
+        SaveFileDialog fd = new SaveFileDialog();
+        private void mmAnalitCSV_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                List<string> lines = new List<string>();
+                string line = "Имя;Дата измерения;";
+                for (int el = 0; el < Method.GetElementCount(); el++)
+                {
+                    MethodSimpleElement mse = Method.GetElHeader(el);
+                    for (int f = 0; f < mse.Formula.Count; f++){
+                        line += mse.Element.Name+";";
+                        line += "Аналит.;";
+                    }
+                }
+                lines.Add(line);
+                for (int pr = 0; pr < Method.GetProbCount(); pr++)
+                {
+                    MethodSimpleProb msp = Method.GetProbHeader(pr);
+                    for (int sp = 0; sp < msp.MeasuredSpectrs.Count; sp++)
+                    {
+                        MethodSimpleProbMeasuring mspm = msp.MeasuredSpectrs[sp];
+                        line = "";
+                        line += msp.Name + ";" + mspm.SpDateTime + ";";
+                        for (int el = 0; el < Method.GetElementCount(); el++)
+                        {
+                            MethodSimpleElement mse = Method.GetElHeader(el);
+                            for (int f = 0; f < mse.Formula.Count; f++)
+                            {
+                                MethodSimpleCell msc = Method.GetCell(el, pr);
+                                MethodSimpleCellFormulaResult mscfr = msc.GetData(sp, f);
+                                line += msc.Con+";";
+                                line += Stat.GetEver(mscfr.AnalitValue)+";";
+                            }
+                        }
+                        lines.Add(line);
+                    }
+                }
+                writeToCSV(lines);
+            }
+            catch (Exception ex)
+            {
+                Common.Log(ex);
+            }
+        }
+
+        void writeToCSV(List<string> lines)
+        {
+            DialogResult dr = fd.ShowDialog(this);
+            if (dr != DialogResult.OK)
+                return;
+            string name = fd.FileName;
+            if (name.EndsWith(".csv") == false)
+                name += ".csv";
+            System.IO.File.WriteAllLines(name, lines);
+        }
+
+        private void mmAnalitConCSV_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                List<string> lines = new List<string>();
+                string line = "Имя;Дата измерения;";
+                for (int el = 0; el < Method.GetElementCount(); el++)
+                {
+                    MethodSimpleElement mse = Method.GetElHeader(el);
+                    for (int f = 0; f < mse.Formula.Count; f++)
+                    {
+                        line += mse.Element.Name + ";";
+                        line += "Пересчет;";
+                    }
+                }
+                lines.Add(line);
+                for (int pr = 0; pr < Method.GetProbCount(); pr++)
+                {
+                    MethodSimpleProb msp = Method.GetProbHeader(pr);
+                    for (int sp = 0; sp < msp.MeasuredSpectrs.Count; sp++)
+                    {
+                        MethodSimpleProbMeasuring mspm = msp.MeasuredSpectrs[sp];
+                        line = "";
+                        line += msp.Name + ";" + mspm.SpDateTime + ";";
+                        for (int el = 0; el < Method.GetElementCount(); el++)
+                        {
+                            MethodSimpleElement mse = Method.GetElHeader(el);
+                            for (int f = 0; f < mse.Formula.Count; f++)
+                            {
+                                MethodSimpleCell msc = Method.GetCell(el, pr);
+                                MethodSimpleCellFormulaResult mscfr = msc.GetData(sp, f);
+                                line += msc.Con + ";";
+                                line += Stat.GetEver(mscfr.ReCalcCon) + ";";
+                            }
+                        }
+                        lines.Add(line);
+                    }
+                }
+                writeToCSV(lines);
             }
             catch (Exception ex)
             {

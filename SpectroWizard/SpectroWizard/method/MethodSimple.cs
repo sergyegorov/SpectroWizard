@@ -1523,6 +1523,20 @@ namespace SpectroWizard.method
             return ever;
         }
 
+        public double CalcRealConForMeasuring(out double sko, out double good_sko)
+        {
+            if (Con100Minus >= 0)
+            {
+                sko = 0;
+                good_sko = 0;
+                return Con100Minus;
+            }//*/
+            double ever = SpectroWizard.analit.Stat.GetEver(GetEnabledConsForMeasuring(-1), SpectroWizard.analit.Stat.SpectrDataSKO);
+            sko = SpectroWizard.analit.Stat.LastSKO;
+            good_sko = SpectroWizard.analit.Stat.LastGoodSKO;
+            return ever;
+        }
+
         public double CalcRealCon(out double sko, out double good_sko)
         {
             if (Con100Minus >= 0)
@@ -1680,21 +1694,46 @@ namespace SpectroWizard.method
             return ret;
         }
 
-        /*public double getConFor(int prob,int shortIndex,int formula)
-        {
-            String keyCand = "" + prob + "-" + formula;
+        double[] GetEnabledConsForMeasuring(int formula){
+            int r_count = 0;
             for (int r = 0; r < Results.Count; r++)
             {
-                String key = Results[r].Key;
-                if (keyCand.Equals(key))
+                if (formula >= 0)
                 {
-                    if(shortIndex == 0)
-                        return Results[r].AnalitAq[]
+                    string p = "-" + formula;
+                    if (Results[r].Key.IndexOf(p) < 0)
+                        continue;
                 }
+                if (Results[r].ReCalcCon == null || Results[r].Enabled == false || Results[r].FormulaType > 0)
+                    continue;
+                double sko,skoe;
+                double val = Results[r].GetEver(out sko, out skoe);
+                if (val < Results[r].ConFrom || val > Results[r].ConTo)
+                    continue;
+                r_count++;
             }
-            return 0;
-        }*/
-
+            SpRates =  new double[r_count];
+            double[] ret = new double[r_count];
+            r_count = 0;
+            for (int r = 0; r < Results.Count; r++)
+            {
+                if (formula >= 0)
+                {
+                    string p = "-" + formula;
+                    if (Results[r].Key.IndexOf(p) < 0)
+                        continue;
+                }
+                if (Results[r].ReCalcCon == null || Results[r].Enabled == false || Results[r].FormulaType > 0)
+                    continue;
+                double sko, skoe;
+                double val = Results[r].GetEver(out sko, out skoe);
+                if (val < Results[r].ConFrom ||val > Results[r].ConTo)
+                    continue;
+                ret[r_count] = val;
+                r_count++;
+            }
+            return ret;
+        }
         double[] GetEnabledCons(int formula)
         {
             int r_count = 0;
@@ -1706,18 +1745,10 @@ namespace SpectroWizard.method
                     if (Results[r].Key.IndexOf(p) < 0)
                         continue;
                 }
-                if (Results[r].ReCalcCon == null || Results[r].Enabled == false)
+                if (Results[r].ReCalcCon == null || Results[r].Enabled == false)// || Results[r].FormulaType > 0)
                     continue;
-                //int n = Results[r].ReCalcCon.Length;
                 double sko,skoe;
                 double val = Results[r].GetEver(out sko, out skoe);
-                /*for (int ri = 0; ri < n; ri++)
-                {
-                    if (Results[r].ReCalcCon[ri] < Results[r].ConFrom ||
-                        Results[r].ReCalcCon[ri] > Results[r].ConTo)
-                        continue;
-                    r_count++;
-                }*/
                 if (val < Results[r].ConFrom || val > Results[r].ConTo)
                     continue;
                 r_count++;
@@ -1735,25 +1766,12 @@ namespace SpectroWizard.method
                 }
                 if (Results[r].ReCalcCon == null || Results[r].Enabled == false)
                     continue;
-                //int n = Results[r].ReCalcCon.Length;
                 double sko, skoe;
                 double val = Results[r].GetEver(out sko, out skoe);
                 if (val < Results[r].ConFrom ||val > Results[r].ConTo)
                     continue;
                 ret[r_count] = val;
                 r_count++;
-                /*for (int ri = 0; ri < n; ri++)
-                {
-                    if (Results[r].ReCalcCon[ri] < Results[r].ConFrom ||
-                        Results[r].ReCalcCon[ri] > Results[r].ConTo)
-                        continue;
-                    ret[r_count] = Results[r].ReCalcCon[ri];
-                    if (Results[r].SparkRates != null && Results[r].SparkRates.Length > ri)
-                        SpRates[r_count] = Results[r].SparkRates[ri];
-                    else
-                        SpRates[r_count] = 1;
-                    r_count++;
-                }*/
             }
             return ret;
         }
@@ -1943,7 +1961,7 @@ namespace SpectroWizard.method
         //public double Error = -1;
         //public double ErrorPs = -1;
         bool EnabledPriv = true;
-        public byte FormulaType = 0;
+        public byte FormulaType = 0;// formula_type_must_be_0_to_enable;
         public string Key = "";
         public bool Enabled
         {
@@ -1953,7 +1971,7 @@ namespace SpectroWizard.method
                     //ErrorPs == -1)
                     return false;
                 if (Master.Enabled == false || 
-                    FormulaType != 0 ||
+                    //FormulaType != 0 ||
                     ResultAttrib.IsError)
                     return false;
                 return EnabledPriv;

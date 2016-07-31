@@ -106,6 +106,8 @@
             this.mmAnalitRemove = new System.Windows.Forms.ToolStripMenuItem();
             this.mmAnalitRemoveBiggerThen = new System.Windows.Forms.ToolStripMenuItem();
             this.mmAnalitRemoveLowerThen = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem13 = new System.Windows.Forms.ToolStripSeparator();
+            this.mmAnalitCSV = new System.Windows.Forms.ToolStripMenuItem();
             this.mnDebug = new System.Windows.Forms.ToolStripMenuItem();
             this.mnDebugCorrectLy = new System.Windows.Forms.ToolStripMenuItem();
             this.mnDebugTestGraph = new System.Windows.Forms.ToolStripMenuItem();
@@ -130,6 +132,7 @@
             this.mnFormulaLgLine = new System.Windows.Forms.ToolStripMenuItem();
             this.mnFormulaLgLine2 = new System.Windows.Forms.ToolStripMenuItem();
             this.mnFormulaLgLine3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.mmAnalitConCSV = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -186,9 +189,9 @@
             // 
             this.panel1.Controls.Add(this.splitContainer2);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(3, 3);
+            this.panel1.Location = new System.Drawing.Point(3, 27);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1047, 394);
+            this.panel1.Size = new System.Drawing.Size(1047, 370);
             this.panel1.TabIndex = 1;
             // 
             // splitContainer2
@@ -209,13 +212,13 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.splitContainer3);
-            this.splitContainer2.Size = new System.Drawing.Size(1047, 394);
+            this.splitContainer2.Size = new System.Drawing.Size(1047, 370);
             this.splitContainer2.SplitterDistance = 256;
             this.splitContainer2.TabIndex = 0;
             // 
             // btAddSpectr
             // 
-            this.btAddSpectr.Location = new System.Drawing.Point(147, 3);
+            this.btAddSpectr.Location = new System.Drawing.Point(147, 2);
             this.btAddSpectr.Name = "btAddSpectr";
             this.btAddSpectr.Size = new System.Drawing.Size(26, 23);
             this.btAddSpectr.TabIndex = 5;
@@ -293,7 +296,7 @@
             this.dgConTable.RowHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgConTable.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.dgConTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.dgConTable.Size = new System.Drawing.Size(255, 351);
+            this.dgConTable.Size = new System.Drawing.Size(255, 327);
             this.dgConTable.TabIndex = 0;
             this.dgConTable.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgConTable_CellDoubleClick);
             this.dgConTable.SelectionChanged += new System.EventHandler(this.dgConTable_SelectionChanged);
@@ -313,8 +316,8 @@
             // splitContainer3.Panel2
             // 
             this.splitContainer3.Panel2.Controls.Add(this.tabControl2);
-            this.splitContainer3.Size = new System.Drawing.Size(787, 394);
-            this.splitContainer3.SplitterDistance = 197;
+            this.splitContainer3.Size = new System.Drawing.Size(787, 370);
+            this.splitContainer3.SplitterDistance = 185;
             this.splitContainer3.TabIndex = 0;
             // 
             // panel3
@@ -323,7 +326,7 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(0, 24);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(787, 173);
+            this.panel3.Size = new System.Drawing.Size(787, 161);
             this.panel3.TabIndex = 1;
             // 
             // panel5
@@ -332,7 +335,7 @@
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel5.Location = new System.Drawing.Point(0, 0);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(787, 173);
+            this.panel5.Size = new System.Drawing.Size(787, 161);
             this.panel5.TabIndex = 1;
             // 
             // glCalibrGraph
@@ -346,7 +349,7 @@
             this.glCalibrGraph.ShowSumCheckBox = false;
             this.glCalibrGraph.ShowSumDefaultValue = false;
             this.glCalibrGraph.ShowTxtChb = false;
-            this.glCalibrGraph.Size = new System.Drawing.Size(787, 173);
+            this.glCalibrGraph.Size = new System.Drawing.Size(787, 161);
             this.glCalibrGraph.TabIndex = 0;
             // 
             // panel2
@@ -395,7 +398,7 @@
             this.tabControl2.Margin = new System.Windows.Forms.Padding(0);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(787, 193);
+            this.tabControl2.Size = new System.Drawing.Size(787, 181);
             this.tabControl2.TabIndex = 0;
             // 
             // tabPage3
@@ -404,7 +407,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Margin = new System.Windows.Forms.Padding(0);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(779, 167);
+            this.tabPage3.Size = new System.Drawing.Size(779, 155);
             this.tabPage3.TabIndex = 0;
             this.tabPage3.Text = "Отчёт о вычислениях";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -420,7 +423,7 @@
             this.glCalcDetails.ShowSumCheckBox = false;
             this.glCalcDetails.ShowSumDefaultValue = false;
             this.glCalcDetails.ShowTxtChb = false;
-            this.glCalcDetails.Size = new System.Drawing.Size(779, 167);
+            this.glCalcDetails.Size = new System.Drawing.Size(779, 155);
             this.glCalcDetails.TabIndex = 0;
             // 
             // tabPage4
@@ -756,7 +759,10 @@
             this.mmAnalitLineSearch,
             this.mmAnalitConView,
             this.toolStripMenuItem12,
-            this.mmAnalitRemove});
+            this.mmAnalitRemove,
+            this.toolStripMenuItem13,
+            this.mmAnalitCSV,
+            this.mmAnalitConCSV});
             this.mmAnalit.Name = "mmAnalit";
             this.mmAnalit.Size = new System.Drawing.Size(55, 20);
             this.mmAnalit.Text = "Анализ";
@@ -764,52 +770,52 @@
             // mmAnalitReCalcAll
             // 
             this.mmAnalitReCalcAll.Name = "mmAnalitReCalcAll";
-            this.mmAnalitReCalcAll.Size = new System.Drawing.Size(339, 22);
+            this.mmAnalitReCalcAll.Size = new System.Drawing.Size(361, 22);
             this.mmAnalitReCalcAll.Text = "Пересчитать все пробы по всем элеметам";
             this.mmAnalitReCalcAll.Click += new System.EventHandler(this.mmAnalitReCalcAll_Click);
             // 
             // mmAnalitReCalcElement
             // 
             this.mmAnalitReCalcElement.Name = "mmAnalitReCalcElement";
-            this.mmAnalitReCalcElement.Size = new System.Drawing.Size(339, 22);
+            this.mmAnalitReCalcElement.Size = new System.Drawing.Size(361, 22);
             this.mmAnalitReCalcElement.Text = "Пересчитать все пробы только по одному элементу";
             this.mmAnalitReCalcElement.Click += new System.EventHandler(this.mmAnalitReCalcElement_Click);
             // 
             // mmAnalitReCalcProb
             // 
             this.mmAnalitReCalcProb.Name = "mmAnalitReCalcProb";
-            this.mmAnalitReCalcProb.Size = new System.Drawing.Size(339, 22);
+            this.mmAnalitReCalcProb.Size = new System.Drawing.Size(361, 22);
             this.mmAnalitReCalcProb.Text = "Пересчитать выделенную пробу по всем элементам";
             this.mmAnalitReCalcProb.Click += new System.EventHandler(this.mmAnalitReCalcProb_Click);
             // 
             // toolStripMenuItem6
             // 
             this.toolStripMenuItem6.Name = "toolStripMenuItem6";
-            this.toolStripMenuItem6.Size = new System.Drawing.Size(336, 6);
+            this.toolStripMenuItem6.Size = new System.Drawing.Size(358, 6);
             // 
             // mmAnalitUseCell
             // 
             this.mmAnalitUseCell.Name = "mmAnalitUseCell";
-            this.mmAnalitUseCell.Size = new System.Drawing.Size(339, 22);
+            this.mmAnalitUseCell.Size = new System.Drawing.Size(361, 22);
             this.mmAnalitUseCell.Text = "Использовать ячейку для построения графика";
             this.mmAnalitUseCell.Click += new System.EventHandler(this.mmAnalitUseCell_Click);
             // 
             // mmAnalitUseUnCell
             // 
             this.mmAnalitUseUnCell.Name = "mmAnalitUseUnCell";
-            this.mmAnalitUseUnCell.Size = new System.Drawing.Size(339, 22);
+            this.mmAnalitUseUnCell.Size = new System.Drawing.Size(361, 22);
             this.mmAnalitUseUnCell.Text = "Не использовать ячейку для построения графика";
             this.mmAnalitUseUnCell.Click += new System.EventHandler(this.mmAnalitUseUnCell_Click);
             // 
             // toolStripMenuItem10
             // 
             this.toolStripMenuItem10.Name = "toolStripMenuItem10";
-            this.toolStripMenuItem10.Size = new System.Drawing.Size(336, 6);
+            this.toolStripMenuItem10.Size = new System.Drawing.Size(358, 6);
             // 
             // mmAnalitCorelSearch
             // 
             this.mmAnalitCorelSearch.Name = "mmAnalitCorelSearch";
-            this.mmAnalitCorelSearch.Size = new System.Drawing.Size(339, 22);
+            this.mmAnalitCorelSearch.Size = new System.Drawing.Size(361, 22);
             this.mmAnalitCorelSearch.Text = "Поиск корелляционных зависимостей";
             this.mmAnalitCorelSearch.Visible = false;
             this.mmAnalitCorelSearch.Click += new System.EventHandler(this.mmAnalitCorelSearch_Click);
@@ -817,7 +823,7 @@
             // mmAnalitCompareLineSearch
             // 
             this.mmAnalitCompareLineSearch.Name = "mmAnalitCompareLineSearch";
-            this.mmAnalitCompareLineSearch.Size = new System.Drawing.Size(339, 22);
+            this.mmAnalitCompareLineSearch.Size = new System.Drawing.Size(361, 22);
             this.mmAnalitCompareLineSearch.Text = "Подбор линии сравнения";
             this.mmAnalitCompareLineSearch.Visible = false;
             this.mmAnalitCompareLineSearch.Click += new System.EventHandler(this.mmAnalitCompareLineSearch_Click);
@@ -825,21 +831,21 @@
             // mmAnalitLineSearch
             // 
             this.mmAnalitLineSearch.Name = "mmAnalitLineSearch";
-            this.mmAnalitLineSearch.Size = new System.Drawing.Size(339, 22);
+            this.mmAnalitLineSearch.Size = new System.Drawing.Size(361, 22);
             this.mmAnalitLineSearch.Text = "Поиск аналитических зависимостей";
             this.mmAnalitLineSearch.Click += new System.EventHandler(this.mmAnalitLineSearch_Click);
             // 
             // mmAnalitConView
             // 
             this.mmAnalitConView.Name = "mmAnalitConView";
-            this.mmAnalitConView.Size = new System.Drawing.Size(339, 22);
+            this.mmAnalitConView.Size = new System.Drawing.Size(361, 22);
             this.mmAnalitConView.Text = "Просмотр концентарций комплектов";
             this.mmAnalitConView.Click += new System.EventHandler(this.mmAnalitConView_Click);
             // 
             // toolStripMenuItem12
             // 
             this.toolStripMenuItem12.Name = "toolStripMenuItem12";
-            this.toolStripMenuItem12.Size = new System.Drawing.Size(336, 6);
+            this.toolStripMenuItem12.Size = new System.Drawing.Size(358, 6);
             // 
             // mmAnalitRemove
             // 
@@ -847,7 +853,7 @@
             this.mmAnalitRemoveBiggerThen,
             this.mmAnalitRemoveLowerThen});
             this.mmAnalitRemove.Name = "mmAnalitRemove";
-            this.mmAnalitRemove.Size = new System.Drawing.Size(339, 22);
+            this.mmAnalitRemove.Size = new System.Drawing.Size(361, 22);
             this.mmAnalitRemove.Text = "Удаление по концентрации";
             // 
             // mmAnalitRemoveBiggerThen
@@ -863,6 +869,18 @@
             this.mmAnalitRemoveLowerThen.Size = new System.Drawing.Size(147, 22);
             this.mmAnalitRemoveLowerThen.Text = "Меньше чем...";
             this.mmAnalitRemoveLowerThen.Click += new System.EventHandler(this.mmAnalitRemoveLowerThen_Click);
+            // 
+            // toolStripMenuItem13
+            // 
+            this.toolStripMenuItem13.Name = "toolStripMenuItem13";
+            this.toolStripMenuItem13.Size = new System.Drawing.Size(358, 6);
+            // 
+            // mmAnalitCSV
+            // 
+            this.mmAnalitCSV.Name = "mmAnalitCSV";
+            this.mmAnalitCSV.Size = new System.Drawing.Size(361, 22);
+            this.mmAnalitCSV.Text = "Записать все калибровки в CSV (для  Excel)";
+            this.mmAnalitCSV.Click += new System.EventHandler(this.mmAnalitCSV_Click);
             // 
             // mnDebug
             // 
@@ -1081,6 +1099,13 @@
             this.mnFormulaLgLine3.Text = "Полином 3го порядка в логорифмической шкале";
             this.mnFormulaLgLine3.Click += new System.EventHandler(this.mnFormulaLgLine3_Click);
             // 
+            // mmAnalitConCSV
+            // 
+            this.mmAnalitConCSV.Name = "mmAnalitConCSV";
+            this.mmAnalitConCSV.Size = new System.Drawing.Size(361, 22);
+            this.mmAnalitConCSV.Text = "Записать паспорнтые и  рпсчетные концентрации в CSV";
+            this.mmAnalitConCSV.Click += new System.EventHandler(this.mmAnalitConCSV_Click);
+            // 
             // TaskMethodSimple
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1223,5 +1248,8 @@
         private System.Windows.Forms.ToolStripMenuItem mnFormulaLgLine;
         private System.Windows.Forms.ToolStripMenuItem mnFormulaLgLine2;
         private System.Windows.Forms.ToolStripMenuItem mnFormulaLgLine3;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem13;
+        private System.Windows.Forms.ToolStripMenuItem mmAnalitCSV;
+        private System.Windows.Forms.ToolStripMenuItem mmAnalitConCSV;
     }
 }
