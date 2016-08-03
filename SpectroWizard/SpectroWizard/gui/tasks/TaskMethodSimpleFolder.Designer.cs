@@ -31,13 +31,13 @@
             this.lbMainList = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btCreateCopy = new System.Windows.Forms.Button();
             this.btMakeCopy = new System.Windows.Forms.Button();
             this.btDeleteMethod = new System.Windows.Forms.Button();
             this.btCreateMethod = new System.Windows.Forms.Button();
             this.btDeleteFolder = new System.Windows.Forms.Button();
             this.btCreateFolder = new System.Windows.Forms.Button();
             this.lbPath = new System.Windows.Forms.Label();
-            this.btCreateCopy = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -75,6 +75,18 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(229, 251);
             this.panel1.TabIndex = 2;
+            // 
+            // btCreateCopy
+            // 
+            this.btCreateCopy.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.btCreateCopy.Location = new System.Drawing.Point(3, 196);
+            this.btCreateCopy.Name = "btCreateCopy";
+            this.btCreateCopy.Size = new System.Drawing.Size(223, 23);
+            this.btCreateCopy.TabIndex = 5;
+            this.btCreateCopy.Text = "Создать Копию";
+            this.btCreateCopy.UseVisualStyleBackColor = true;
+            this.btCreateCopy.Click += new System.EventHandler(this.btCreateCopy_Click);
             // 
             // btMakeCopy
             // 
@@ -132,18 +144,6 @@
             this.lbPath.Name = "lbPath";
             this.lbPath.Size = new System.Drawing.Size(419, 19);
             this.lbPath.TabIndex = 3;
-            // 
-            // btCreateCopy
-            // 
-            this.btCreateCopy.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.btCreateCopy.Location = new System.Drawing.Point(3, 196);
-            this.btCreateCopy.Name = "btCreateCopy";
-            this.btCreateCopy.Size = new System.Drawing.Size(223, 23);
-            this.btCreateCopy.TabIndex = 5;
-            this.btCreateCopy.Text = "Создать Копию";
-            this.btCreateCopy.UseVisualStyleBackColor = true;
-            this.btCreateCopy.Click += new System.EventHandler(this.btCreateCopy_Click);
             // 
             // TaskMethodSimpleFolder
             // 

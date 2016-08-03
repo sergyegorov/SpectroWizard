@@ -971,14 +971,14 @@ namespace SpectroWizard.method
             return dlt_c * de_dc + (double)nmMinConMaxError.Value;
         }
 
-        void CheckCondList()
+        public void CheckCondList()
         {
             if (SelectedExpositions.Count != 0)
                 return;
             CheckCondListForce();
         }
 
-        void CheckCondListForce()
+        public void CheckCondListForce()
         {
             clbConditionList.Items.Clear();
             for (int i = 0; i < MethodConditions.Count; i++)

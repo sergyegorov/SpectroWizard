@@ -98,7 +98,7 @@ namespace SpectroWizard.gui.tasks.devt
                 }
             } while ((DateTime.Now.Ticks - from.Ticks)/10000000 < nmTimeOut.Value && Report.Length == 0);
 
-            Spectr sp = new Spectr(cond, Common.Env.DefaultDisp, Common.Env.DefaultOpticFk);
+            Spectr sp = new Spectr(cond, Common.Env.DefaultDisp, Common.Env.DefaultOpticFk,"RundomSplashTest");
             for (int i = 0; i < Common.Dev.LetestResult.Count; i++)
                 sp.Add(Common.Dev.LetestResult[i]);
 

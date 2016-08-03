@@ -34,6 +34,7 @@
             this.mmAddMeasuring = new System.Windows.Forms.ToolStripMenuItem();
             this.mmUseUnuse = new System.Windows.Forms.ToolStripMenuItem();
             this.mmCommon = new System.Windows.Forms.ToolStripMenuItem();
+            this.mmCommonFullView = new System.Windows.Forms.ToolStripMenuItem();
             this.mmComPrint = new System.Windows.Forms.ToolStripMenuItem();
             this.mmComDeletedProbs = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
@@ -93,7 +94,6 @@
             this.printDocument1 = new System.Drawing.Printing.PrintDocument();
             this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
             this.dlgOpenSpectr = new System.Windows.Forms.OpenFileDialog();
-            this.mmCommonFullView = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -161,55 +161,65 @@
             this.mmCommon.Size = new System.Drawing.Size(54, 20);
             this.mmCommon.Text = "Общее";
             // 
+            // mmCommonFullView
+            // 
+            this.mmCommonFullView.Checked = true;
+            this.mmCommonFullView.CheckOnClick = true;
+            this.mmCommonFullView.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.mmCommonFullView.Name = "mmCommonFullView";
+            this.mmCommonFullView.Size = new System.Drawing.Size(274, 22);
+            this.mmCommonFullView.Text = "Полный вид";
+            this.mmCommonFullView.Click += new System.EventHandler(this.mmCommonFullView_Click);
+            // 
             // mmComPrint
             // 
             this.mmComPrint.Name = "mmComPrint";
-            this.mmComPrint.Size = new System.Drawing.Size(309, 22);
+            this.mmComPrint.Size = new System.Drawing.Size(274, 22);
             this.mmComPrint.Text = "Печать";
             this.mmComPrint.Click += new System.EventHandler(this.mmComPrint_Click);
             // 
             // mmComDeletedProbs
             // 
             this.mmComDeletedProbs.Name = "mmComDeletedProbs";
-            this.mmComDeletedProbs.Size = new System.Drawing.Size(309, 22);
+            this.mmComDeletedProbs.Size = new System.Drawing.Size(274, 22);
             this.mmComDeletedProbs.Text = "Архив удалённых измерений";
             this.mmComDeletedProbs.Click += new System.EventHandler(this.mmComDeletedProbs_Click);
             // 
             // toolStripMenuItem4
             // 
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(306, 6);
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(271, 6);
             // 
             // mmCommonReload
             // 
             this.mmCommonReload.Name = "mmCommonReload";
-            this.mmCommonReload.Size = new System.Drawing.Size(309, 22);
-            this.mmCommonReload.Text = "Перегрузка графиков";
+            this.mmCommonReload.Size = new System.Drawing.Size(274, 22);
+            this.mmCommonReload.Text = "Обновить графики из методики";
             this.mmCommonReload.Click += new System.EventHandler(this.mmReloadGraphs_Click);
             // 
             // mmCommonReloadFromNew
             // 
             this.mmCommonReloadFromNew.Name = "mmCommonReloadFromNew";
-            this.mmCommonReloadFromNew.Size = new System.Drawing.Size(309, 22);
-            this.mmCommonReloadFromNew.Text = "Загрузить новые формулы из новой методики";
+            this.mmCommonReloadFromNew.Size = new System.Drawing.Size(274, 22);
+            this.mmCommonReloadFromNew.Text = "Заменить рабочую методику";
             this.mmCommonReloadFromNew.Click += new System.EventHandler(this.mmCommonReloadFromNew_Click);
             // 
             // toolStripMenuItem8
             // 
             this.toolStripMenuItem8.Name = "toolStripMenuItem8";
-            this.toolStripMenuItem8.Size = new System.Drawing.Size(306, 6);
+            this.toolStripMenuItem8.Size = new System.Drawing.Size(271, 6);
             // 
             // mmCommonClearBkg
             // 
             this.mmCommonClearBkg.Name = "mmCommonClearBkg";
-            this.mmCommonClearBkg.Size = new System.Drawing.Size(309, 22);
+            this.mmCommonClearBkg.Size = new System.Drawing.Size(274, 22);
             this.mmCommonClearBkg.Text = "Очистить память темновых токов";
             this.mmCommonClearBkg.Click += new System.EventHandler(this.mmCommonClearBkg_Click);
             // 
             // mmComShowDebugInfo
             // 
             this.mmComShowDebugInfo.Name = "mmComShowDebugInfo";
-            this.mmComShowDebugInfo.Size = new System.Drawing.Size(309, 22);
+            this.mmComShowDebugInfo.Size = new System.Drawing.Size(274, 22);
             this.mmComShowDebugInfo.Text = "Показать окно с внутренними данными";
             this.mmComShowDebugInfo.Click += new System.EventHandler(this.mmComShowDebugInfo_Click);
             // 
@@ -663,16 +673,6 @@
             // dlgOpenSpectr
             // 
             this.dlgOpenSpectr.Filter = "Spectr Files|*.ss";
-            // 
-            // mmCommonFullView
-            // 
-            this.mmCommonFullView.Checked = true;
-            this.mmCommonFullView.CheckOnClick = true;
-            this.mmCommonFullView.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.mmCommonFullView.Name = "mmCommonFullView";
-            this.mmCommonFullView.Size = new System.Drawing.Size(309, 22);
-            this.mmCommonFullView.Text = "Полный вид";
-            this.mmCommonFullView.Click += new System.EventHandler(this.mmCommonFullView_Click);
             // 
             // TaskMeasuring
             // 

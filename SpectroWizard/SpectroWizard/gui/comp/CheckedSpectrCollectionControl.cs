@@ -536,7 +536,7 @@ namespace SpectroWizard.gui.comp
             try
             {
                 //string sel = (string)LastName.Clone();
-                Spectr sp = new Spectr(cond, Common.Env.DefaultDisp,Common.Env.DefaultOpticFk);
+                Spectr sp = new Spectr(cond, Common.Env.DefaultDisp,Common.Env.DefaultOpticFk,"ChangeSpectrCollectionControl");
                 for (int i = 0; i < rez.Count; i++)
                     sp.Add(rez[i]);
 

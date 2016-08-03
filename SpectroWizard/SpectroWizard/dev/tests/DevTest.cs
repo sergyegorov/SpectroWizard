@@ -121,7 +121,7 @@ namespace SpectroWizard.dev.tests
             Spectr sp;
             DbFolder folder = Common.Db.GetFolder(Common.DbNameTestingFolder);
             if (add_to == null)
-                sp = new Spectr(sp_cond, new Dispers(), new OpticFk());
+                sp = new Spectr(sp_cond, new Dispers(), new OpticFk(),"DevTest");
             else
                 sp = add_to;
             sp.Add(new SpectrDataView(sp_cond, data[0],null,null,

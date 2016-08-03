@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -63,6 +63,7 @@
             this.mmParametersClearBkg = new System.Windows.Forms.ToolStripMenuItem();
             this.mmParametersEverSpectrCreate = new System.Windows.Forms.ToolStripMenuItem();
             this.mmParametersPresparkControl = new System.Windows.Forms.ToolStripMenuItem();
+            this.mmParametersRenameMethod = new System.Windows.Forms.ToolStripMenuItem();
             this.mmStand = new System.Windows.Forms.ToolStripMenuItem();
             this.mmStandAddNew = new System.Windows.Forms.ToolStripMenuItem();
             this.mmStandAddTheSame = new System.Windows.Forms.ToolStripMenuItem();
@@ -108,6 +109,7 @@
             this.mmAnalitRemoveLowerThen = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem13 = new System.Windows.Forms.ToolStripSeparator();
             this.mmAnalitCSV = new System.Windows.Forms.ToolStripMenuItem();
+            this.mmAnalitConCSV = new System.Windows.Forms.ToolStripMenuItem();
             this.mnDebug = new System.Windows.Forms.ToolStripMenuItem();
             this.mnDebugCorrectLy = new System.Windows.Forms.ToolStripMenuItem();
             this.mnDebugTestGraph = new System.Windows.Forms.ToolStripMenuItem();
@@ -132,7 +134,6 @@
             this.mnFormulaLgLine = new System.Windows.Forms.ToolStripMenuItem();
             this.mnFormulaLgLine2 = new System.Windows.Forms.ToolStripMenuItem();
             this.mnFormulaLgLine3 = new System.Windows.Forms.ToolStripMenuItem();
-            this.mmAnalitConCSV = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -286,14 +287,14 @@
             this.dgConTable.MultiSelect = false;
             this.dgConTable.Name = "dgConTable";
             this.dgConTable.ReadOnly = true;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(204)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgConTable.RowHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(204)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgConTable.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dgConTable.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.dgConTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.dgConTable.Size = new System.Drawing.Size(255, 327);
@@ -476,7 +477,8 @@
             this.toolStripMenuItem11,
             this.mmParametersClearBkg,
             this.mmParametersEverSpectrCreate,
-            this.mmParametersPresparkControl});
+            this.mmParametersPresparkControl,
+            this.mmParametersRenameMethod});
             this.mmParameters.Name = "mmParameters";
             this.mmParameters.Size = new System.Drawing.Size(54, 20);
             this.mmParameters.Text = "Общее";
@@ -542,6 +544,14 @@
             this.mmParametersPresparkControl.Size = new System.Drawing.Size(282, 22);
             this.mmParametersPresparkControl.Text = "Контроль за обжигом";
             this.mmParametersPresparkControl.Click += new System.EventHandler(this.mmParametersPresparkControl_Click);
+            // 
+            // mmParametersRenameMethod
+            // 
+            this.mmParametersRenameMethod.Name = "mmParametersRenameMethod";
+            this.mmParametersRenameMethod.Size = new System.Drawing.Size(282, 22);
+            this.mmParametersRenameMethod.Text = "Переименовать методику";
+            this.mmParametersRenameMethod.Visible = false;
+            this.mmParametersRenameMethod.Click += new System.EventHandler(this.mmParametersRenameMethod_Click);
             // 
             // mmStand
             // 
@@ -882,6 +892,13 @@
             this.mmAnalitCSV.Text = "Записать все калибровки в CSV (для  Excel)";
             this.mmAnalitCSV.Click += new System.EventHandler(this.mmAnalitCSV_Click);
             // 
+            // mmAnalitConCSV
+            // 
+            this.mmAnalitConCSV.Name = "mmAnalitConCSV";
+            this.mmAnalitConCSV.Size = new System.Drawing.Size(361, 22);
+            this.mmAnalitConCSV.Text = "Записать паспорнтые и  рпсчетные концентрации в CSV";
+            this.mmAnalitConCSV.Click += new System.EventHandler(this.mmAnalitConCSV_Click);
+            // 
             // mnDebug
             // 
             this.mnDebug.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -1099,13 +1116,6 @@
             this.mnFormulaLgLine3.Text = "Полином 3го порядка в логорифмической шкале";
             this.mnFormulaLgLine3.Click += new System.EventHandler(this.mnFormulaLgLine3_Click);
             // 
-            // mmAnalitConCSV
-            // 
-            this.mmAnalitConCSV.Name = "mmAnalitConCSV";
-            this.mmAnalitConCSV.Size = new System.Drawing.Size(361, 22);
-            this.mmAnalitConCSV.Text = "Записать паспорнтые и  рпсчетные концентрации в CSV";
-            this.mmAnalitConCSV.Click += new System.EventHandler(this.mmAnalitConCSV_Click);
-            // 
             // TaskMethodSimple
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1251,5 +1261,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem13;
         private System.Windows.Forms.ToolStripMenuItem mmAnalitCSV;
         private System.Windows.Forms.ToolStripMenuItem mmAnalitConCSV;
+        private System.Windows.Forms.ToolStripMenuItem mmParametersRenameMethod;
     }
 }

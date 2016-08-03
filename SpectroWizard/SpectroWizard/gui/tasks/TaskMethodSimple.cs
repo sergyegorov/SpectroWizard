@@ -28,21 +28,30 @@ namespace SpectroWizard.gui.tasks
             return Common.MLS.Get("tasklist", "Градуировки");
         }
 
+        TaskMethodSimpleFolder folder;
+        public void SetFolder(TaskMethodSimpleFolder folder)
+        {
+            this.folder = folder;
+        }
+
         ToolStripItem[] MenuItems = null;
         public ToolStripItem[] GetContextMenu()
         {
             if (MenuItems == null)
             {
-                MenuItems = new ToolStripItem[1];
+                MenuItems = new ToolStripItem[2];
                 MenuItems[0] = new ToolStripMenuItem(Common.MLS.Get(MLSConst,"Удаление"));
                 MenuItems[0].Click += new EventHandler(DeleteMethod_Click);
+                MenuItems[1] = new ToolStripMenuItem(Common.MLS.Get(MLSConst, "Переименование"));
+                MenuItems[1].Click += new EventHandler(mmParametersRenameMethod_Click);
             }
-            return null;
+            return MenuItems;
         }
 
         void DeleteMethod_Click(object sender, EventArgs e)
         {
             TaskControlContainer tcc = (TaskControlContainer)Node.Parent.Tag;
+           // DbFDriver.Del;
             //((TaskMethodSimpleFolder)tcc.Contr).Rem
             //Common.Db.DeleteFolder(Method.Path);
             //MainForm.MForm.tMethodSimpleFolder.ReInitTree();
@@ -333,10 +342,20 @@ namespace SpectroWizard.gui.tasks
             try
             {
                 SpectrCondition sc = Method.CommonInformation.WorkingCond;
+                float PreSparkLy = sc.PreSparkLy, 
+                    PreSparkWidth = sc.PreSparkWidth, 
+                    PreSparkLevel = sc.PreSparkLevel;
+                float PreSparkExp = sc.PreSparkExp;
+                bool PreSparkEnable = sc.PreSparkEnable;
                 sc = SpectrCondEditor.GetCond(MainForm.MForm, sc,true);
                 if (sc != null)
                 {
                     Method.CommonInformation.WorkingCond = sc;
+                    sc.PreSparkLy = PreSparkLy;
+                    sc.PreSparkWidth = PreSparkWidth;
+                    sc.PreSparkLevel = PreSparkLevel;
+                    sc.PreSparkExp = PreSparkExp;
+                    sc.PreSparkEnable = PreSparkEnable;
                     if(SelectedElementName != null && SelectedProb != null)
                         dgConTable_SelectionChanged(null, null);
                 }
@@ -1095,7 +1114,7 @@ namespace SpectroWizard.gui.tasks
         {
             try
             {
-                Spectr sp = new Spectr(cond, Common.Env.DefaultDisp, Common.Env.DefaultOpticFk);
+                Spectr sp = new Spectr(cond, Common.Env.DefaultDisp, Common.Env.DefaultOpticFk,Common.Dev.GetMeasuringLog());
                 for (int i = 0; i < rez.Count; i++)
                     sp.Add(rez[i]);
 
@@ -2219,7 +2238,7 @@ namespace SpectroWizard.gui.tasks
                 conditions += "1)Off()";
 
                 SpectrCondition spc = new SpectrCondition(0.03F, conditions);
-                Spectr sp = new Spectr(spc,etalon.GetCommonDispers(), etalon.OFk);//Common.Env.DefaultDisp,Common.Env.DefaultOpticFk);
+                Spectr sp = new Spectr(spc,etalon.GetCommonDispers(), etalon.OFk,Common.Dev.GetMeasuringLog());//Common.Env.DefaultDisp,Common.Env.DefaultOpticFk);
                 
                 for (int j = 0; j < 2; j++)
                 {
@@ -2532,6 +2551,9 @@ namespace SpectroWizard.gui.tasks
             if (name.EndsWith(".csv") == false)
                 name += ".csv";
             System.IO.File.WriteAllLines(name, lines);
+            string strCmdText;
+            strCmdText = "/C start "+name;
+            System.Diagnostics.Process.Start("CMD.exe", strCmdText);
         }
 
         private void mmAnalitConCSV_Click(object sender, EventArgs e)
@@ -2573,6 +2595,21 @@ namespace SpectroWizard.gui.tasks
                     }
                 }
                 writeToCSV(lines);
+            }
+            catch (Exception ex)
+            {
+                Common.Log(ex);
+            }
+        }
+
+        private void mmParametersRenameMethod_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string txt = InputDialog.getText(this, "Переименование методики", "Введите новое имя методики", "");
+                if (txt == null)
+                    return;
+
             }
             catch (Exception ex)
             {

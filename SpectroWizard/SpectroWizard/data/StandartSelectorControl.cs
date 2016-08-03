@@ -159,8 +159,23 @@ namespace SpectroWizard.data
         public string SelectedStName;
         public int SelectedProb;
         public int SelectedElementNum;
-        public string SelectedElementName;
-        public string SelectedProbName;
+        public string SelectedElementName{
+            get
+            {
+                if (SelectedElementNum < 0)
+                    return null;
+                return (string)StandartDetails.Columns[SelectedElementNum].HeaderCell.Value;
+            }
+        }
+        public string SelectedProbName
+        {
+            get
+            {
+                if (SelectedProb < 0)
+                    return null;
+                return (string)StandartDetails.Rows[SelectedProb].HeaderCell.Value;
+            }
+        }
         float[,] Cons;
         bool[,] ConsPrelim;
         List<String> ElementNames;
@@ -290,10 +305,10 @@ namespace SpectroWizard.data
             {
                 SelectedProb = e.RowIndex;
                 SelectedElementNum = e.ColumnIndex;
-                if (e.ColumnIndex >= 0 && e.ColumnIndex < StandartDetails.Columns.Count)
-                    SelectedElementName = StandartDetails.Columns[e.ColumnIndex].HeaderText;
-                if (e.RowIndex >= 0 && e.RowIndex < StandartDetails.Rows.Count)
-                    SelectedProbName = (string)StandartDetails.Rows[e.RowIndex].HeaderCell.Value;
+                //if (e.ColumnIndex >= 0 && e.ColumnIndex < StandartDetails.Columns.Count)
+                //    SelectedElementName = StandartDetails.Columns[e.ColumnIndex].HeaderText;
+                //if (e.RowIndex >= 0 && e.RowIndex < StandartDetails.Rows.Count)
+                //    SelectedProbName = (string)StandartDetails.Rows[e.RowIndex].HeaderCell.Value;
                 checkGraph();
             }
             catch(Exception ex)
@@ -310,10 +325,10 @@ namespace SpectroWizard.data
                 SelectedElementNum = e.ColumnIndex;
                 //SelectedElementName = StandartDetails.Columns[e.ColumnIndex].HeaderText;
                 //SelectedProbName = (string)StandartDetails.Rows[e.RowIndex].HeaderCell.Value;
-                if (e.ColumnIndex >= 0 && e.ColumnIndex < StandartDetails.Columns.Count)
-                    SelectedElementName = StandartDetails.Columns[e.ColumnIndex].HeaderText;
-                if (e.RowIndex >= 0 && e.RowIndex < StandartDetails.Rows.Count)
-                    SelectedProbName = (string)StandartDetails.Rows[e.RowIndex].HeaderCell.Value;
+                //if (e.ColumnIndex >= 0 && e.ColumnIndex < StandartDetails.Columns.Count)
+                //    SelectedElementName = StandartDetails.Columns[e.ColumnIndex].HeaderText;
+                //if (e.RowIndex >= 0 && e.RowIndex < StandartDetails.Rows.Count)
+                //    SelectedProbName = (string)StandartDetails.Rows[e.RowIndex].HeaderCell.Value;
             }
             catch (Exception ex)
             {
@@ -329,10 +344,10 @@ namespace SpectroWizard.data
                 SelectedElementNum = e.ColumnIndex;
                 //SelectedElementName = StandartDetails.Columns[e.ColumnIndex].HeaderText;
                 //SelectedProbName = (string)StandartDetails.Rows[e.RowIndex].HeaderCell.Value;
-                if (e.ColumnIndex >= 0 && e.ColumnIndex < StandartDetails.Columns.Count)
-                    SelectedElementName = StandartDetails.Columns[e.ColumnIndex].HeaderText;
-                if (e.RowIndex >= 0 && e.RowIndex < StandartDetails.Rows.Count)
-                    SelectedProbName = (string)StandartDetails.Rows[e.RowIndex].HeaderCell.Value;
+                //if (e.ColumnIndex >= 0 && e.ColumnIndex < StandartDetails.Columns.Count)
+                //    SelectedElementName = StandartDetails.Columns[e.ColumnIndex].HeaderText;
+                //if (e.RowIndex >= 0 && e.RowIndex < StandartDetails.Rows.Count)
+                //    SelectedProbName = (string)StandartDetails.Rows[e.RowIndex].HeaderCell.Value;
                 checkGraph();
             }
             catch (Exception ex)

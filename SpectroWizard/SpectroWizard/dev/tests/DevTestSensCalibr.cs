@@ -236,7 +236,7 @@ namespace SpectroWizard.dev.tests
 
                 //SpectrDataView corrected_data = sp_base.OFk.GetCorrectedData(sp_base.GetDefultView());
                 Spectr rez_sp = new Spectr(sp_base.GetDefultView().GetCondition(), 
-                    sp_base.GetCommonDispers(), sp_base.OFk);
+                    sp_base.GetCommonDispers(), sp_base.OFk,"DevTestSensCalibr");
                 rez_sp.Add(sp_base.GetViewsSet()[0]);// corrected_data);
                 rez_sp.Add(sp_base.GetViewsSet()[1]);
                 //rez_sp.OFk.ResetSens();
@@ -277,7 +277,8 @@ namespace SpectroWizard.dev.tests
                     //corrected_data = Common.Env.DefaultOpticFk.GetCorrectedData(sp.GetDefultView());
                     rez_sp = new Spectr(sp_base.GetDefultView().GetCondition(), 
                                 sp_base.GetCommonDispers(), 
-                                sp_base.OFk);
+                                sp_base.OFk,
+                                "DevTestSensCalibr");
                     rez_sp.Add(sp.GetViewsSet()[0]);// corrected_data);
                     rez_sp.Add(sp.GetViewsSet()[1]);
                     rez_sp.OFk.SetupK(sensK);

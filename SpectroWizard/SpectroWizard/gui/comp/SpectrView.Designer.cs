@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lbLyInfo = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.btNextView = new System.Windows.Forms.Button();
             this.btPrevView = new System.Windows.Forms.Button();
@@ -75,7 +76,7 @@
             this.mnMainRememberAs = new System.Windows.Forms.ToolStripMenuItem();
             this.cmMainSetAnalit = new System.Windows.Forms.ToolStripMenuItem();
             this.cmMainSetCompare = new System.Windows.Forms.ToolStripMenuItem();
-            this.lbLyInfo = new System.Windows.Forms.Label();
+            this.mnMainViewLog = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -104,6 +105,16 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(837, 24);
             this.panel1.TabIndex = 0;
+            // 
+            // lbLyInfo
+            // 
+            this.lbLyInfo.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lbLyInfo.Location = new System.Drawing.Point(17, 4);
+            this.lbLyInfo.Name = "lbLyInfo";
+            this.lbLyInfo.Size = new System.Drawing.Size(87, 19);
+            this.lbLyInfo.TabIndex = 20;
+            this.lbLyInfo.Text = "-";
+            this.lbLyInfo.Click += new System.EventHandler(this.lbLyInfo_Click);
             // 
             // label1
             // 
@@ -342,9 +353,10 @@
             this.toolStripMenuItem3,
             this.cmMainAddSpectr,
             this.cmMainRemoveSpectr,
-            this.mnMainRememberAs});
+            this.mnMainRememberAs,
+            this.mnMainViewLog});
             this.cmMain.Name = "contextMenuStrip1";
-            this.cmMain.Size = new System.Drawing.Size(253, 220);
+            this.cmMain.Size = new System.Drawing.Size(253, 264);
             // 
             // cmMainShowLib
             // 
@@ -526,15 +538,12 @@
             this.cmMainSetCompare.Text = "Линию сравнения";
             this.cmMainSetCompare.Click += new System.EventHandler(this.cmMainSetCompare_Click);
             // 
-            // lbLyInfo
+            // mnMainViewLog
             // 
-            this.lbLyInfo.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.lbLyInfo.Location = new System.Drawing.Point(17, 4);
-            this.lbLyInfo.Name = "lbLyInfo";
-            this.lbLyInfo.Size = new System.Drawing.Size(87, 19);
-            this.lbLyInfo.TabIndex = 20;
-            this.lbLyInfo.Text = "-";
-            this.lbLyInfo.Click += new System.EventHandler(this.lbLyInfo_Click);
+            this.mnMainViewLog.Name = "mnMainViewLog";
+            this.mnMainViewLog.Size = new System.Drawing.Size(252, 22);
+            this.mnMainViewLog.Text = "Просмотр лога измерения";
+            this.mnMainViewLog.Click += new System.EventHandler(this.mnMainViewLog_Click);
             // 
             // SpectrView
             // 
@@ -604,5 +613,6 @@
         private System.Windows.Forms.ToolStripMenuItem cmMainSetAnalit;
         private System.Windows.Forms.ToolStripMenuItem cmMainSetCompare;
         private System.Windows.Forms.Label lbLyInfo;
+        private System.Windows.Forms.ToolStripMenuItem mnMainViewLog;
     }
 }

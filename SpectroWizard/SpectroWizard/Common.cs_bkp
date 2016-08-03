@@ -126,7 +126,7 @@ namespace SpectroWizard
         }
         public static int TestedBuild = 3;
         public static int DevelopersBuild = 78;
-        public static int TestBuild = 4417;
+        public static int TestBuild = 4442;
         public static string Version = "3.0."+TestedBuild+"."+DevelopersBuild+" ("+TestBuild+")";
         public enum VersionStateTypes
         {
@@ -236,7 +236,7 @@ namespace SpectroWizard
         #endregion
 
         public static bool CancelFlag = false;
-        public static bool ExtraSafe = true;
+        public static bool ExtraSafe = false;
 
         public static bool PotiomkinRequest = true;
         public static bool IsPotiomkin{

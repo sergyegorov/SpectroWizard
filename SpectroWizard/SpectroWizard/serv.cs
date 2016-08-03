@@ -10,6 +10,15 @@ namespace SpectroWizard
 {
     class serv
     {
+        public static void StartCMD(string command)
+        {
+            string strCmdText = command.Trim();
+            if (strCmdText.StartsWith("/C") == false)
+                strCmdText = "/C "+strCmdText;
+            //strCmdText = "/C copy /b Image1.jpg + Archive.rar Image2.jpg";
+            System.Diagnostics.Process.Start("CMD.exe", strCmdText);
+        }
+
         public static void DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs)
         {
             // Get the subdirectories for the specified directory.

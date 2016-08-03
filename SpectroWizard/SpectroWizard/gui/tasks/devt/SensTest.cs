@@ -100,7 +100,7 @@ namespace SpectroWizard.gui.tasks.devt
 
             Dispers disp = new Dispers();
             OpticFk fk = new OpticFk();
-            Spectr sp = new Spectr(cond, disp, fk);
+            Spectr sp = new Spectr(cond, disp, fk,"SensTest");
             for (int i = 0; i < Common.Dev.LetestResult.Count; i++)
                 sp.Add(Common.Dev.LetestResult[i]);
 
@@ -205,7 +205,7 @@ namespace SpectroWizard.gui.tasks.devt
 
         public Spectr GetCorrectedSpectr(Spectr nul,Spectr sig)
         {
-            Spectr sp = new Spectr(sig.GetMeasuringCondition(), new Dispers(), new OpticFk());
+            Spectr sp = new Spectr(sig.GetMeasuringCondition(), new Dispers(), new OpticFk(),"SensTest");
             short[][] data;
             int[] ss = sig.GetCommonDispers().GetSensorSizes();
             data = new short[ss.Length][];

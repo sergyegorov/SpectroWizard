@@ -402,7 +402,7 @@ namespace SpectroWizard.gui.tasks
         {
             try
             {
-                Spectr sp = new Spectr(cond, Common.Env.DefaultDisp, Common.Env.DefaultOpticFk);
+                Spectr sp = new Spectr(cond, Common.Env.DefaultDisp, Common.Env.DefaultOpticFk,"SortCalibr");
                 for (int i = 0; i < rez.Count; i++)
                     sp.Add(rez[i]);
 

@@ -33,6 +33,7 @@ namespace SpectroWizard.dev
             }
         }
 
+        abstract public string GetMeasuringLog();
         abstract public string GetName();
 
         public DevReg Reg;
@@ -88,6 +89,8 @@ namespace SpectroWizard.dev
         public static bool Aborted = false;
         public void Measuring(SpectrCondition cond, MeasuringResultFinalCall final_call)
         {
+            if (File.Exists(USBConDev.MLogFileName))
+                File.Delete(USBConDev.MLogFileName);
             if(FinalCall != null)
                 throw new Exception(Common.MLS.Get("Dev","Start new measuring before previous finished."));
             WaitTimeOutDlg.checkTimeOut();
@@ -108,7 +111,7 @@ namespace SpectroWizard.dev
 
         public Spectr GetLetestDataAsSpectr()
         {
-            Spectr sp = new Spectr(Cond, Common.Env.DefaultDisp, Common.Env.DefaultOpticFk);
+            Spectr sp = new Spectr(Cond, Common.Env.DefaultDisp, Common.Env.DefaultOpticFk,Common.Dev.GetMeasuringLog());
             for (int i = 0; i < LetestResult.Count; i++)
                 sp.Add(LetestResult[i]);
             return sp;

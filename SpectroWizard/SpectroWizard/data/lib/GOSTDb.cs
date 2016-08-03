@@ -20,6 +20,8 @@ namespace SpectroWizard.data.lib
 
         public List<GOST> GOSTList = new List<GOST>();
         public void Init(String path){
+            if (Directory.Exists(path) == false)
+                Directory.CreateDirectory(path);
             string[] fileList = Directory.GetFiles(path);
             for (int i = 0; i < fileList.Length; i++)
             {

@@ -2188,6 +2188,25 @@ namespace SpectroWizard.gui.comp
                 Common.Log(ex);
             }
         }
+
+        static MethodDetailsView MDV;
+        private void mnMainViewLog_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (MDV == null)
+                    MDV = new MethodDetailsView();
+                Spectr sp = GetSpectr(0);
+                if (sp == null)
+                    return;
+                MDV.lbInfo.Text = sp.MeasuringLog;
+                MDV.ShowDialog(this);
+            }
+            catch (Exception ex)
+            {
+                Common.Log(ex);
+            }
+        }
     }
 
     class SpectrViewInfo

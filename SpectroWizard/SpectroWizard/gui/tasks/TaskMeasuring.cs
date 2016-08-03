@@ -769,13 +769,13 @@ namespace SpectroWizard.gui.tasks
         {
             try
             {
-                DialogResult dr = MessageBox.Show(MainForm.MForm,
+                /*DialogResult dr = MessageBox.Show(MainForm.MForm,
                     Common.MLS.Get(MLSConst,"Ввести новую пробу и измерить её?"),
                     Common.MLS.Get(MLSConst,"Новая проба..."),
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Hand);
                 if (dr == DialogResult.No)
-                    return;
+                    return;*/
                 int prob_index = AddProb();
 
                 if (prob_index < 0)
@@ -810,7 +810,7 @@ namespace SpectroWizard.gui.tasks
                 int pind = ActiveProbIndex;
                 StandartHistory sth;
 
-                Spectr sp = new Spectr(cond, Common.Env.DefaultDisp, Common.Env.DefaultOpticFk);
+                Spectr sp = new Spectr(cond, Common.Env.DefaultDisp, Common.Env.DefaultOpticFk,Common.Dev.GetMeasuringLog());
                 for (int i = 0; i < rez.Count; i++)
                     sp.Add(rez[i]);
 
@@ -2377,7 +2377,7 @@ namespace SpectroWizard.gui.tasks
 
         String CSVSeparator = ";";
         String CSVEndl = "" + (char)0xD + (char)0xA;
-        void SaveTableToCSV(Stream str,bool flag_details,int prob_only)
+        void SaveTableToCSV(FileStream str,bool flag_details,int prob_only)
         {
             MethodSimple ms = Task.Data;
             Element[] el_list = ms.GetElementList();
@@ -2436,13 +2436,14 @@ namespace SpectroWizard.gui.tasks
 
             }
 
-
             str.Flush();
             str.Close();
+
+            serv.StartCMD("start " + str.Name);
         }
 
         SaveFileDialog DefaultSaveDialog;
-        Stream OpenSaveCSV()
+        FileStream OpenSaveCSV()
         {
             if (DefaultSaveDialog == null)
             {
@@ -2463,7 +2464,7 @@ namespace SpectroWizard.gui.tasks
             if (name.IndexOf(".csv") < 0)
                 name += ".csv";
 
-            Stream str = new FileStream(name, FileMode.OpenOrCreate, FileAccess.Write);// DefaultSaveDialog.OpenFile();
+            FileStream str = new FileStream(name, FileMode.OpenOrCreate, FileAccess.Write);// DefaultSaveDialog.OpenFile();
             str.SetLength(0);
             return str;
         }
@@ -2472,7 +2473,7 @@ namespace SpectroWizard.gui.tasks
         {
             try
             {
-                Stream str = OpenSaveCSV();
+                FileStream str = OpenSaveCSV();
                 if (str == null)
                     return;
                 SaveTableToCSV(str, false, -1);
@@ -2487,7 +2488,7 @@ namespace SpectroWizard.gui.tasks
         {
             try
             {
-                Stream str = OpenSaveCSV();
+                FileStream str = OpenSaveCSV();
                 if (str == null)
                     return;
                 SaveTableToCSV(str, true, -1);
@@ -2507,7 +2508,7 @@ namespace SpectroWizard.gui.tasks
                 int prob = TableProbIndex[dgTable.SelectedCell.RowIndex];
                 if(prob < 0)
                     return;
-                Stream str = OpenSaveCSV();
+                FileStream str = OpenSaveCSV();
                 if (str == null)
                     return;
                 SaveTableToCSV(str, false, prob);
@@ -2527,7 +2528,7 @@ namespace SpectroWizard.gui.tasks
                 int prob = TableProbIndex[dgTable.SelectedCell.RowIndex];
                 if (prob < 0)
                     return;
-                Stream str = OpenSaveCSV();
+                FileStream str = OpenSaveCSV();
                 if (str == null)
                     return;
                 SaveTableToCSV(str, true, prob);

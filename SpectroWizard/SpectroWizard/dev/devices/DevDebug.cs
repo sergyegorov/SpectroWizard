@@ -56,6 +56,11 @@ namespace SpectroWizard.dev.devices
 
     public class DeviceDebug : Dev
     {
+        public override string GetMeasuringLog()
+        {
+            return "DebugMeasuring";
+        }
+
         public DeviceDebug() : 
             base (new DebugReg(),new DebugGen(),new DevDebugFillLight(),
             new DevDebugGas())

@@ -11,6 +11,11 @@ namespace SpectroWizard.dev.devices
 {
     public class MLDevice : Dev
     {
+        public override string GetMeasuringLog()
+        {
+            return "MLMeasuring_NO_LOG";
+        }
+
         public MLDevice(DevReg reg, DevGen gen,
             DevFillLight fill,
             DevGas gas) :

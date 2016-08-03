@@ -14,9 +14,9 @@ namespace SpectroWizard.method
     {
         const string MLSConst = "MSimple";
         MethodSimpleTable Data;
-        public MethodSimpleInfo CommonInformation = new MethodSimpleInfo();
-        public SparkConditionTester SpCondTester = new SparkConditionTester();
-        public ExtraLineTester ExtraLineTester = new ExtraLineTester();
+        public MethodSimpleInfo CommonInformation;
+        public SparkConditionTester SpCondTester;
+        public ExtraLineTester ExtraLineTester;
         public long BaseTick = 0;
         //public MeasuringExtraPrameters MExtraParams = new MeasuringExtraPrameters();
         public Spectr SpSort
@@ -209,6 +209,10 @@ namespace SpectroWizard.method
 
         public MethodSimple(string tmp)
         {
+            CommonInformation = new MethodSimpleInfo(this);
+            SpCondTester = new SparkConditionTester();
+            ExtraLineTester = new ExtraLineTester();
+
             BaseTick = DateTime.Now.Ticks;
             string path = (string)tmp.Clone();
             DataBase.CheckPath(ref path);
@@ -224,7 +228,7 @@ namespace SpectroWizard.method
                 BinaryReader br = new BinaryReader(fs);
                 try
                 {
-                    Load(br);
+                    Load(br,this);
                     for (int el = 0; el < GetElementCount(); el++)
                     {
                         MethodSimpleElement mse = GetElHeader(el);
@@ -242,7 +246,7 @@ namespace SpectroWizard.method
 
         public MethodSimple(BinaryReader br)
         {
-            Load(br);
+            Load(br,this);
         }
 
         #region Load/Save methods
@@ -281,7 +285,7 @@ namespace SpectroWizard.method
             }
         }
 
-        public void Load(BinaryReader br)
+        public void Load(BinaryReader br,MethodSimple method)
         {
             for (int i = 99; i > 0;i-- )
                 GC.Collect(i, GCCollectionMode.Forced);//.CompactLargeObjectHeap();
@@ -295,11 +299,11 @@ namespace SpectroWizard.method
 
             //MethodSimpleTable Data;
             if (ver >= 2)
-                CommonInformation = new MethodSimpleInfo(br);
+                CommonInformation = new MethodSimpleInfo(br,method);
             Data = new MethodSimpleTable(br,this);
             //public MethodSimpleInfo CommonInformation;
             if (ver < 2)
-                CommonInformation = new MethodSimpleInfo(br);
+                CommonInformation = new MethodSimpleInfo(br,method);
 
             if (ver >= 1)
             {
@@ -643,7 +647,7 @@ namespace SpectroWizard.method
             byte val = br.ReadByte();
             if (val == 0)
                 return null;
-            return new MethodSimpleInfo(br);
+            return new MethodSimpleInfo(br,Method);
         }
 
         protected override MethodSimpleProb LoadRow(BinaryReader br)
@@ -684,18 +688,43 @@ namespace SpectroWizard.method
         public string Description = "";
         public string Caution = "";
         public SpectrCondition MatrixCond = new SpectrCondition();
-        public SpectrCondition WorkingCond = new SpectrCondition();
+        SpectrCondition WorkingCondPriv = new SpectrCondition();
 
-        public MethodSimpleInfo()
+        public SpectrCondition WorkingCond
         {
+            get
+            {
+                return WorkingCondPriv;
+            }
+            set
+            {
+                WorkingCondPriv = value;
+                int elc = Method.GetElementCount();
+                for (int e = 0; e < elc; e++)
+                {
+                    MethodSimpleElement mse = Method.GetElHeader(e);
+                    for (int f = 0; f < mse.Formula.Count; f++)
+                    {
+                        MethodSimpleElementFormula msef = mse.Formula[f];
+                        msef.CheckCondListForce();
+                    }
+                }
+            }
+        }
+
+        MethodSimple Method;
+        public MethodSimpleInfo(MethodSimple method)
+        {
+            Method = method;
             //MatrixCond = new SpectrCondition();
             //WorkingCond = new SpectrCondition();
             //MatrixCond.Compile(SpectrCondition.GetDefaultCondition());
             //WorkingCond.Compile(SpectrCondition.GetDefaultCondition());
         }
 
-        public MethodSimpleInfo(BinaryReader br)
+        public MethodSimpleInfo(BinaryReader br, MethodSimple method)
         {
+            Method = method;
             Load(br);
         }
 
@@ -1388,6 +1417,11 @@ namespace SpectroWizard.method
                 throw new Exception("Wrong element index...");
             if (method == null)
                 throw new Exception("Method must not be NULL!");
+        }
+
+        public void CheckCondListForce()
+        {
+            Formula.CheckCondListForce();
         }
 
         #region Save/Load methods

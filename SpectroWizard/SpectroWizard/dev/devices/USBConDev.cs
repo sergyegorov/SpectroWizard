@@ -10,6 +10,14 @@ namespace SpectroWizard.dev.devices
 {
     public class USBConDev : Dev
     {
+        public const string MLogFileName = "measuring_log.txt";
+        public override string GetMeasuringLog()
+        {
+            if (File.Exists(MLogFileName))
+                return System.IO.File.ReadAllText(MLogFileName);
+            return "NoLog";
+        }
+
         public USBConDev(DevReg reg, DevGen gen,
             DevFillLight fill,
             DevGas gas) :

@@ -20,6 +20,7 @@ namespace SpectroWizard.data
 	    Dispers Disp = new Dispers();
         public OpticFk OFk = new OpticFk();
         public string SpectrInfo = null;
+        public string MeasuringLog = null;
 
 	    public Dispers GetCommonDispers()
 	    {
@@ -481,8 +482,9 @@ namespace SpectroWizard.data
             LoadShort();
         }
 
-        public Spectr(SpectrCondition cond,Dispers disp,OpticFk ofk)
+        public Spectr(SpectrCondition cond,Dispers disp,OpticFk ofk,String measuring_log)
         {
+            MeasuringLog = measuring_log;
             CreatedDate = DateTime.Now;
             FullConditions = cond;
             Disp = disp;
@@ -552,9 +554,9 @@ namespace SpectroWizard.data
             if (tmp.Equals("bss") == false)
                 throw new Exception("Wrong file type.");
             int ver = br.ReadInt32();
-            if (ver < 0 || ver > 3)
+            if (ver < 0 || ver > 4)
                 throw new Exception("Wrong file version.");
-            int prev_ver = ver;
+            //int prev_ver = ver;
             CreatedDate = new DateTime(br.ReadInt64());
             FullConditions = new SpectrCondition(br);
             Disp = new Dispers(br);
@@ -570,10 +572,12 @@ namespace SpectroWizard.data
             int fl = br.ReadInt32();
             if (fl != 0)
                 DefaultView = new SpectrDataView(br, this);
-            if (prev_ver >= 3)
+            if (ver >= 3)
                 SpectrInfo = br.ReadString();
+            if (ver >= 4)
+                MeasuringLog = br.ReadString();
             br.Close();
-            if (prev_ver < 3)
+            if (ver < 3)
             {
                 LoadFull();
                 Save();
@@ -655,7 +659,7 @@ namespace SpectroWizard.data
             BinaryWriter bw = new BinaryWriter(fs);
 
             bw.Write("bss");
-            bw.Write(3);
+            bw.Write(4);
             bw.Write(CreatedDate.Ticks);
             FullConditions.Save(bw);
             Disp.Save(bw);
@@ -671,6 +675,12 @@ namespace SpectroWizard.data
                 bw.Write("");
             else
                 bw.Write(SpectrInfo);
+            
+            if (MeasuringLog == null)
+                bw.Write("No Info");
+            else
+                bw.Write(MeasuringLog);
+
             bw.Close();
         }
 
